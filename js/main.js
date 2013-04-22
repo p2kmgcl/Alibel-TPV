@@ -20,12 +20,17 @@ window.alibelTPV = {
     },
                 
     views: {
-        Section: undefined,
-        TopBar: undefined
+        TopBar: undefined,
+        sections: {
+            About: undefined
+        }
     },
             
     templates: {
-        topBar: undefined
+        topBar: undefined,
+        sections: {
+            About: undefined
+        }
     },
 
     main: {
@@ -33,8 +38,15 @@ window.alibelTPV = {
         history: undefined,
         
         DOM: {
-            topBar: undefined
+            topBar: undefined,
+            sections: {
+                about: undefined
+            }
         }
+    },
+            
+    metadata: {
+        version: '0.1.0'
     },
 
     init: function () {
@@ -42,8 +54,7 @@ window.alibelTPV = {
         window.alibelTPV.main.history = new window.alibelTPV.models.History();
         
         window.alibelTPV.main.DOM.topBar = new window.alibelTPV.views.TopBar();
-
-        window.alibelTPV = window.alibelTPV.main;
+        window.alibelTPV.main.DOM.sections.about = new window.alibelTPV.views.sections.About();
     }
 
 };

@@ -8,6 +8,13 @@ window.alibelTPV.views.TopBar = Backbone.View.extend({
     tagName: 'header',
     id: 'topBar',
     
+    events: {
+        //'click .newSell':     'showSection',
+        //'click .history':     'showSection',
+        //'click .inventary':   'showSection',
+        'click .about':         'showSectionAbout'
+    },
+    
     initialize: function () {
         $('body').append(this.el);
         this.render();
@@ -15,5 +22,16 @@ window.alibelTPV.views.TopBar = Backbone.View.extend({
             
     render: function () {
         this.$el.html(this.template());
+    },
+    
+    /**
+     * Muestra la sección Acerca de
+     */
+    showSectionAbout: function () {
+        if (!$("#sectionAbout").hasClass('current')) {
+            $("body > section.current").removeClass('current');
+            $("#sectionAbout,\
+               #mainMenu > ul > .about").addClass('current');
+        }
     }
 });
