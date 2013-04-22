@@ -8,8 +8,14 @@ window.alibelTPV.models.Item = Backbone.Model.extend({
 		code: '',
 		name: '',
 		price: '',
+        unit: '',
+        units: '',
 		stock: 0,
 		minStock: 1,
 		maxStock: Infinity
-	}
+	},
+    
+    initialize: function () {
+        
+    }
 });

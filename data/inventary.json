@@ -1,0 +1,804 @@
+{
+    "date": "2013-04-22",
+    "total": "100",
+    "content": [{
+        "code": "1000",
+        "name": "DUCADOS AZUL BLANDO",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1001",
+        "name": "FORTUNA ROJO BLANDO",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1004",
+        "name": "CHESTERFIELD CLASSIC RED DURO",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1005",
+        "name": "FARIAS SUPERIORES (50)",
+        "price": "62.50 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1006",
+        "name": "WINSTON CLASSIC KS BOX",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1008",
+        "name": "LUCKY STRIKE RED",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1009",
+        "name": "CAMEL FILTERS BOX 20",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1011",
+        "name": "NOBEL DURO",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1012",
+        "name": "B.N. CLASICO DURO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1013",
+        "name": "CELTAS FILTRO BLANDO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1014",
+        "name": "GOLD COAST FILTERS (ROJO)",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1015",
+        "name": "DUCADOS AZUL DURO",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1017",
+        "name": "CALYPSO REIG 15 NL (10)",
+        "price": "5.80 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1018",
+        "name": "CALYPSO REIG 15 MINOR NL(10)",
+        "price": "4.00 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1020",
+        "name": "FARIAS SUPERIORES (25)",
+        "price": "31.25 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1021",
+        "name": "DUCADOS AZUL/BLANCO BLANDO",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1022",
+        "name": "FORTUNA ROJO DURO 20",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1023",
+        "name": "HERENCIA BLANDO",
+        "price": "4.45 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1026",
+        "name": "GOLDEN AMERICAN CLASSIC RED",
+        "price": "3.65 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1028",
+        "name": "NOBEL BLANDO",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1030",
+        "name": "CALYPSO REIG MINI NL(20)",
+        "price": "4.85 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "5"
+    },
+    {
+        "code": "1031",
+        "name": "ROYAL CROWN FILTER",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1032",
+        "name": "PALL MALL N.ORLEANS/RED",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1033",
+        "name": "GOLD COAST BLUE (AZUL)",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1034",
+        "name": "CORONAS A.B. DURO",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1035",
+        "name": "BISONTE DURO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1036",
+        "name": "FORTUNA AZUL DURO 20",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1039",
+        "name": "REX F.F. BLANDO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1041",
+        "name": "REALES BLANDO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1046",
+        "name": "CORONAS CLASICO BLANDO",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1047",
+        "name": "GOLDEN AMERICAN CLASSIC BLUE",
+        "price": "3.65 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1049",
+        "name": "CAMEL BLUE 20",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1050",
+        "name": "JPS AMERICAN BLEND RED",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1051",
+        "name": "CHESTERFIELD CL BLUE DURO",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1052",
+        "name": "CONDAL BLANDO 100",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1056",
+        "name": "B.N. BEIGE DURO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1059",
+        "name": "GOLD COAST WHITE (BLANCO)",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1062",
+        "name": "WINSTON CLASSIC KS SOFT",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1064",
+        "name": "GUAJIRO BREVAS. (50)",
+        "price": "23.50 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1065",
+        "name": "FORTUNA MENTHOL DURO",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1066",
+        "name": "B.N. CLASICO BLANDO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1068",
+        "name": "ALVARO BREVAS (50)",
+        "price": "21.00 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1069",
+        "name": "BISONTE BLANDO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1070",
+        "name": "ALVARO SALUDOS (25)",
+        "price": "11.75 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1071",
+        "name": "WEST RED",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1072",
+        "name": "MONTECRISTO N.4 (25)",
+        "price": "162.50 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1073",
+        "name": "DALIA D.JULIAN N.1. NL (25)",
+        "price": "72.50 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1074",
+        "name": "FORTUNA PLATA DURO",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1077",
+        "name": "FARIAS CLUB (20)",
+        "price": "4.55 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1080",
+        "name": "GUAJIRO PALMEROS (50)",
+        "price": "19.50 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1082",
+        "name": "F.SAVANE PETIT CIGARE (20)",
+        "price": "4.75 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1085",
+        "name": "LUCKY STRIKE SILVER",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1088",
+        "name": "SOMBRA BLANDO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1090",
+        "name": "DALIA D.JULIAN N.5 NL (5)",
+        "price": "6.75 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "5"
+    },
+    {
+        "code": "1091",
+        "name": "LUCKY STRIKE RED BLANDO",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1092",
+        "name": "CAMEL FILTERS SOFT",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1093",
+        "name": "LA PAZ WILDE CILLOS (20)",
+        "price": "6.10 ",
+        "unit": "Lata",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1095",
+        "name": "R 1 ROJO",
+        "price": "4.45 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1096",
+        "name": "GUAJIRO TROMPETAS (20).",
+        "price": "6.00 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "5"
+    },
+    {
+        "code": "1097",
+        "name": "HERENCIA DURO",
+        "price": "4.45 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1098",
+        "name": "SUPERKINGS",
+        "price": "4.40 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1102",
+        "name": "DALIA REIG 7 MINOR NL (10)",
+        "price": "4.00 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1103",
+        "name": "GUAJIRO ESP.GUAJIRO. (50)",
+        "price": "20.00 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1105",
+        "name": "BROOKLYN ROJO DURO",
+        "price": "3.65 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1107",
+        "name": "GOLD COAST MENTHOL (VERDE)",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1108",
+        "name": "JPS AMERICAN BLEND SILVER",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1109",
+        "name": "LARK",
+        "price": "4.50 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1111",
+        "name": "DIANA DURO",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1112",
+        "name": "REGAL KS",
+        "price": "4.50 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1114",
+        "name": "ALVARO CEDROS (25)",
+        "price": "19.50 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1115",
+        "name": "CORONAS NEGRO ORO DURO",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1116",
+        "name": "CORONAS A.B. BLANDO 100",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1117",
+        "name": "R 1 AZUL",
+        "price": "4.45 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1118",
+        "name": "ROYAL CROWN BLUE",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1120",
+        "name": "NOBEL PLATA",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1122",
+        "name": "WEST SILVER",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1124",
+        "name": "CORONAS A.B. SILVER DURO",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1128",
+        "name": "QUINTERO BREVAS (25)",
+        "price": "45.00 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1129",
+        "name": "GUAJIRO SEÑORITAS (50)",
+        "price": "13.50 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1131",
+        "name": "LAMBERT & BUTLER KS",
+        "price": "4.35 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1132",
+        "name": "WINSTON BLUE",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1133",
+        "name": "PIPER MENTHOL BLANDO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1134",
+        "name": "SOVEREIGN KING SIZE",
+        "price": "3.75 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1137",
+        "name": "RAFAEL GONZ. PANETELAS EXT. (25)",
+        "price": "43.75 ",
+        "unit": "Caja",
+        "stock": "0",
+        "minStock": "1"
+    },
+    {
+        "code": "1140",
+        "name": "BROOKLYN AZUL DURO",
+        "price": "3.65 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1143",
+        "name": "REX PLATA DURO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1144",
+        "name": "SILK CUT PURPLE",
+        "price": "4.50 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1146",
+        "name": "PALL MALL S.FRANCISCO/BLUE",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1148",
+        "name": "HB RED",
+        "price": "4.10 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1149",
+        "name": "LA PAZ MINI WILDE CILLOS (20)",
+        "price": "5.50 ",
+        "unit": "Lata",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1150",
+        "name": "BONCALO DURO",
+        "price": "4.15 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1153",
+        "name": "MONTECRISTO MINI (20)",
+        "price": "9.60 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "5"
+    },
+    {
+        "code": "1155",
+        "name": "PHILIP MORRIS SUPREME",
+        "price": "4.25 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1156",
+        "name": "AGIO MEHARI S JAVA (20)",
+        "price": "4.90 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1158",
+        "name": "GAULOISES RUBIO ROJO",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1160",
+        "name": "PANTER BLUE . (20)",
+        "price": "4.90 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1171",
+        "name": "PICADURA SELECTA (40G)",
+        "price": "5.80 ",
+        "unit": "Bolsa",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1173",
+        "name": "MINI DAVIDOFF (20)",
+        "price": "11.60 ",
+        "unit": "Estuche",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1174",
+        "name": "GAULOISES RUBIO AZUL",
+        "price": "3.95 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    },
+    {
+        "code": "1175",
+        "name": "CAMEL NON FILTER SOFT",
+        "price": "4.20 ",
+        "unit": "Cajetilla",
+        "stock": "0",
+        "minStock": "10"
+    }]
+}
