@@ -8,14 +8,31 @@
 @cantExpressMyself: #1C140D;
 @specialTshirt2: #CBE86B;
 
-body > section {
+body {
+    font-family: Droid Sans;
+}
+
+blockquote {
+    font-family: Consolas, Inconsolata, Monospace;
+    padding-right: 3em;
+    text-align: justify;
+}
+
+html {
     background: lighten(@specialTshirt2, 20%);
+    text-align: center;
+    padding-top: 2em;
+}
+
+body > section {
     display: block;
-    width: 100%;
+    width: 90%;
     height: 100%;
-    position: fixed;
-    top: 2em;
-    left: -9999em;
+    margin: 0 auto;
+    text-align: left;
+
+    position: relative;
+    left: -99999em;
 
     &.current {
         left: 0;
@@ -29,6 +46,7 @@ body > section {
     width: 100%;
     position: absolute;
     top: 0;
+    text-align: left;
     z-index: 100;
 
     > h1 {
@@ -73,4 +91,8 @@ body > section {
     	top: 0.25em;
     	color: @writeIt;
     }
+}
+
+#sectionAbout {
+    max-width: 50em;
 }
