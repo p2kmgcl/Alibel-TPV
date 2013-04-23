@@ -13,7 +13,9 @@ window.alibelTPV.views.ItemInventary = Backbone.View.extend({
     
     initialize: function () {
         this.render();
-        this.model.on('change', this.render, this);
+        this.model
+            .on('change', this.render, this)
+            .on('remove', this.destroy, this);
     },
     
     render: function () {
@@ -42,5 +44,12 @@ window.alibelTPV.views.ItemInventary = Backbone.View.extend({
         
         editView.dialog = dialogView;
         $(dialogView).dialog('open');
+    },
+    
+    /**
+     * Elimina la vista del DOM
+     */
+    destroy: function () {
+        this.remove();
     }
 });
