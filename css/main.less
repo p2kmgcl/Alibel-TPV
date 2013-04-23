@@ -50,6 +50,26 @@ body > section {
     }
 }
 
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: @writeIt;
+}
+
+::-webkit-scrollbar
+{
+	width: 1.5em;
+	background-color: @writeIt;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: @cantExpressMyself;	
+}
+
+
+
 #topBar {
     background-color: @cantExpressMyself;
     font-weight: bold;
@@ -106,6 +126,64 @@ body > section {
     }
 }
 
+.item {
+    position: relative;
+    top: 0;
+    display: inline-block;
+    padding: 0.5em;
+    margin: 1em;
+    min-width: 20em;
+    list-style: none;
+    text-align: right;
+    cursor: pointer;
+
+    border-radius: 0.2em;
+    border: solid @cantExpressMyself thin;
+    background-color: @specialTshirt;
+
+    box-shadow: inset 0 0 1em @writeIt,
+                0 0.25em 0.25em lighten(@cantExpressMyself, 50%);
+
+    transition: opacity ease 0.3s;
+
+    &:active {
+        top: 0.1em;
+        box-shadow: inset 0 0 1em darken(@writeIt, 10%),
+                    0 0.15em 0.15em lighten(@cantExpressMyself, 50%);
+    }
+
+    &.noStock {
+        opacity: 0.3;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &.lowStock {
+        background-color: darken(@specialTshirt2, 10%);
+    }
+
+    .code {
+        font-family: @consoleFont;
+        font-size: 2em;
+        font-weight: bolder;
+        position: absolute;
+        top: 0;
+        left: 0.25em;
+
+        opacity: 0.5;
+    }
+
+    .price {
+        font-weight: bolder;
+
+        &:after {
+            content: ' €';
+        }
+    }
+}
+
 #sectionInventary {
     position: relative;
     left: 0;
@@ -130,49 +208,6 @@ body > section {
         overflow-y: auto;
         position: relative;
 
-        .item {
-            position: relative;
-            top: 0;
-            display: inline-block;
-            padding: 0.5em;
-            margin: 1em;
-            min-width: 20em;
-            list-style: none;
-            text-align: right;
-            cursor: pointer;
-
-            border-radius: 0.2em;
-            border: solid @cantExpressMyself thin;
-            background-color: @specialTshirt;
-
-            box-shadow: inset 0 0 1em @writeIt,
-                        0 0.25em 0.25em lighten(@cantExpressMyself, 50%);
-
-            &:active {
-                top: 0.1em;
-                box-shadow: inset 0 0 1em darken(@writeIt, 10%),
-                            0 0.15em 0.15em lighten(@cantExpressMyself, 50%);
-            }
-
-            .code {
-                font-family: @consoleFont;
-                font-size: 2em;
-                font-weight: bolder;
-                position: absolute;
-                top: 0;
-                left: 0.25em;
-
-                opacity: 0.5;
-            }
-
-            .price {
-                font-weight: bolder;
-
-                &:after {
-                    content: ' €';
-                }
-            }
-        }
     }
 }
 

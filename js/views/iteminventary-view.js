@@ -19,6 +19,20 @@ window.alibelTPV.views.ItemInventary = Backbone.View.extend({
     },
     
     render: function () {
+        // Ítems por debajo del stock minimo
+        if (this.model.get('stock') < this.model.get('minStock')) {
+            this.$el.addClass('lowStock');
+        } else {
+            this.$el.removeClass('lowStock');
+        }
+        
+        // Ítems sin stock
+        if (this.model.get('stock') === 0) {
+            this.$el.addClass('noStock');
+        } else {
+            this.$el.removeClass('noStock');
+        }
+        
         this.$el.html(this.template(this.model.toJSON()));
     },
 

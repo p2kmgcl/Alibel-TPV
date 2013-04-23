@@ -12,6 +12,7 @@ window.alibelTPV.templates.ItemEdit = '\n\
         <label for="maxStock">Stock máximo</label><input type="number" value="<%= maxStock %>" />\n\
     </fieldset>\n\
     \n\
-    <input type="button" class="acceptButton" name="accept" value="Aceptar" />\n\
-    <input type="button" class="cancelButton" name="cancel" value="Cancelar" />\n\
+    <input type="button" class="acceptButton ui-state-highlight" name="accept" value="Aceptar" />\n\
+    <input type="button" class="cancelButton ui-state-error" name="cancel" value="Cancelar" />\n\
 ';
+ 
