@@ -18,8 +18,9 @@ window.alibelTPV = {
         ItemCart: undefined,
         ShoppingCart: undefined
     },
-                
+
     views: {
+        ItemInventary: undefined,
         TopBar: undefined,
         sections: {
             About: undefined,
@@ -28,6 +29,7 @@ window.alibelTPV = {
     },
             
     templates: {
+        Item: undefined,
         topBar: undefined,
         sections: {
             About: undefined,
