@@ -8,12 +8,14 @@
 @cantExpressMyself: #1C140D;
 @specialTshirt2: #CBE86B;
 
+@consoleFont: Consolas, Inconsolata, Monospace;
+
 body {
     font-family: Droid Sans, Ubuntu, Tahoma, Verdana;
 }
 
 blockquote {
-    font-family: Consolas, Inconsolata, Monospace;
+    font-family: @consoleFont;
     padding-right: 3em;
     text-align: justify;
 }
@@ -21,7 +23,15 @@ blockquote {
 html {
     background: lighten(@specialTshirt2, 20%);
     text-align: center;
+    margin: 0 auto;
+    padding: 0;
     padding-top: 2em;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
 }
 
 body > section {
@@ -94,6 +104,121 @@ body > section {
     }
 }
 
-#sectionAbout {
-    max-width: 50em;
+#sectionInventary {
+    position: relative;
+    left: 0;
+    text-align: center;
+    width: 100%;
+
+    #inventarySearch {
+        font-size: 1.1em;
+        margin: 1em auto;
+        padding: 0.25em;
+        width: 90%;
+        outline: none;
+        font-style: italic;
+        border: solid lighten(@cantExpressMyself, 30%) 2px;
+    }
+
+    #inventaryItemList {
+        padding-left: 0;
+        list-style: none;
+        text-align: center;
+        height: 75%;
+        overflow-y: auto;
+        position: relative;
+
+        .item {
+            position: relative;
+            top: 0;
+            display: inline-block;
+            padding: 0.5em;
+            margin: 1em;
+            min-width: 20em;
+            list-style: none;
+            text-align: right;
+            cursor: pointer;
+
+            border-radius: 0.2em;
+            border: solid @cantExpressMyself thin;
+            background-color: @specialTshirt;
+
+            box-shadow: inset 0 0 1em @writeIt,
+                        0 0.25em 0.25em lighten(@cantExpressMyself, 50%);
+
+            &:active {
+                top: 0.1em;
+                box-shadow: inset 0 0 1em darken(@writeIt, 10%),
+                            0 0.15em 0.15em lighten(@cantExpressMyself, 50%);
+            }
+
+            .code {
+                font-family: @consoleFont;
+                font-size: 2em;
+                font-weight: bolder;
+                position: absolute;
+                top: 0;
+                left: 0.25em;
+
+                opacity: 0.5;
+            }
+
+            .price {
+                font-weight: bolder;
+
+                &:after {
+                    content: ' €';
+                }
+            }
+        }
+    }
+}
+
+.ui-dialog {
+    max-width: 35em;
+    max-height: 25em;
+}
+
+.itemEdit {
+    margin: 0 auto;
+    margin-top: 1em;
+    text-align: center;
+    max-width: 30em;
+
+    fieldset {
+        margin-top: 1.25em;
+    }
+
+    label {
+        float: left;
+        width: 10em;
+        text-align: left;
+        margin: 0 auto;
+
+        &:after {
+            content: ': ';
+        }
+
+        &[for~=price]:after {
+            content: ' (€): '
+        }
+    }
+
+    input {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 0.5em;
+        width: 100% - 40em;
+        max-width: 20em;
+        outline: none;
+
+        &.acceptButton,
+        &.cancelButton {
+            display: inline-block;
+            width: 8em;
+            float: right;
+            margin-top: 0.75em;
+            margin-right: 1em;
+        }
+    }
 }

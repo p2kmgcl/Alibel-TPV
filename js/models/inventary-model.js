@@ -25,7 +25,7 @@ window.alibelTPV.models.Inventary = Backbone.Model.extend({
                 price: parseFloat(item.price),
                 unit: item.unit,
                 units: item.unit + 's',
-                stock: parseInt(item.stock),
+                stock: parseInt(Math.random() * 10), //parseInt(item.stock)
                 minStock: parseInt(item.minStock)
             };
             

@@ -3,9 +3,10 @@ window.alibelTPV.templates.ItemEdit = '\n\
     <label for="name">Nombre</label><input type="text" name="name" value="<%= name %>" />\n\
     <label for="price">Precio</label><input type="number" name="price" value="<%= price %>" />\n\
     <fieldset>\n\
-        <legend>Stock</legend>\n\
         <label for="unit">Unidad (singular)</label><input type="text name="unit" value="<%= unit %>" />\n\
         <label for="units">Unidad (plural)</label><input type="text" name="units" value="<%= units %>" />\n\
+    </fieldset>\n\
+    <fieldset>\n\
         <label for="stock">Stock</label><input type="number" name="stock" value="<%= stock %>" />\n\
         <label for="minStock">Stock mínimo</label><input type="number name="minStock" value="<%= minStock %>" />\n\
         <label for="maxStock">Stock máximo</label><input type="number" value="<%= maxStock %>" />\n\
