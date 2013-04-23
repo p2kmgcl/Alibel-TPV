@@ -19,6 +19,9 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
     
     render: function () {
         this.$el.html(this.template(this.model.toJSON()));
+        
+        this.$el
+            .find('.acceptButton, .cancelButton').button();
     },
     
     /**
@@ -27,6 +30,7 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
      */
     saveChanges: function () {
         console.log('Cambios guardados...');
+        $(this.dialog).dialog('destroy');
         this.remove();
     },
     
@@ -36,6 +40,7 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
      */
     undoChanges: function () {
         console.log('Cambios cancelados...');
+        $(this.dialog).dialog('destroy');
         this.remove();
     }
 });

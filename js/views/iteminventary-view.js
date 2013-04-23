@@ -27,7 +27,20 @@ window.alibelTPV.views.ItemInventary = Backbone.View.extend({
     showItemEdit: function () {
         var editView = new window.alibelTPV.views.ItemEdit({
                            model: this.model
-                       });
-        $('body').append(editView.el);
+                       }),
+            dialogView = $(editView.el).dialog({
+                autoOpen: false,
+                draggable: false,
+                maxHeight: 600,
+                maxWidth: 800,
+                height: $(window).height() * 0.8,
+                width: $(window).width() * 0.8,
+                modal: true,
+                resizable: false,
+                title: 'Editando ítem'
+            });
+        
+        editView.dialog = dialogView;
+        $(dialogView).dialog('open');
     }
 });
