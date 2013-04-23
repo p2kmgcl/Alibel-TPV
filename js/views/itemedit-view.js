@@ -5,11 +5,11 @@
 window.alibelTPV.views.ItemEdit = Backbone.View.extend({
     tagName: 'form',
     className: 'itemEdit',
-    template: window.alibelTPV.templates.ItemEdit,
+    template: _.template(window.alibelTPV.templates.ItemEdit),
     
     events: {
-        'click .accept':    'saveChanges',
-        'click .cancel':    'undoChanges'
+        'click .acceptButton':    'saveChanges',
+        'click .cancelButton':    'undoChanges'
     },
     
     initialize: function () {
@@ -27,6 +27,7 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
      */
     saveChanges: function () {
         console.log('Cambios guardados...');
+        this.remove();
     },
     
     /**
@@ -35,5 +36,6 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
      */
     undoChanges: function () {
         console.log('Cambios cancelados...');
+        this.remove();
     }
 });
