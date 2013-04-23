@@ -44,7 +44,7 @@ window.alibelTPV.models.Inventary = Backbone.Model.extend({
      */
     getItemByCode: function (code) {
         return this.get('items').filter(function (item) {
-            return item.get('code') === code;
+            return (item.get('code').toString().indexOf(code) !== -1);
         });
     },
     
@@ -55,6 +55,26 @@ window.alibelTPV.models.Inventary = Backbone.Model.extend({
     getItemByName: function (name) {
         return this.get('items').filter(function (item) {
             return (item.get('name').indexOf(name) !== -1);
+        });
+    },
+    
+    /**
+     * Filtra ítems por el código
+     * @param {string} code Código de ítems distintos
+     */
+    filterItemByCode: function (code) {
+        return this.get('items').filter(function (item) {
+            return (item.get('code').toString().indexOf(code) === -1);
+        });
+    },
+
+    /**
+     * Filtra ítems por el nombre
+     * @param {string} name Nombre o subcadena del nombre que no debe encajar
+     */
+    filterItemByName: function (name) {
+        return this.get('items').filter(function (item) {
+            return (item.get('name').toLowerCase().indexOf(name) === -1);
         });
     }
 });
