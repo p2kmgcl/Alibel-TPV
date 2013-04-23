@@ -22,14 +22,16 @@ window.alibelTPV = {
     views: {
         TopBar: undefined,
         sections: {
-            About: undefined
+            About: undefined,
+            Inventary: undefined
         }
     },
             
     templates: {
         topBar: undefined,
         sections: {
-            About: undefined
+            About: undefined,
+            Inventary: undefined
         }
     },
 
@@ -40,7 +42,8 @@ window.alibelTPV = {
         DOM: {
             topBar: undefined,
             sections: {
-                about: undefined
+                about: undefined,
+                inventary: undefined
             }
         }
     },
@@ -55,6 +58,9 @@ window.alibelTPV = {
         
         window.alibelTPV.main.DOM.topBar = new window.alibelTPV.views.TopBar();
         window.alibelTPV.main.DOM.sections.about = new window.alibelTPV.views.sections.About();
+        window.alibelTPV.main.DOM.sections.inventary = new window.alibelTPV.views.sections.Inventary({
+            model: window.alibelTPV.main.inventary
+        });
         
         // Carga el inventario
         window.$.getJSON('data/inventary.json', window.alibelTPV.main.inventary.fromJSON);

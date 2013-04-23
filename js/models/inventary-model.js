@@ -6,7 +6,8 @@
 window.alibelTPV.models.Inventary = Backbone.Model.extend({
 
 	defaults: {
-		items: new window.alibelTPV.collections.Item()
+		items: new window.alibelTPV.collections.Item(),
+        lastSold: []
 	},
     
     /**
@@ -14,14 +15,10 @@ window.alibelTPV.models.Inventary = Backbone.Model.extend({
      * @param {Object} data Resultado de la carga del fichero JSON.
      */
     fromJSON: function (data) {
-        if (data.content.length !== parseInt(data.total)) {
-            throw new Error("Corrupted JSON file. Please check your data");
-        }
-        
         var finalItem;
         
         // Itera en cada item y lo procesa
-        _.each(data.content, function (item) {
+        _.each(data.items, function (item) {
             finalItem = {
                 code: item.code,
                 name: item.name,
@@ -33,6 +30,31 @@ window.alibelTPV.models.Inventary = Backbone.Model.extend({
             };
             
             window.alibelTPV.main.inventary.get('items').add(finalItem);
+        });
+        
+        // Almacena los últimos ítems vendidos
+        _.each(data.lastSold, function (code) {
+           window.alibelTPV.main.inventary.get('lastSold').push(code); 
+        });
+    },
+    
+    /**
+     * Obtiene un item por su código
+     * @param {string} code Código del ítem que se quiere obtener
+     */
+    getItemByCode: function (code) {
+        return this.get('items').filter(function (item) {
+            return item.get('code') === code;
+        });
+    },
+    
+    /**
+     * Obtiene el item por su nombre o una subcadena de éste.
+     * @param {string} name Nombre o subcadena del nombre
+     */
+    getItemByName: function (name) {
+        return this.get('items').filter(function (item) {
+            return (item.get('name').indexOf(name) !== -1);
         });
     }
 });

@@ -1,7 +1,12 @@
 {
     "date": "2013-04-22",
-    "total": "100",
-    "content": [{
+    "lastSold": [
+        "1000",
+        "1004",
+        "1005",
+        "1008"
+    ],
+    "items": [{
         "code": "1000",
         "name": "DUCADOS AZUL BLANDO",
         "price": "4.20 ",
