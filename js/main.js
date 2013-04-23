@@ -21,6 +21,7 @@ window.alibelTPV = {
 
     views: {
         ItemInventary: undefined,
+        ItemEdit: undefined,
         TopBar: undefined,
         sections: {
             About: undefined,
@@ -30,6 +31,7 @@ window.alibelTPV = {
             
     templates: {
         Item: undefined,
+        ItemEdit: undefined,
         topBar: undefined,
         sections: {
             About: undefined,
