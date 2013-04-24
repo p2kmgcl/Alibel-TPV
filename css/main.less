@@ -68,7 +68,9 @@ body > section {
 	background-color: @cantExpressMyself;	
 }
 
-
+/*******************************************************************************
+ * Barra superior
+ ******************************************************************************/
 
 #topBar {
     background-color: @cantExpressMyself;
@@ -125,6 +127,10 @@ body > section {
     	color: @writeIt;
     }
 }
+
+/*******************************************************************************
+ * Ítem genérico
+ ******************************************************************************/
 
 .item {
     position: relative;
@@ -184,31 +190,28 @@ body > section {
     }
 }
 
-#sectionInventary {
-    position: relative;
-    left: 0;
+/*******************************************************************************
+ * Sección del inventario
+ ******************************************************************************/
+
+#inventarySearch {
+    font-size: 1.1em;
+    margin: 1em auto;
+    padding: 0.25em;
+    width: 90%;
+    outline: none;
+    font-style: italic;
+    border: solid lighten(@cantExpressMyself, 30%) 2px;
+}
+
+#inventaryItemList {
+    padding-left: 0;
+    list-style: none;
     text-align: center;
-    width: 100%;
+    height: 75%;
+    overflow-y: auto;
+    position: relative;
 
-    #inventarySearch {
-        font-size: 1.1em;
-        margin: 1em auto;
-        padding: 0.25em;
-        width: 90%;
-        outline: none;
-        font-style: italic;
-        border: solid lighten(@cantExpressMyself, 30%) 2px;
-    }
-
-    #inventaryItemList {
-        padding-left: 0;
-        list-style: none;
-        text-align: center;
-        height: 75%;
-        overflow-y: auto;
-        position: relative;
-
-    }
 }
 
 .ui-dialog {
