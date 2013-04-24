@@ -53,7 +53,12 @@ window.alibelTPV.views.ItemInventary = Backbone.View.extend({
                 width: $(window).width() * 0.8,
                 modal: true,
                 resizable: false,
-                title: 'Editando ítem'
+                title: 'Editando ítem',
+                
+                // Cuando se cierra el diálogo, elimina el ítem
+                close: function () {
+                    editView.undoChanges();
+                }
             });
         
         editView.dialog = dialogView;

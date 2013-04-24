@@ -9,7 +9,8 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
     
     events: {
         'click .acceptButton':    'saveChanges',
-        'click .cancelButton':    'undoChanges'
+        'click .cancelButton':    'undoChanges',
+        'click .deleteButton':    'deleteItem'
     },
     
     initialize: function () {
@@ -19,9 +20,7 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
     
     render: function () {
         this.$el.html(this.template(this.model.toJSON()));
-        
-        this.$el
-            .find('.acceptButton, .cancelButton').button();
+        this.$el.find('input[type^=button]').button();
     },
     
     /**
@@ -29,7 +28,46 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
      * desde el formulario que se crea en la vista
      */
     saveChanges: function () {
-        console.log('Cambios guardados...');
+        var realChanges = {},
+            model = this.model;
+        
+        // Examina todos los elementos del formulario para ver
+        // cuales cambia y cuales no
+        this.$el.find('input').not('[type^=button]').each(function () {
+            var value = $(this).val(),
+                name = $(this).attr('name'),
+                asign = true;
+            
+            // Aquí se hacen las comprobaciones para ver
+            // que atributos NO se modifican
+            switch(name) {
+                case 'stock':
+                    value = parseInt(value);
+                    if (value < 0) {
+                        asign = false;
+                    }
+                    break;
+                case 'minStock':
+                    value = parseInt(value);
+                    if (value < 0) {
+                        asign = false;
+                    }
+                    break;
+                case 'maxStock':
+                    value = parseInt(value);
+                    if (value === '') {
+                        value = Infinity;
+                    } else if (value <= 0) {
+                        asign = false;
+                    }
+                    break;
+            }
+            
+            if (asign) {
+                model.set(name, value);
+            }
+        });
+        
         $(this.dialog).dialog('destroy');
         this.remove();
     },
@@ -39,8 +77,15 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
      * realizado
      */
     undoChanges: function () {
-        console.log('Cambios cancelados...');
         $(this.dialog).dialog('destroy');
         this.remove();
+    },
+    
+    /**
+     * Elimina el ítem que se está editando
+     */
+    deleteItem: function () {
+        this.model.destroy();
+        this.undoChanges();
     }
 });
