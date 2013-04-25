@@ -30,8 +30,7 @@ alibel.views.ItemEdit = Backbone.View.extend({
      * desde el formulario que se crea en la vista
      */
     saveChanges: function () {
-        var $input = this.$el.find('input'),
-            model = this.model,
+        var model = this.model,
             realChanges = { validate: true };
         
         // Examina todos los elementos del formulario para ver
@@ -46,6 +45,7 @@ alibel.views.ItemEdit = Backbone.View.extend({
         });
         
         // Envía los cambios al modelo y éste los validará
+        alibel.log('Editando ítem:');
         alibel.log(realChanges);
         model.set(realChanges);
         
@@ -65,7 +65,6 @@ alibel.views.ItemEdit = Backbone.View.extend({
      */
     destroy: function () {
         alibel.log('itemedit-view.destroy()');
-        $(this.dialog).dialog('destroy');
         this.remove();
     }
 });

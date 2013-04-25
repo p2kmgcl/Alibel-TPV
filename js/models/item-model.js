@@ -25,7 +25,7 @@ alibel.models.Item = Backbone.Model.extend({
      * @param {string} message Descripción del error
      */
     throwError: function (model, message) {
-        throw new Error(model, message);
+        throw new Error(message);
     },
     
     /**
@@ -74,13 +74,19 @@ alibel.models.Item = Backbone.Model.extend({
             return 'Invalid unit';
         } else if (!validString(attrs.units)) {
             return 'Invalid units';
-        } else if (!validNumber(attrs.stock)) {
+        } else if (!validNumber(parseInt(attrs.stock))) {
             return 'Invalid stock';
-        } else if (!validNumber(attrs.minStock)) {
+        } else if (!validNumber(parseInt(attrs.minStock))) {
             return 'Invalid minStock';
+        }
         
-        // Excepción: el stock máximo sí puede ser infinito
-        } else if (!validNumber(attrs.maxStock) && attrs.maxStock !== Infinity) {
+        // Excepción: el stock máximo sí puede ser infinito.
+        // Además se permite que el usuario escriba una cadena
+        // vacía en lugar del término "Infinity"
+        if (attrs.maxStock === '' || attrs.maxStock === ' ') {
+            attrs.maxStock = Infinity;
+        }
+        if (!validNumber(parseInt(attrs.maxStock)) && attrs.maxStock !== Infinity) {
             return 'Invalid maxStock';
         }
     }

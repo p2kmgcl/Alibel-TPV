@@ -57,6 +57,7 @@ alibel.views.ItemInventary = Backbone.View.extend({
                 
                 // Cuando se cierra el diálogo, elimina el ítem
                 close: function () {
+                    alibel.log("itemedit-view.dialog.destroy()");
                     editView.destroy();
                 }
             });
