@@ -10,7 +10,8 @@ alibel.views.ItemEdit = Backbone.View.extend({
     events: {
         'click .acceptButton':    'saveChanges',
         'click .cancelButton':    'destroy',
-        'click .deleteButton':    'deleteOriginalModel'
+        'click .deleteButton':    'deleteOriginalModel',
+        'keyup':                  'keyboardCheck'
     },
     
     initialize: function () {
@@ -52,6 +53,24 @@ alibel.views.ItemEdit = Backbone.View.extend({
         // Destruye el cuadro de diálogo
         this.destroy();
     },
+    
+    /**
+     * Hace comprobaciones de usabilidad para poder manejar la interfaz
+     * con el teclado.
+     * @param {Event} event Variable del evento keyup.
+     */
+    keyboardCheck: function (event) {
+        var ENTER_KEY = 13,
+            ESCAPE_KEY = 27;
+        
+        switch (event.which) {
+            case ENTER_KEY: this.saveChanges();
+                            break;
+            case ESCAPE_KEY: this.destroy();
+                             break;
+        }
+    },
+    
     
     /**
      * Destruye el ítem original

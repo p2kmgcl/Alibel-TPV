@@ -46,7 +46,10 @@ alibel.views.ItemInventary = Backbone.View.extend({
                        }),
             dialogView = $(editView.el).dialog({
                 autoOpen: false,
-                draggable: false,
+                closeOnEscape: false, //< La funcionalidad de estas teclas
+                                      //< se especifica en la vista itemedit
+                draggable: true,     //< Añade usabilidad al poder "apartar"
+                                     //< el cuadro para ver qué hay detrás
                 maxHeight: 600,
                 maxWidth: 800,
                 height: $(window).height() * 0.8,

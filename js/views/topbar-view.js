@@ -52,6 +52,9 @@ alibel.views.TopBar = Backbone.View.extend({
             this.hideCurrenSection();
             $("#sectionInventary,\
                #mainMenu > ul > .inventary").addClass('current');
+            
+            // Enfoca el cuadro de búsqueda
+            $("#inventarySearch").focus();
         }
     },
     
