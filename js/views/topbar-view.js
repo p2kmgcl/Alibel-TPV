@@ -9,7 +9,7 @@ window.alibelTPV.views.TopBar = Backbone.View.extend({
     id: 'topBar',
     
     events: {
-        //'click .newSell':     'showSection',
+        'click .newSell':       'showSectionNewSell',
         //'click .history':     'showSection',
         'click .inventary':     'showSectionInventary',
         'click .about':         'showSectionAbout'
@@ -52,6 +52,17 @@ window.alibelTPV.views.TopBar = Backbone.View.extend({
             this.hideCurrenSection();
             $("#sectionInventary,\
                #mainMenu > ul > .inventary").addClass('current');
+        }
+    },
+    
+    /**
+     * Muestra la sección para realizar ventas
+     */
+    showSectionNewSell: function () {
+        if (!$("#sectionNewSell").hasClass('current')) {
+            this.hideCurrenSection();
+            $("#sectionNewSell,\
+               #mainMenu > ul > .newSell").addClass('current');
         }
     }
 });

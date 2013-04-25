@@ -25,7 +25,8 @@ window.alibelTPV = {
         TopBar: undefined,
         sections: {
             About: undefined,
-            Inventary: undefined
+            Inventary: undefined,
+            NewSell: undefined
         }
     },
             
@@ -35,7 +36,8 @@ window.alibelTPV = {
         topBar: undefined,
         sections: {
             About: undefined,
-            Inventary: undefined
+            Inventary: undefined,
+            NewSell: undefined
         }
     },
 
@@ -47,7 +49,8 @@ window.alibelTPV = {
             topBar: undefined,
             sections: {
                 about: undefined,
-                inventary: undefined
+                inventary: undefined,
+                newsell: undefined
             }
         }
     },
@@ -62,6 +65,7 @@ window.alibelTPV = {
         
         window.alibelTPV.main.DOM.topBar = new window.alibelTPV.views.TopBar();
         window.alibelTPV.main.DOM.sections.about = new window.alibelTPV.views.sections.About();
+        window.alibelTPV.main.DOM.sections.newsell = new window.alibelTPV.views.sections.NewSell();
         window.alibelTPV.main.DOM.sections.inventary = new window.alibelTPV.views.sections.Inventary({
             model: window.alibelTPV.main.inventary
         });
