@@ -3,10 +3,10 @@
  * @see js/collections/item-collection.js
  * @type {Backbone.Model}
  */
-window.alibelTPV.models.Inventary = Backbone.Model.extend({
+alibel.models.Inventary = Backbone.Model.extend({
 
 	defaults: {
-		items: new window.alibelTPV.collections.Item(),
+		items: new alibel.collections.Item(),
         lastSold: []
 	},
     
@@ -20,7 +20,7 @@ window.alibelTPV.models.Inventary = Backbone.Model.extend({
         // Itera en cada item y lo procesa
         _.each(data.items, function (item) {
             finalItem = {
-                code: item.code,
+                code: parseInt(item.code),
                 name: item.name,
                 price: parseFloat(item.price),
                 unit: item.unit,
@@ -29,12 +29,12 @@ window.alibelTPV.models.Inventary = Backbone.Model.extend({
                 minStock: parseInt(item.minStock)
             };
             
-            window.alibelTPV.main.inventary.get('items').add(finalItem);
+            alibel.main.inventary.get('items').add(finalItem);
         });
         
         // Almacena los últimos ítems vendidos
         _.each(data.lastSold, function (code) {
-           window.alibelTPV.main.inventary.get('lastSold').push(code); 
+           alibel.main.inventary.get('lastSold').push(code); 
         });
     },
     
