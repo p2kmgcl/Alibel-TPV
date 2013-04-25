@@ -1,11 +1,11 @@
 /**
- * Item mostrado en el inventario listo para editar
+ * Item mostrado de inventario. Permite mostrar sus datos.
  * @type Backbone.View
  */
-window.alibelTPV.views.ItemInventary = Backbone.View.extend({
+alibel.views.ItemInventary = Backbone.View.extend({
     tagName: 'ul',
     className: 'item',
-    template: _.template(window.alibelTPV.templates.Item),
+    template: _.template(alibel.templates.Item),
     
     events: {
         'click':    'showItemEdit'
@@ -41,7 +41,7 @@ window.alibelTPV.views.ItemInventary = Backbone.View.extend({
      * para cambiar los datos del item actual.
      */
     showItemEdit: function () {
-        var editView = new window.alibelTPV.views.ItemEdit({
+        var editView = new alibel.views.ItemEdit({
                            model: this.model
                        }),
             dialogView = $(editView.el).dialog({
@@ -57,7 +57,7 @@ window.alibelTPV.views.ItemInventary = Backbone.View.extend({
                 
                 // Cuando se cierra el diálogo, elimina el ítem
                 close: function () {
-                    editView.undoChanges();
+                    editView.destroy();
                 }
             });
         
@@ -66,9 +66,10 @@ window.alibelTPV.views.ItemInventary = Backbone.View.extend({
     },
     
     /**
-     * Elimina la vista del DOM
+     * Elimina la vista
      */
     destroy: function () {
+        alibel.log('iteminventary-view.destroy()');
         this.remove();
     }
 });

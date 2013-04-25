@@ -2,20 +2,22 @@
  * Vista diseñada para editar un ítem existente
  * @type Backbone.View
  */
-window.alibelTPV.views.ItemEdit = Backbone.View.extend({
+alibel.views.ItemEdit = Backbone.View.extend({
     tagName: 'form',
     className: 'itemEdit',
-    template: _.template(window.alibelTPV.templates.ItemEdit),
+    template: _.template(alibel.templates.ItemEdit),
     
     events: {
         'click .acceptButton':    'saveChanges',
-        'click .cancelButton':    'undoChanges',
-        'click .deleteButton':    'deleteItem'
+        'click .cancelButton':    'destroy',
+        'click .deleteButton':    'deleteOriginalModel'
     },
     
     initialize: function () {
         this.render();
-        this.model.on('change', this.render, this);
+        this.model
+            .on('change', this.render, this)
+            .on('remove', this.destroy, this);
     },
     
     render: function () {
@@ -28,64 +30,42 @@ window.alibelTPV.views.ItemEdit = Backbone.View.extend({
      * desde el formulario que se crea en la vista
      */
     saveChanges: function () {
-        var realChanges = {},
-            model = this.model;
+        var $input = this.$el.find('input'),
+            model = this.model,
+            realChanges = { validate: true };
         
         // Examina todos los elementos del formulario para ver
         // cuales cambia y cuales no
         this.$el.find('input').not('[type^=button]').each(function () {
             var value = $(this).val(),
-                name = $(this).attr('name'),
-                asign = true;
+                name = $(this).attr('name');
             
-            // Aquí se hacen las comprobaciones para ver
-            // que atributos NO se modifican
-            switch(name) {
-                case 'stock':
-                    value = parseInt(value);
-                    if (value < 0) {
-                        asign = false;
-                    }
-                    break;
-                case 'minStock':
-                    value = parseInt(value);
-                    if (value < 0) {
-                        asign = false;
-                    }
-                    break;
-                case 'maxStock':
-                    value = parseInt(value);
-                    if (value === '') {
-                        value = Infinity;
-                    } else if (value <= 0) {
-                        asign = false;
-                    }
-                    break;
-            }
-            
-            if (asign) {
-                model.set(name, value);
+            if (model.get(name).toString() !== value) {
+                realChanges[name] = value;
             }
         });
         
-        $(this.dialog).dialog('destroy');
-        this.remove();
+        // Envía los cambios al modelo y éste los validará
+        alibel.log(realChanges);
+        model.set(realChanges);
+        
+        // Destruye el cuadro de diálogo
+        this.destroy();
     },
     
     /**
-     * Destruye el cuadro de diálogo sin guardar ningún cambio
-     * realizado
+     * Destruye el ítem original
      */
-    undoChanges: function () {
-        $(this.dialog).dialog('destroy');
-        this.remove();
-    },
-    
-    /**
-     * Elimina el ítem que se está editando
-     */
-    deleteItem: function () {
+    deleteOriginalModel: function () {
         this.model.destroy();
-        this.undoChanges();
+    },
+    
+    /**
+     * Elimina la vista de edición
+     */
+    destroy: function () {
+        alibel.log('itemedit-view.destroy()');
+        $(this.dialog).dialog('destroy');
+        this.remove();
     }
 });
