@@ -1,4 +1,4 @@
-window.alibelTPV.templates.Item = '\n\
+alibel.templates.Item = '\n\
     <li class="code"><%= code %></li>\n\
     <li class="name"><%= name %></li>\n\
     <li class="price"><%= price %></li>\n\

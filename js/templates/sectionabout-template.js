@@ -1,4 +1,4 @@
-window.alibelTPV.templates.sections.About = '\
+alibel.templates.sections.About = '\
     <header>\n\
         <h1>Alibel TPV</h1>\n\
         <h2>Versión <%= version %>\n\

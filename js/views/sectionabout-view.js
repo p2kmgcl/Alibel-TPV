@@ -1,10 +1,10 @@
 /**
  * Vista utilizada para renderizar la sección acerca de.
  */
-window.alibelTPV.views.sections.About = Backbone.View.extend({
+alibel.views.sections.About = Backbone.View.extend({
     tagName: 'section',
     id: 'sectionAbout',
-    template: _.template(window.alibelTPV.templates.sections.About),
+    template: _.template(alibel.templates.sections.About),
     
     initialize: function () {
         $('body').append(this.el);
@@ -12,6 +12,6 @@ window.alibelTPV.views.sections.About = Backbone.View.extend({
     },
     
     render: function () {
-        this.$el.html(this.template(window.alibelTPV.metadata));
+        this.$el.html(this.template(alibel.metadata));
     }
 });

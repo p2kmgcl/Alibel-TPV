@@ -1,5 +1,5 @@
 
-window.alibelTPV.templates.TopBar = '\
+alibel.templates.TopBar = '\
     <h1>AlibelTPV</h1>\
 \
     <nav id="mainMenu"><ul>\

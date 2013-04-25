@@ -2,7 +2,7 @@
  * Objeto global con toda la configuración del proyecto
  * @type {Object}
  */
-window.alibelTPV = {
+window.alibel = {
 
     models: {
         Item: undefined,
@@ -56,24 +56,36 @@ window.alibelTPV = {
     },
             
     metadata: {
-        version: '0.1.0'
+        version: '0.1.0',
+        development: true
+    },
+    
+    /**
+     * Envía los parámetros pasados a la consola.
+     * Solo se hará si la variable alibel.metadata.development tiene
+     * un valor verdadero
+     */
+    log: function (message) {
+        if (alibel.metadata.development) {
+            console.log(message);
+        }
     },
 
     init: function () {
-        window.alibelTPV.main.inventary = new window.alibelTPV.models.Inventary();
-        window.alibelTPV.main.history = new window.alibelTPV.models.History();
+        alibel.main.inventary = new alibel.models.Inventary();
+        alibel.main.history = new alibel.models.History();
         
-        window.alibelTPV.main.DOM.topBar = new window.alibelTPV.views.TopBar();
-        window.alibelTPV.main.DOM.sections.about = new window.alibelTPV.views.sections.About();
-        window.alibelTPV.main.DOM.sections.newsell = new window.alibelTPV.views.sections.NewSell();
-        window.alibelTPV.main.DOM.sections.inventary = new window.alibelTPV.views.sections.Inventary({
-            model: window.alibelTPV.main.inventary
+        alibel.main.DOM.topBar = new alibel.views.TopBar();
+        alibel.main.DOM.sections.about = new alibel.views.sections.About();
+        alibel.main.DOM.sections.newsell = new alibel.views.sections.NewSell();
+        alibel.main.DOM.sections.inventary = new alibel.views.sections.Inventary({
+            model: alibel.main.inventary
         });
         
         // Carga el inventario
-        window.$.getJSON('data/inventary.json', window.alibelTPV.main.inventary.fromJSON);
+        window.$.getJSON('data/inventary.json', alibel.main.inventary.fromJSON);
     }
 
 };
 
-$(window.alibelTPV.init);
+$(alibel.init);

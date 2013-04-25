@@ -1,4 +1,4 @@
-window.alibelTPV.templates.ItemEdit = '\n\
+alibel.templates.ItemEdit = '\n\
     <label for="code">Código</label><input type="text" name="code" value="<%= code %>" />\n\
     <label for="name">Nombre</label><input type="text" name="name" value="<%= name %>" />\n\
     <label for="price">Precio</label><input type="number" name="price" value="<%= price %>" />\n\

@@ -1,4 +1,4 @@
-window.alibelTPV.templates.sections.Inventary = '\
+alibel.templates.sections.Inventary = '\
     <form id="inventaryMenu">\n\
         <input type="search" id="inventarySearch" placeholder="Escribe el nombre de un ítem o su código..." />\n\
         <input type="radio" name="inventaryFilter" id="inventaryFilterAll" /><label for="inventaryFilterAll">Todos</label>\n\

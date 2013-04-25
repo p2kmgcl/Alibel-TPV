@@ -2,9 +2,9 @@
  * Barra superior de la aplicación
  * @type {Backbone.View}
  */
-window.alibelTPV.views.TopBar = Backbone.View.extend({
+alibel.views.TopBar = Backbone.View.extend({
     
-    template: _.template(window.alibelTPV.templates.TopBar),
+    template: _.template(alibel.templates.TopBar),
     tagName: 'header',
     id: 'topBar',
     

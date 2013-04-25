@@ -3,9 +3,9 @@
  * @see js/collections/shoppingCart-collection.js
  * @type {Backbone.Model}
  */
-window.alibelTPV.models.History = Backbone.Model.extend({
+alibel.models.History = Backbone.Model.extend({
 
 	defaults: {
-		shoppingCarts: new window.alibelTPV.collections.ShoppingCart()
+		shoppingCarts: new alibel.collections.ShoppingCart()
 	}
 });
