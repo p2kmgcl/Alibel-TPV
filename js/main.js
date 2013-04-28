@@ -4,15 +4,21 @@
  */
  window.alibel = {
     models: {
-        Item: undefined,
-        ItemCart: undefined
+        Item: '1.0.0',
+        ItemCart: '1.0.0'
     },
 
-    templates: {},
+    templates: {
+        Item: '1.0.0'
+    },
 
-    views: {},
+    views: {
+        Item: '1.0.0'
+    },
 
-    collections: {},
+    collections: {
+        Item: undefined
+    },
 
     metadata: {
         version: '0.1.0',
