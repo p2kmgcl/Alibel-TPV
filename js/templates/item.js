@@ -1,4 +1,4 @@
-alibel.templates.Item = '
+alibel.templates.Item = '\
     <li class="code"><%= code %></li>\
     <li class="name"><%= name %></li>\
     <li class="price"><%= price %></li>\

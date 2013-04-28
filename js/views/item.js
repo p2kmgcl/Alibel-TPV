@@ -28,7 +28,7 @@ alibel.views.Item = Backbone.View.extend({
             this.$el.removeClass('lowStock');
         
         // Ítems sin stock
-        (this.model.get('stock') === 0) {
+        (this.model.get('stock') === 0) ?
             this.$el.addClass('noStock'):
             this.$el.removeClass('noStock');
         

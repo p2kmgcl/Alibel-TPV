@@ -9,15 +9,15 @@
     },
 
     templates: {
-        Item: '1.0.0'
+        Item: '1.0.1'
     },
 
     views: {
-        Item: '1.0.0'
+        Item: '1.0.1'
     },
 
     collections: {
-        Item: undefined
+        Item: '1.0.0'
     },
 
     metadata: {
