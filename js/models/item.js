@@ -1,33 +1,39 @@
 /**
- * Contiene todos los datos de un item almacenado en el inventario
+ * Contiene todos los datos de un ítem del proyecto.
  * @type {Backbone.Model}
  */
 alibel.models.Item = Backbone.Model.extend({
-	defaults: {
-		code: '',
-		name: '',
-		price: 0,
-        unit: 'unidad',
-        units: 'unidades',
-		stock: 0,
-		minStock: 1,
-		maxStock: Infinity
-	},
-    
-    // Inicializa el ítem
+    defaults: {
+        "code": 0,
+        "name": '',
+        "price": 0,
+        "unit": 'unidad',
+        "units": 'unidades',
+        "stock": 0,
+        "minStock": 1,
+        "maxStock": Infinity
+    },
+
+    // Inicializa el item
     initialize: function () {
-        this.on('error', this.throwError, this);
+        // Activa la comprobación de errores
+        this.on('invalid', this.throwError, this);
+        if (typeof this.validate(this.attributes) !== 'undefined') {
+            this.trigger('invalid');
+        }
     },
-    
+
     /**
-     * Básicamente lanza el error ocasionado
-     * @param {Backbone.Model} model Modelo en el que se ha producido el error
-     * @param {string} message Descripción del error
+     * Lanza el error pasado para que sea tratado externamente.
+     * @param  {alibel.models.Item} model [description]
+     * @param  {string} error Error ocurrido
+     * @return {alibel.models.Item} a sí mismo
      */
-    throwError: function (model, message) {
-        throw new Error(message);
+    throwError: function (model, error) {
+        throw new Error(error);
+        return this;
     },
-    
+
     /**
      * Comprueba que los atributos pasados al ítem cumplen todas las condiciones
      * establecidas.
@@ -45,9 +51,9 @@ alibel.models.Item = Backbone.Model.extend({
          */
         function validNumber (number) {
             return (_.isNumber(number) &&
-                    !_.isNaN(number) &&
-                    _.isFinite(number) &&
-                    number >= 0);
+                !_.isNaN(number) &&
+                _.isFinite(number) &&
+                number >= 0);
         }
         
         /**
@@ -59,8 +65,8 @@ alibel.models.Item = Backbone.Model.extend({
          */
         function validString (string) {
             return (_.isString(string) &&
-                    string !== '' &&
-                    string !== ' ');
+                string !== '' &&
+                string !== ' ');
         }
         
         // Finalmente valida todos los atributos
