@@ -13,7 +13,8 @@
     },
 
     views: {
-        Item: '1.0.1'
+        Item: '1.0.1',
+        ItemCollection: '1.0.0'
     },
 
     collections: {
