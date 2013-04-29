@@ -14,8 +14,9 @@ alibel.models.ItemCart = Backbone.Model.extend({
     initialize: function () {
         // Activa la comprobación de errores
         this.on('invalid', this.throwError, this);
-        if (typeof this.validate(this.attributes) !== 'undefined') {
-            this.trigger('invalid');
+        var error = this.validate(this.attributes);
+        if (typeof error !== 'undefined') {
+            this.trigger('invalid', this, error);
         }
     },
     
@@ -25,7 +26,7 @@ alibel.models.ItemCart = Backbone.Model.extend({
      * @param {string} message Descripción del error
      */
     throwError: function (model, error) {
-        throw new Error(error);
+        throw new alibel.error(error, 'alibel.models.ItemCart');
         return this;
     },
 
@@ -67,9 +68,12 @@ alibel.models.ItemCart = Backbone.Model.extend({
      	            number >= 0);
      	}
 
-     	// Validad cantidad de items
-     	if (!validNumber(attrs.quantity)) {
+     	// No tiene sentido tener 0 items en una compra
+     	if (!validNumber(attrs.quantity) || attrs.quantity <= 0) {
      		return 'Invalid quantity';
+
+         // El precio puede ser -1 si el item original si tiene
+         // un precio establecido
      	} else if (!validNumber(attrs.price) &&
      			   attrs.item.get('price') === -1) {
      		return 'Invalid price';

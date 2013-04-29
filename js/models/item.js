@@ -18,8 +18,9 @@ alibel.models.Item = Backbone.Model.extend({
     initialize: function () {
         // Activa la comprobación de errores
         this.on('invalid', this.throwError, this);
-        if (typeof this.validate(this.attributes) !== 'undefined') {
-            this.trigger('invalid');
+        var error = this.validate(this.attributes);
+        if (typeof error !== 'undefined') {
+            this.trigger('invalid', this, error);
         }
     },
 
@@ -30,7 +31,7 @@ alibel.models.Item = Backbone.Model.extend({
      * @return {alibel.models.Item} a sí mismo
      */
     throwError: function (model, error) {
-        throw new Error(error);
+        throw new alibel.error(error, 'alibel.models.Item');
         return this;
     },
 
