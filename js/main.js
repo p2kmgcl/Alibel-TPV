@@ -20,7 +20,8 @@
     },
 
     collections: {
-        Item: '1.0.0'
+        Item: '1.0.0',
+        ItemCart: '1.0.0'
     },
 
     metadata: {
