@@ -9,12 +9,14 @@
     },
 
     templates: {
-        Item: '1.0.1'
+        Item: '1.0.1',
+        ItemCart: '1.0.0'
     },
 
     views: {
         Item: '1.0.1',
-        ItemCollection: '1.0.0'
+        ItemCollection: '1.0.0',
+        ItemCart: '1.0.0'
     },
 
     collections: {
