@@ -93,7 +93,11 @@ alibel.models.Item = Backbone.Model.extend({
         if (attrs.maxStock === '' || attrs.maxStock === ' ') {
             attrs.maxStock = Infinity;
         }
-        if (!validNumber(parseInt(attrs.maxStock)) && attrs.maxStock !== Infinity) {
+        // parseInt(Inifity) -> NaN
+        if (attrs.maxStock !== Infinity) {
+            attrs.maxStock = parseInt(attrs.maxStock);
+        }
+        if (!validNumber(attrs.maxStock) && attrs.maxStock !== Infinity) {
             return 'Invalid maxStock';
         }
     }

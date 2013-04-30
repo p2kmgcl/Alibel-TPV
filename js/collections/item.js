@@ -4,6 +4,29 @@
 alibel.collections.Item = Backbone.Collection.extend({
     model: alibel.models.Item,
 
+    initialize: function () {
+        this.on('add', this.checkUnique, this);
+    },
+
+    /**
+     * Comprueba que los ítems añadidos
+     * no tienen el código repetido
+     * @param  {alibel.models.Item} item Item que se acaba de añadir
+     * @return {this} Se devuelve a sí mismo
+     */
+    checkUnique: function (item) {
+        // Si el item está repetido es un error
+        if (this.filter(function (_item) {
+            return (item.get('code') === _item.get('code'));
+        }).length > 1) {
+            this.remove(item);
+            throw new alibel.error('There\'s already an item with code ' + item.get('code'),
+                'alibel.models.Item');
+        }
+
+        return this;
+    },
+
     /**
      * Carga los items desde un fichero JSON y los añade al inventario.
      * @param {Object} data Resultado de la carga del fichero JSON.
