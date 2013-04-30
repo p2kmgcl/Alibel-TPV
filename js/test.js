@@ -197,6 +197,41 @@ alibel.test = {
                      .add(i2, 5, 6);
                     return true;
                 }
+            },
+
+            ShoppingCartCollection: {
+                create: function () {
+                    var d1991_10_1 = new Date('1991-10-1'),
+                        d1991_10_5 = new Date('1991-10-5'),
+                        d1991_10_19 = new Date('1991-10-19'),
+                        dtoday = new Date(),
+                        sc = new alibel.collections.ShoppingCart([
+                            { date: d1991_10_1, id: 1},
+                            { date: d1991_10_19, id: 2},
+                            { date: dtoday, id: 3}]),
+                        scv = new alibel.views.ShoppingCartCollection({
+                            collection: sc
+                        });
+                    return true;
+                },
+
+                filterByDate: function () {
+                    var d1991_10_1 = new Date('1991-10-1'),
+                        d1991_10_5 = new Date('1991-10-5'),
+                        d1991_10_19 = new Date('1991-10-19'),
+                        dtoday = new Date(),
+                        sc = new alibel.collections.ShoppingCart([
+                            { date: d1991_10_1, id: 1},
+                            { date: d1991_10_19, id: 2},
+                            { date: dtoday, id: 3}]),
+                        scv = new alibel.views.ShoppingCartCollection({
+                            collection: sc
+                        });
+
+                    scv.filterByDate(d1991_10_1, d1991_10_19);
+                    scv.filterByDate(dtoday);
+                    return true;
+                }
             }
         }
     }
