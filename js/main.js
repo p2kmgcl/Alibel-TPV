@@ -6,18 +6,20 @@
     models: {
         Item: '1.0.2',
         ItemCart: '1.0.3',
-        ShoppingCart: '1.0.0'
+        ShoppingCart: '1.1.0'
     },
 
     templates: {
         Item: '1.0.1',
-        ItemCart: '1.0.0'
+        ItemCart: '1.0.0',
+        ShoppingCart: '1.0.0'
     },
 
     views: {
         Item: '1.0.1',
         ItemCollection: '1.0.0',
-        ItemCart: '1.0.0'
+        ItemCart: '1.0.0',
+        ShoppingCart: '1.0.0'
     },
 
     collections: {

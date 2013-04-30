@@ -104,15 +104,65 @@ alibel.test = {
                 validPrice: function () {
                     var i = new alibel.models.Item({ name: 'item' });
                     return alibel.test.tools.checkParams(function (number) {
-                        result = i.set('price', number, { validate: true });
+                        i.set('price', number, { validate: true });
                     }, [-1, -Infinity, Infinity, NaN, undefined], [0, 1, 1.1]);
                 },
 
                 validMaxStock: function () {
                     var i = new alibel.models.Item({ name: 'item' });
                     return alibel.test.tools.checkParams(function (number) {
-                        result = i.set('maxStock', number, { validate: true });
+                        i.set('maxStock', number, { validate: true });
                     }, [-1, -Infinity, NaN, undefined], [Infinity, 0, 1, 1.1]);
+                }
+            },
+
+            ShoppingCart: {
+                // Si añade dos veces el mismo item solo suma unidades
+                itemTwice: function () {
+                    var s = new alibel.models.ShoppingCart(),
+                        i = new alibel.models.Item({
+                            name: 'item',
+                            code: 1001
+                        });
+
+                    s.add(i, 10)
+                     .add(i, 5);
+
+                    return (s.get('items').at(0).get('quantity') === 15) ?
+                                true : false;
+                }
+            }
+        },
+
+        views: {
+            ShoppingCart: {
+                creating: function () {
+                    var s = new alibel.models.ShoppingCart(),
+                        sv = new alibel.views.ShoppingCart({
+                        model: s
+                    });
+                    return true;
+                },
+
+                addItems: function () {
+                    var s = new alibel.models.ShoppingCart(),
+                        sv = new alibel.views.ShoppingCart({
+                            model: s
+                        })
+                        i1 = new alibel.models.Item({
+                            name: 'Gato lindo',
+                            code: 13,
+                            price: 13.33
+                        }),
+                        i2 = new alibel.models.Item({
+                            name: 'Gato bello',
+                            code: 123,
+                            price: 12.25
+                        });
+
+                    s.add(i1, 10)
+                     .add(i2, 5, 6);
+                    return true;
                 }
             }
         }

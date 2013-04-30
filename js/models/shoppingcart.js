@@ -15,6 +15,11 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
         if (typeof error !== 'undefined') {
             this.trigger('invalid', this, error);
         }
+
+        // Propaga los eventos de la colección de ítems
+        this.get('items')
+            .on('add', function (item) { this.trigger('change', item); }, this)
+            .on('remove', function (item) { this.trigger('change', item); }, this);
     },
 
     /**
@@ -67,20 +72,34 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
     add: function (item, quantity, price) {
         // Si es un item normal, creamos el item de carrito
         if (item instanceof alibel.models.Item) {
-            item = new alibel.models.ItemCart({
+            var itemCart = new alibel.models.ItemCart({
                 item: item,
                 quantity: quantity,
                 price: (typeof price === 'number') ? price : -1
             });
+        } else {
+            var itemCart = item;
         }
 
         // No es un item de carrito... ¡error!
-        if (!item instanceof alibel.models.ItemCart) {
+        if (!itemCart instanceof alibel.models.ItemCart) {
             throw new alibel.error('Incorrect item type', 'alibel.models.ShoppingCart.add()');
         }
 
-        // Añadimos el item
-        this.get('items').add(item);
+        // Si el item ya esta en el carrito
+        // sumamos unidades
+        var existingItems = this.get('items').filter(function (_itemCart) {
+                return _itemCart.get('item').get('code') ===
+                        itemCart.get('item').get('code');
+            });
+
+        if (existingItems.length > 0) {
+            existingItems[0].set('quantity',
+                existingItems[0].get('quantity') +
+                itemCart.get('quantity'));
+        } else {
+            this.get('items').add(itemCart);
+        }
         return this;
     }
 });
