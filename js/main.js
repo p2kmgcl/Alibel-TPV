@@ -24,7 +24,8 @@
 
     collections: {
         Item: '1.1.0',
-        ItemCart: '1.0.0'
+        ItemCart: '1.0.0',
+        ShoppingCart: '1.0.0'
     },
 
     metadata: {

@@ -4,7 +4,9 @@ alibel.test = {
      */
     init: function () {
         console.group('Starting Alibel TPV test');
+        console.time('alibelTest');
         alibel.test.start();
+        console.timeEnd('alibelTest');
         console.groupEnd();
     },
 
@@ -95,6 +97,37 @@ alibel.test = {
                         }).add({ name: 'Item4', code: 4 });
                         return true;
                     }
+                }
+            },
+
+            ShoppingCart: {
+                // Comprueba que el filtro de fechas es correto
+                filtering: function () {
+                    var d1991_10_1 = new Date('1991-10-1'),
+                        d1991_10_5 = new Date('1991-10-5'),
+                        d1991_10_19 = new Date('1991-10-19'),
+                        dtoday = new Date(),
+                        sc = new alibel.collections.ShoppingCart([
+                            { date: d1991_10_1, id: 1},
+                            { date: d1991_10_19, id: 2},
+                            { date: dtoday, id: 3}]),
+
+                        r = function (arr) {
+                            var ids = [];
+                            for (var i = 0; i < arr.length; i++) {
+                                ids.push(arr[i].get('id'));
+                            }
+                            var text = arr.length + ' -> ' + ids.join(',');
+                            return text;
+                        };
+                    
+                    if (r(sc.filterByDate(d1991_10_5)) !== '2 -> 2,3' ||
+                        r(sc.filterByDate(d1991_10_1)) !== '3 -> 1,2,3' ||
+                        r(sc.filterByDate(dtoday)) !== '1 -> 3'
+                        )
+                        return false;
+
+                    return true;
                 }
             }
         },
