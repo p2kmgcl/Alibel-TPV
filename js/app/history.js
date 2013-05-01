@@ -12,7 +12,9 @@ alibel.app.History = Backbone.View.extend({
     },
 
     initialize: function (attrs) {
-        this.shoppingCartCollection = attrs.shoppingCartCollection;
+        this.shoppingCartCollection = new alibel.views.ShoppingCartCollection({
+            collection: attrs.shoppingCartCollection
+        });
         this.render();
         return this;
     },
@@ -25,9 +27,12 @@ alibel.app.History = Backbone.View.extend({
 
         // Crea los diálogos para escoger la fecha
         // de jQueryUI. Por defecto muestra las compras
-        // entre la semana pasada y hoy
+        // entre la semana pasada y hoy.
+        // 
+        // Hace una pequeña espera para que de tiempo a generar
+        // todo el DOM
         var me = this;
-        $(function () {
+        _.delay(function () {
             var opts = {
                     showButtonPanel: true,
                     firstDay: 1,
@@ -45,7 +50,7 @@ alibel.app.History = Backbone.View.extend({
                 .datepicker('setDate', -7);
 
             me.filterByDate();
-        });
+        }, 1000);
         return this;
     },
 

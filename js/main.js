@@ -14,7 +14,7 @@
         ItemCart: '1.0.0',
         ShoppingCart: '1.0.0',
 
-        History: '1.1.0',
+        History: '1.1.1',
         Inventary: '1.1.0',
         NewSell: '1.1.0',
         About: '1.1.0',
@@ -36,7 +36,7 @@
     },
 
     app: {
-        History: '1.0.0',
+        History: '1.1.0',
         Inventary: '1.0.0',
         NewSell: '1.0.1',
         About: '1.0.0',
