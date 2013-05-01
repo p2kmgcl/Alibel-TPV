@@ -4,7 +4,7 @@
  */
 alibel.app.History = Backbone.View.extend({
     tagName: 'section',
-    className: 'sectionHistory',
+    id: 'sectionHistory',
     template: _.template(alibel.templates.History),
 
     events: {

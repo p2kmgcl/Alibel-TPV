@@ -4,7 +4,7 @@
  */
 alibel.app.Inventary = Backbone.View.extend({
     tagName: 'section',
-    className: 'sectionInventary',
+    id: 'sectionInventary',
     template: _.template(alibel.templates.Inventary),
 
     events: {

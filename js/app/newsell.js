@@ -1,9 +1,9 @@
 /**
  * Vista para crear nuevas compras
  */
-alibel.views.NewSell = Backbone.View.extend({
+alibel.app.NewSell = Backbone.View.extend({
     tagName: 'section',
-    className: 'sectionNewSell',
+    id: 'sectionNewSell',
     template: _.template(alibel.templates.NewSell),
 
     events: {

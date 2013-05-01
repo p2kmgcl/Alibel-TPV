@@ -3,7 +3,7 @@
  */
 alibel.app.About = Backbone.View.extend({
     tagName: 'section',
-    className: 'sectionAbout',
+    id: 'sectionAbout',
     template: _.template(alibel.templates.About),
 
     initialize: function () {

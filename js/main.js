@@ -14,10 +14,11 @@
         ItemCart: '1.0.0',
         ShoppingCart: '1.0.0',
 
-        History: '1.0.0',
-        Inventary: '1.0.1',
-        NewSell: '1.0.0',
-        About: '1.0.0'
+        History: '1.1.0',
+        Inventary: '1.1.0',
+        NewSell: '1.1.0',
+        About: '1.1.0',
+        App: '1.0.0'
     },
 
     views: {
@@ -37,8 +38,9 @@
     app: {
         History: '1.0.0',
         Inventary: '1.0.0',
-        NewSell: '1.0.0',
-        About: '1.0.0'
+        NewSell: '1.0.1',
+        About: '1.0.0',
+        App: '1.0.0'
     },
 
     metadata: {
@@ -62,7 +64,10 @@
         return this;
     },
 
-    init: function () {}
+    init: function () {
+        var app = new alibel.app.App();
+        $('body').append(app.el);
+    }
 };
 
 $(alibel.init);
