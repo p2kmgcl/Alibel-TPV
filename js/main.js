@@ -14,7 +14,8 @@
         ItemCart: '1.0.0',
         ShoppingCart: '1.0.0',
 
-        History: '1.0.0'
+        History: '1.0.0',
+        Inventary: '1.0.0'
     },
 
     views: {
@@ -32,7 +33,8 @@
     },
 
     app: {
-        History: '1.0.0'
+        History: '1.0.0',
+        Inventary: '1.0.0'
     },
 
     metadata: {

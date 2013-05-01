@@ -99,6 +99,25 @@ alibel.test = {
                     
                     return true;
                 }
+            },
+
+            Inventary: {
+                creating: function () {
+                    var ic = new alibel.collections.Item([
+                            { name: 'Item 1', code: 1 },
+                            { name: 'Item 2', code: 2 },
+                            { name: 'Item 3', code: 3 },
+                            { name: 'Item 4', code: 4 }
+                        ]),
+                        icv = new alibel.views.ItemCollection({
+                            collection: ic
+                        }),
+                        inv = new alibel.app.Inventary({
+                            itemCollection: icv
+                        });
+
+                    return true;
+                }
             }
         },
 
