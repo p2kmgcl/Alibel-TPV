@@ -33,6 +33,10 @@
             right: 0.3em;
             top: 0.3em;
             z-index: 100;
+
+            i {
+                font-size: 1.1em;
+            }
         }
     }
 
@@ -49,21 +53,31 @@
         max-height: 100%;
 
         > section {
-            width: 80%;
-            padding: 0 10%;
+            width: 90%;
+            padding: 0 5%;
             height: 100%;
             overflow-y: auto;
+
+            background: -webkit-radial-gradient(50% 100%, farthest-side,
+                            rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 80%);
+            background-repeat: no-repeat;
+
+            > header > h1 { display: none; }
+            &#sectionAbout > header > h1 { display: block; }
         }
     }
 
     .mainMenu li {
         padding: 0;
+        overflow: hidden;
 
         i {
             position: absolute;
-            top: 0.3em;
-            left: 0.3em;
-            font-size: 1.25em;
+            top: -0.4em;
+            left: -0.25em;
+            font-size: 4em;
+            opacity: 0.2;
+            cursor: pointer;
         }
 
         a {
@@ -79,13 +93,41 @@
  * Ítem genérico
  ******************************************************************************/
 
+.itemList {
+    text-align: center;
+    padding-left: 0;
+    list-style: none;
+
+    > li {
+        display: inline-block;
+    }
+
+    &.lowStock {
+        > li {
+            display: none;
+            &.lowStock {
+                display: inline-block;
+            }
+        }
+    }
+
+    &.noStock {
+        > li {
+            display: none;
+            &.noStock {
+                display: inline-block;
+            }
+        }
+    }
+}
+
 .item {
     position: relative;
     top: 0;
     display: inline-block;
     padding: 0.5em;
     margin: 1em;
-    min-width: 20em;
+    min-width: 18.8em;
     list-style: none;
     text-align: right;
     cursor: pointer;
@@ -136,3 +178,37 @@
         }
     }
 }
+
+/*******************************************************************************
+ * Sección de inventario
+ ******************************************************************************/
+
+#sectionInventary {
+    .itemList {
+        padding-left: 0;
+        list-style: none;
+
+        > li {
+            display: inline-block;
+        }
+
+        &.lowStock {
+            > li {
+                display: none;
+                &.lowStock {
+                    display: inline-block;
+                }
+            }
+        }
+
+        &.noStock {
+            > li {
+                display: none;
+                &.noStock {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
+

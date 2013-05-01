@@ -8,6 +8,10 @@ alibel.app.App = Backbone.View.extend({
     className: 'alibel',
     template: _.template(alibel.templates.App),
 
+    events: {
+        'click .mainMenu i': 'mainMenuClick'
+    },
+
     initialize: function () {
         // Crea el inventario, historial y carrito de compra
         // principal
@@ -56,6 +60,10 @@ alibel.app.App = Backbone.View.extend({
         $(function () { me.renderClock() });
 
         return this;
+    },
+
+    mainMenuClick: function () {
+        $(event.target).find('~ a').trigger('click');
     },
 
     /**

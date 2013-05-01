@@ -19,6 +19,7 @@ alibel.views.ItemCollection = Backbone.View.extend({
         this.collection
             .on('add', this.add, this)
             .on('remove', this.remove, this)
+            .on('change', this.checkStock, this)
             .each(this.add, this);
     },
 
@@ -42,6 +43,10 @@ alibel.views.ItemCollection = Backbone.View.extend({
         // Añade la nueva vista a la lista de items
         this.views[item.get('code')] = $li;
         this.$el.append($li);
+
+        // Comprueba el stock del item
+        this.checkStock(item);
+
         return this;
     },
 
@@ -54,6 +59,19 @@ alibel.views.ItemCollection = Backbone.View.extend({
         this.views[item.get('code')].remove();
         delete this.views[item.get('code')];
         return this;
+    },
+
+    /**
+     * Si un item tiene stock bajo o esta sin stock debemos
+     * añadir la clase.
+     */
+    checkStock: function (item) {
+        if (item.get('stock') === 0) {
+            this.views[item.get('code')].addClass('noStock');
+        }
+        if (item.get('stock') < item.get('minStock')) {
+            this.views[item.get('code')].addClass('lowStock');
+        }
     },
 
     /**
