@@ -81,6 +81,11 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
             var itemCart = item;
         }
 
+        // Comprobamos que las unidades son correctas
+        if (itemCart.get('quantity') > itemCart.get('item').get('stock')) {
+            throw alibel.error('Insuficient stock', 'alibel.models.ShoppingCart.add');
+        }
+
         // No es un item de carrito... ¡error!
         if (!itemCart instanceof alibel.models.ItemCart) {
             throw new alibel.error('Incorrect item type', 'alibel.models.ShoppingCart.add()');
@@ -100,6 +105,11 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
         } else {
             this.get('items').add(itemCart);
         }
+
+        // Finalmente restamos el stock añadido
+        itemCart.get('item').set('stock',
+            itemCart.get('item').get('stock') - itemCart.get('quantity'));
+
         return this;
     }
 });
