@@ -32,7 +32,13 @@ alibel.app.App = Backbone.View.extend({
             })
         };
 
-        this.render();
+        // Carga el inventario
+        var me = this;
+        $.getJSON('data/inventary.json', function (data) {
+            me.inventary.addFromJSON(data);
+            me.render();
+        });
+
         return this;
     },
 
@@ -41,9 +47,9 @@ alibel.app.App = Backbone.View.extend({
 
         // Añade el contenido de las pestañas
         for (var x in this.sections) {
-            this.$el.append(this.sections[x].el);
+            this.$el.find('>.content').append(this.sections[x].el);
         }
-        this.$el.tabs();
+        this.$el.find('>.content').tabs();
 
         // Activa el reloj
         var me = this;

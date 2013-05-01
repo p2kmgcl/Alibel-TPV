@@ -13,7 +13,9 @@ alibel.app.Inventary = Backbone.View.extend({
     },
 
     initialize: function (params) {
-        this.itemCollection = params.itemCollection;
+        this.itemCollection = new alibel.views.ItemCollection({
+            collection: params.itemCollection
+        });
         this.render();
         return this;
     },
