@@ -5,8 +5,8 @@
  window.alibel = {
     models: {
         Item: '1.0.2',
-        ItemCart: '1.0.3',
-        ShoppingCart: '1.1.0'
+        ItemCart: '1.1.0',
+        ShoppingCart: '1.2.0'
     },
 
     templates: {

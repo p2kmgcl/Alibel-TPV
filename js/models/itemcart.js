@@ -19,6 +19,26 @@ alibel.models.ItemCart = Backbone.Model.extend({
             this.trigger('invalid', this, error);
         }
     },
+
+    /**
+     * Obtiene el parámetro original del item
+     * @param  {string} param Parámetro original
+     * @return {anything} el parámetro
+     */
+    getI: function (param) {
+        return this.get('item').get(param);
+    },
+
+    /**
+     * Cambia el parámetro original del item
+     * @param {string} param Nombre del parámetro
+     * @param {anything} value Valor que se le quiere dar;
+     * @return {this}
+     */
+    setI: function (param, value) {
+        this.get('item').set(param, value,
+            { validate: true });
+    },
     
     /**
      * Básicamente lanza el error ocasionado

@@ -16,8 +16,10 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
             this.trigger('invalid', this, error);
         }
 
+        // Acceso más práctico a los items
+        this.items = this.get('items');
         // Propaga los eventos de la colección de ítems
-        this.get('items')
+        this.items
             .on('add', function (item) { this.trigger('change', item); }, this)
             .on('remove', function (item) { this.trigger('change', item); }, this);
     },
@@ -53,62 +55,56 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
      */
     getTotal: function () {
         var result = 0;
-        this.get('items').each(function (item) {
-            result += item.getPrice() * item.get('quantity');
+        this.items.each(function (itemCart) {
+            result += itemCart.getPrice() * itemCart.get('quantity');
         });
         return result;
     },
 
     /**
      * Añade un item al carrito.
-     * Este método no es más que un filtro que permite
-     * añadir ítems sin tener que acceder al atributo 'items' o
-     * pasando un item corriente
-     * @param {alibel.models.Item || alibel.models.ItemCart} item Item de carrito o normal
+     * @param {alibel.models.Item} item Item de inventario
      * @param {number} quantity Cantidad a añadir (se usará si el ítem pasado no es de carrito)
      * @param {number} price Precio del item (ídem)
      * @return {this} Se devuelve a sí mismo
      */
     add: function (item, quantity, price) {
         // Si es un item normal, creamos el item de carrito
-        if (item instanceof alibel.models.Item) {
-            var itemCart = new alibel.models.ItemCart({
-                item: item,
-                quantity: quantity,
-                price: (typeof price === 'number') ? price : -1
-            });
-        } else {
-            var itemCart = item;
+        if (!(item instanceof alibel.models.Item)) {
+            throw alibel.error('Invalid item', 'alibel.models.ShoppingCart.add');
         }
 
+        var itemCart = new alibel.models.ItemCart({
+            item: item,
+            quantity: quantity,
+            price: (typeof price === 'number') ? price : -1
+        });
+
         // Comprobamos que las unidades son correctas
-        if (itemCart.get('quantity') > itemCart.get('item').get('stock')) {
+        if (itemCart.get('quantity') > itemCart.getI('stock')) {
             throw alibel.error('Insuficient stock', 'alibel.models.ShoppingCart.add');
         }
 
-        // No es un item de carrito... ¡error!
-        if (!itemCart instanceof alibel.models.ItemCart) {
-            throw new alibel.error('Incorrect item type', 'alibel.models.ShoppingCart.add()');
-        }
-
-        // Si el item ya esta en el carrito
-        // sumamos unidades
-        var existingItems = this.get('items').filter(function (_itemCart) {
-                return _itemCart.get('item').get('code') ===
-                        itemCart.get('item').get('code');
+        // Comprobamos si el item ya está en el carrito
+        var existingItems = this.items.filter(function (_itemCart) {
+                return _itemCart.getI('code') === itemCart.getI('code');
             });
 
+        // Si el item ya esta en el carrito sumamos unidades
         if (existingItems.length > 0) {
             existingItems[0].set('quantity',
                 existingItems[0].get('quantity') +
-                itemCart.get('quantity'));
+                itemCart.get('quantity'),
+            { validate: true });
+
+        // Si no añadimos el nuevo item
         } else {
-            this.get('items').add(itemCart);
+            this.items.add(itemCart);
         }
 
         // Finalmente restamos el stock añadido
-        itemCart.get('item').set('stock',
-            itemCart.get('item').get('stock') - itemCart.get('quantity'));
+        itemCart.setI('stock',
+            itemCart.getI('stock') - itemCart.get('quantity'));
 
         return this;
     }
