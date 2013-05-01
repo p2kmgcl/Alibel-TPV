@@ -16,7 +16,8 @@
 
         History: '1.0.0',
         Inventary: '1.0.1',
-        NewSell: '1.0.0'
+        NewSell: '1.0.0',
+        About: '1.0.0'
     },
 
     views: {
@@ -36,7 +37,8 @@
     app: {
         History: '1.0.0',
         Inventary: '1.0.0',
-        NewSell: '1.0.0'
+        NewSell: '1.0.0',
+        About: '1.0.0'
     },
 
     metadata: {
