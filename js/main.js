@@ -12,7 +12,9 @@
     templates: {
         Item: '1.0.1',
         ItemCart: '1.0.0',
-        ShoppingCart: '1.0.0'
+        ShoppingCart: '1.0.0',
+
+        History: '1.0.0'
     },
 
     views: {
@@ -27,6 +29,10 @@
         Item: '1.1.0',
         ItemCart: '1.0.0',
         ShoppingCart: '1.0.0'
+    },
+
+    app: {
+        History: '1.0.0'
     },
 
     metadata: {

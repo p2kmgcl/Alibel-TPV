@@ -84,6 +84,24 @@ alibel.test = {
 
     // Este es el conjunto de tests que van a ejecutarse
     tests: {
+        app: {
+            History: {
+                creating: function () {
+                    var sc = new alibel.collections.ShoppingCart([
+                            {date: new Date('1991-10-1')},
+                            {date: new Date('1991-10-19')},
+                            {date: new Date()}
+                        ]),
+                        scv = new alibel.views.ShoppingCartCollection({ collection: sc });
+                        h = new alibel.app.History({
+                            shoppingCartCollection: scv
+                        });
+                    
+                    return true;
+                }
+            }
+        },
+
         collections: {
             Item: {
                 // Ítems con código único
