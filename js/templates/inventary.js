@@ -2,7 +2,8 @@ alibel.templates.Inventary = '\
     <header>\
         <h1>Inventario</h1>\
         <form class="itemSearch">\
-            <input type="search" id="inventaryItemSearch" placeholder="Escribe el código o nombre de un ítem" />\
+            <input type="search" id="inventaryItemSearch"\
+                placeholder="Escribe el código o nombre de un ítem" />\
             <fieldset class="stockFilter">\
                 <input type="radio" name="stock" id="inventaryItemStockAll" value="all" />\
                 <label for="inventaryItemStockAll">Todos</label>\

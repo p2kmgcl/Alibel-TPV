@@ -6,7 +6,7 @@
     models: {
         Item: '1.0.2',
         ItemCart: '1.1.0',
-        ShoppingCart: '1.2.0'
+        ShoppingCart: '1.1.0'
     },
 
     templates: {
@@ -15,7 +15,8 @@
         ShoppingCart: '1.0.0',
 
         History: '1.0.0',
-        Inventary: '1.0.0'
+        Inventary: '1.0.1',
+        NewSell: '1.0.0'
     },
 
     views: {
@@ -34,7 +35,8 @@
 
     app: {
         History: '1.0.0',
-        Inventary: '1.0.0'
+        Inventary: '1.0.0',
+        NewSell: '1.0.0'
     },
 
     metadata: {
