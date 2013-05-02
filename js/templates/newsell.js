@@ -7,7 +7,9 @@ alibel.templates.NewSell = '\
         </form>\
     </header>\
     <form class="newSellEnd">\
-        <input type="button" id="newSellComplete" value="Completar" />\
-        <input type="button" id="newSellCancel" value="Cancelar" />\
+        <input type="button" id="newSellComplete"\
+            class="ui-state-highlight" value="Completar" />\
+        <input type="button" id="newSellCancel"\
+            class="ui-state-error" value="Cancelar" />\
     </form>\
 ';

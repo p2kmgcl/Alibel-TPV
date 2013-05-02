@@ -55,6 +55,9 @@ alibel.app.App = Backbone.View.extend({
         }
         this.$el.find('>.content').tabs();
 
+        // Crea el set de botones completar/cancelar
+        this.$el.find('.newSellEnd').buttonset();
+
         // Activa el reloj
         var me = this;
         $(function () { me.renderClock() });
