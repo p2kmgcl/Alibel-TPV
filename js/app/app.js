@@ -40,7 +40,10 @@ alibel.app.App = Backbone.View.extend({
         var me = this;
         $.getJSON('data/inventary.json', function (data) {
             me.inventary.addFromJSON(data);
-            me.render();
+            $.getJSON('data/history.json', function (data) {
+                me.history.addFromJSON(data, me.inventary);
+                me.render();
+            });
         });
 
         return this;

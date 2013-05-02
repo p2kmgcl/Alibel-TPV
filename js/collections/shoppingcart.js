@@ -21,5 +21,60 @@ alibel.collections.ShoppingCart = Backbone.Collection.extend({
             return (sCart.get('date') <= to &&
                      sCart.get('date') >= from);
         });
+    },
+
+    /**
+     * Añade una lista de carritos un objeto JSON
+     * @param {Object} data Datos que se van a procesar
+     * @param {alibel.collections.Item} itemCollection Colección de
+     *  ítems de la que se sacará la información necesaria.
+     * return {this}
+     */
+    addFromJSON: function (data, itemCollection) {
+        var finalSCarts = [],
+            cartItems,
+            item,
+            cartItem
+            me = this;
+
+        // Recorre todos los carritos para crearlos
+        _.each(data.sells, function (sCart) {
+            
+            // Recorre los items de cada carrito
+            cartItems = [];
+            _.each(sCart.items, function (sCartItem) {
+
+                // Busca el item en el inventario
+                item = itemCollection.where({ code: sCartItem.code });
+                if (item.length > 0) {
+                    
+                    // Si existe, crea el item de carrito. Sólo
+                    // lo añade si está correctamente validado
+                    try {
+                        cartItem = new alibel.models.ItemCart({
+                            item: item[0],
+                            quantity: sCartItem.quantity,
+                            price: (typeof sCartItem.price === 'number') ?
+                                sCartItem.price : -1
+                        });
+
+                        cartItems.push(cartItem);
+                    } catch(e) {
+                        throw e;
+                    }
+                }
+            });
+
+            // Si se ha añadido algún ítem, creamos el carrito
+            if (cartItems.length > 0) {
+                me.add({
+                    date: new Date(sCart.date),
+                    items: new alibel.collections.ItemCart(cartItems)
+                });
+            }
+        });
+
+        this.add(finalSCarts);
+        return this;
     }
 });

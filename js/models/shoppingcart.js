@@ -107,5 +107,17 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
             itemCart.getI('stock') - itemCart.get('quantity'));
 
         return this;
+    },
+
+    /**
+     * Añade una lista de carritos desde datos JSON
+     * @param {Object} data Datos que se van a procesar
+     * @param {alibel.collections.Item} itemCollection Colección de
+     *  ítems de la que se sacará la información necesaria.
+     * return {this}
+     */
+    addFromJSON: function (data, itemCollection) {
+        this.items.addFromJSON(data, itemCollection);
+        return this;
     }
 });

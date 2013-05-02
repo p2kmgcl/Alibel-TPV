@@ -1,0 +1,23 @@
+{
+    "date": "2013-05-02",
+    "sells": [{
+        "date": "1991-10-01 16:00",
+        "items": [{
+            "code": 1000,
+            "quantity": 12
+        },
+        {
+            "code": 1001,
+            "quantity": 1,
+            "price": 4.1
+        },
+        {
+            "code": 1027,
+            "quantity": 3
+        },
+        {
+            "code": 1160,
+            "quantity": 5
+        }]
+    }]
+}
