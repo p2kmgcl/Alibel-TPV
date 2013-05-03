@@ -64,6 +64,28 @@
         return this;
     },
 
+    /**
+     * Devuelve la fecha formada correctamente
+     * según el esquema usado en la aplicación
+     * @param  {Date} date Fecha que se quiere mostrar
+     * @return {string} Fecha correctamente escrita
+     */
+    formatDate: function (date) {
+        if (!(date instanceof Date)) {
+            throw new alibel.error('Incorrect param date',
+                'alibel.formatDate');
+        }
+
+        var minutes = ((date.getMinutes() < 10) ? '0' : '') +
+                        date.getMinutes();
+
+        return date.getDate() + '/' +
+                (date.getMonth() + 1) + '/' +
+                 date.getFullYear() + ' ' +
+                 date.getHours() + ':' +
+                 minutes;
+    },
+
     init: function () {
         var app = new alibel.app.App();
         $('body').append(app.el);

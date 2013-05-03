@@ -23,7 +23,7 @@ alibel.views.ShoppingCart = Backbone.View.extend({
     render: function () {
         this.$el.html(
             this.template({
-                date: this.model.get('date').toString(),
+                date: this.model.get('date'),
                 totalPrice: this.model.getTotal(),
                 totalItems: this.model.get('items').length
             }));

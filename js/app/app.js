@@ -76,14 +76,7 @@ alibel.app.App = Backbone.View.extend({
      * Actualiza el reloj cada 30 segundos
      */
     renderClock: function () {
-        var now = new Date(),
-            text = now.getDate() + '/' +
-                   (now.getMonth() + 1) + '/' +
-                   now.getFullYear() + ' ' +
-                   now.getHours() + ':' +
-                   now.getMinutes();
-
-        $('#alibelMainClock > time').html(text);
+        $('#alibelMainClock > time').html(alibel.formatDate(new Date()));
         setTimeout(arguments.callee, 30000);
     }
 

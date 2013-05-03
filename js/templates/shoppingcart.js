@@ -1,6 +1,6 @@
 alibel.templates.ShoppingCart = '\
     <header>\
-        <time><%= date %></time>\
+        <time><%= alibel.formatDate(date) %></time>\
         <span class="totalPrice price"><%= totalPrice.toFixed(2) %></span>\
         <span class="totalItems"><%= totalItems %></span>\
     </header>\
