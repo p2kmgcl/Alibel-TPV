@@ -9,7 +9,9 @@ alibel.app.App = Backbone.View.extend({
     template: _.template(alibel.templates.App),
 
     events: {
-        'click .mainMenu i': 'mainMenuClick'
+        'click .menuOption > i': 'mainMenuClick',
+        'click .menuOption > [href^=#sectionNewSell]': 'focusNewSellSearch',
+        'click .menuOption > [href^=#sectionInventary]': 'focusInventarySearch'
     },
 
     initialize: function () {
@@ -65,11 +67,27 @@ alibel.app.App = Backbone.View.extend({
         var me = this;
         $(function () { me.renderClock() });
 
+        // Por defecto enfoca al la busqueda
+        // de items para nuevas ventas
+        this.focusNewSellSearch();
+
         return this;
     },
 
+    /** Hace que se pueda hacer click en cualquier
+     parte del botón de menú */
     mainMenuClick: function () {
         $(event.target).find('~ a').trigger('click');
+    },
+
+    /** Enfoca la barra de búsqueda para nuevas compras */
+    focusNewSellSearch: function () {
+        $('#newSellItemSearch').focus();
+    },
+
+    /** Enfoca la barra de búsqueda para el inventario */
+    focusInventarySearch: function () {
+        $('#inventaryItemSearch').focus();
     },
 
     /**
