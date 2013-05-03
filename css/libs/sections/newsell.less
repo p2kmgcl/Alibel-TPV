@@ -1,0 +1,66 @@
+#newSellItemSearch {
+    .input;
+    width: 98%;
+    border-bottom: none;
+}
+
+#sectionNewSell {
+
+    > .itemList,
+    > .shoppingCart {
+        height: 35%;
+        overflow-y: auto;
+        border: solid black thin;
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: inset 0 0 0.5em #ccc,
+                    0 0 0.75em #ccc;
+        margin-top: 0;
+
+        .item {
+            .buttonItem;
+        }
+
+        .item.noStock {
+            display: none;
+        }
+    }
+
+    .shoppingCart {
+        overflow: visible;
+
+        header {
+            time,
+            .totalItems {
+                display: none;
+            }
+
+            .totalPrice {
+                position: absolute;
+                bottom: 1em;
+                left: 5%;
+                padding: 0.25em 1%;
+                border: solid @cantExpressMyself thin;
+                background-color: rgba(255, 255, 255, 0.5);
+                font-weight: bolder;
+                font-size: 1.1em;
+                .money;
+
+                &:before {
+                    content: 'Total: ';
+                    display: inline-block;
+                    padding-right: 1em;
+                }
+
+                &:after {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    .newSellEnd {
+        position: absolute;
+        bottom: 1em;
+        right: 5%;
+    }
+}

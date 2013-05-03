@@ -1,0 +1,25 @@
+#inventaryItemSearch {
+    .input;
+    width: 98%;
+}
+
+#sectionInventary {
+    .itemList {
+        padding-left: 0;
+        list-style: none;
+
+        .item {
+            .buttonItem;
+        }
+
+        &.lowStock > li {
+            display: none;
+            &.lowStock { display: inline-block; }
+        }
+
+        &.noStock > li {
+            display: none;
+            &.noStock { display: inline-block; }
+        }
+    }
+}

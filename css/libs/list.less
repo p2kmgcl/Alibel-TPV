@@ -1,0 +1,27 @@
+.itemList {
+    text-align: center;
+    padding-left: 0;
+    list-style: none;
+
+    > li {
+        display: inline-block;
+    }
+
+    &.lowStock {
+        > li {
+            display: none;
+            &.lowStock {
+                display: inline-block;
+            }
+        }
+    }
+
+    &.noStock {
+        > li {
+            display: none;
+            &.noStock {
+                display: inline-block;
+            }
+        }
+    }
+}

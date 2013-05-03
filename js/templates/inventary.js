@@ -1,6 +1,6 @@
 alibel.templates.Inventary = '\
     <header>\
-        <h1>Inventario</h1>\
+        <h1 class="sectionTitle">Inventario</h1>\
         <form class="itemSearch">\
             <input type="search" id="inventaryItemSearch"\
                 placeholder="Escribe el código o nombre de un ítem" />\

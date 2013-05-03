@@ -1,6 +1,6 @@
 alibel.templates.About = '\
     <header>\
-        <h1>Alibel TPV</h1>\
+        <h1 class="sectionTitle">Alibel TPV</h1>\
         <h2>Versión <%= version %></h2>\
     </header>\
 \
@@ -9,7 +9,7 @@ alibel.templates.About = '\
     documentación como al programa entregado con ella y su respectivo\
     código fuente.</p>\
 \
-    <blockquote>\
+    <blockquote class="license">\
         <p>Please if you use/modify or share this code refer to it\'s\
         author (Pablo Molina).</p>\
         <p>Alibel TPV</p>\

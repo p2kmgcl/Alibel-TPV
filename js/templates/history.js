@@ -1,6 +1,6 @@
 alibel.templates.History = '\
     <header>\
-        <h1>Listado de compras</h1>\
+        <h1 class="sectionTitle">Listado de compras</h1>\
         <form class="dateFilter">\
             <label for="historyDateFilterFrom">Desde</label>\
             <input id="historyDateFilterFrom" type="text" placeholder="dd/mm/aaaa" />\

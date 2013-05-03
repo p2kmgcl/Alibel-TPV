@@ -1,0 +1,121 @@
+/**
+ * Item que se muestra como un botón
+ */
+.buttonItem () {
+    position: relative;
+    top: 0;
+    display: inline-block;
+    padding: 0.5em;
+    margin: 1em;
+    min-width: 18.8em;
+    list-style: none;
+    text-align: right;
+    cursor: pointer;
+
+    border-radius: 0.2em;
+    border: solid @cantExpressMyself thin;
+    background-color: @specialTshirt;
+
+    box-shadow: inset 0 0 1em @writeIt,
+                0 0.25em 0.25em lighten(@cantExpressMyself, 50%);
+
+    transition: opacity ease 0.3s;
+
+    &:active {
+        top: 0.1em;
+        box-shadow: inset 0 0 1em darken(@writeIt, 10%),
+                    0 0.15em 0.15em lighten(@cantExpressMyself, 50%);
+    }
+
+    &.lowStock {
+        background-color: darken(@specialTshirt2, 10%);
+
+        &:before {
+            content: "\f107";
+            font-family: 'FontAwesome';
+            position: absolute;
+            top: 0.25em;
+            left: 0.5em;
+        }
+    
+        &.noStock {
+            opacity: 0.5;
+            &:hover { opacity: 1; }
+            &:before { content: "\f103" !important; }
+        }
+    }
+
+
+    .code {
+        font-family: @consoleFont;
+        font-size: 2em;
+        font-weight: bolder;
+        position: absolute;
+        bottom: -0.25em;
+        left: 0.25em;
+
+        opacity: 0.5;
+    }
+
+    .price {
+        .money;
+        font-weight: bolder;
+    }
+}
+
+/**
+ * Item que se muestra como un elemento
+ * de una lista
+ */
+.listItem () {
+    color: lighten(@cantExpressMyself, 5%);
+    list-style: none;
+    padding-left: 0;
+    padding: 0.25em 0;
+    margin: 0 auto;
+    width: 28em;
+    background-image: -webkit-linear-gradient(bottom,
+        fadeout(lighten(@cantExpressMyself, 50%), 70%) 10%,
+        fadeout(lighten(@cantExpressMyself, 50%), 95%) 75%);
+    box-shadow: 0 0.1em 0.1em lighten(@cantExpressMyself, 50%),
+                0 0 0.1em @cantExpressMyself;
+    text-shadow: 1px 1px 1px @writeIt;
+
+    li {
+        display: inline-block;
+        
+        &.code {
+            display: none;
+        }
+
+        &.name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 14em;
+        }
+
+        &.quantity {
+            float: left;
+            width: 2em;
+            margin-right: 1em;
+            text-align: right;
+        }
+
+        &.price {
+            .money;
+            opacity: 0.5;
+            width: 4em;
+            text-align: right;
+        }
+
+        &.finalPrice {
+            font-weight: bold;
+            .money;
+            width: 6em;
+            text-align: right;
+        }
+    }
+}
+

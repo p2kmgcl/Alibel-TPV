@@ -8,19 +8,19 @@ alibel.templates.App = '\
     </header>\
     <div class="content">\
         <ul class="mainMenu">\
-            <li>\
+            <li class="menuOption">\
                 <i class="icon-money"></i>\
                 <a href="#sectionNewSell">Nueva venta</a>\
             </li>\
-            <li>\
+            <li class="menuOption">\
                 <i class="icon-bar-chart"></i>\
                 <a href="#sectionHistory">Historial</a>\
             </li>\
-            <li>\
+            <li class="menuOption">\
                 <i class="icon-book"></i>\
                 <a href="#sectionInventary">Inventario</a>\
             </li>\
-            <li>\
+            <li class="menuOption">\
                 <i class="icon-question-sign"></i>\
                 <a href="#sectionAbout">Acerca de</a>\
             </li>\

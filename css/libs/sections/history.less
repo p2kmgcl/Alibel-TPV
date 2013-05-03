@@ -1,0 +1,37 @@
+#sectionHistory {
+
+    > header > form {
+        text-align: center;
+
+        > input {
+            .input;
+            margin-right: 1em;
+            text-align: center;
+            width: 10em;
+        }
+
+        > label,
+        > label:after {
+            vertical-align: bottom;
+            font-size: 1.1em;
+            font-weight: bolder;
+            opacity: 0.7;
+
+            &:after {
+                content: ': ';
+                top: 0;
+                opacity: 1;
+            }
+        }
+    }
+
+    .shoppingCartList {
+        list-style: none;
+        padding: 1em 0;
+        width: 30em;
+
+        .item {
+            .listItem;
+        }
+    }
+}
