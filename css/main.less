@@ -66,16 +66,8 @@
             &#sectionAbout > header > h1 { display: block; }
 
             > header > form > input[type^=search] {
-                font-size: 1.25em;
                 width: 98%;
-                padding: 0.3em 1%;
-                margin-top: 1em;
-                outline: none;
-                border: solid @cantExpressMyself thin;
-            
-                background-color: rgba(255, 255, 255, 0.8);
-                box-shadow: inset 0 0 0.5em #ccc,
-                            0 0 0.75em #ccc;
+                .genericInput;
             }
         }
     }
@@ -102,39 +94,38 @@
     }
 }
 
-/*******************************************************************************
- * Ítem genérico
- ******************************************************************************/
-
-.itemList {
-    text-align: center;
-    padding-left: 0;
-    list-style: none;
-
-    > li {
-        display: inline-block;
+/**
+ * Muestra una cantidad monetaria
+ * @type {String}
+ */
+.money (@money: '€', @wrapBegin: '', @wrapEnd: '') {
+    &:before {
+        content: @wrapBegin;
     }
-
-    &.lowStock {
-        > li {
-            display: none;
-            &.lowStock {
-                display: inline-block;
-            }
-        }
-    }
-
-    &.noStock {
-        > li {
-            display: none;
-            &.noStock {
-                display: inline-block;
-            }
-        }
+    &:after {
+        content: " @{money}@{wrapEnd}";
     }
 }
 
-.item {
+/**
+ * Aspecto de los elementos input
+ */
+.genericInput () {
+    font-size: 1.25em;
+    padding: 0.3em 1%;
+    margin-top: 1em;
+    outline: none;
+    border: solid @cantExpressMyself thin;
+    
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0 0 0.5em #ccc,
+                0 0 0.75em #ccc;
+}
+
+/**
+ * Item que se muestra como un botón
+ */
+.buttonItem () {
     position: relative;
     top: 0;
     display: inline-block;
@@ -197,9 +188,94 @@
 
     .price {
         font-weight: bolder;
+        .money;
+    }
+}
 
-        &:after {
-            content: ' €';
+/**
+ * Item que se muestra como un elemento
+ * de una lista
+ */
+.listItem () {
+    color: lighten(@cantExpressMyself, 5%);
+    list-style: none;
+    padding-left: 0;
+    padding: 0.25em 0;
+    margin: 0 auto;
+    width: 28em;
+    background-image: -webkit-linear-gradient(bottom,
+        fadeout(lighten(@cantExpressMyself, 50%), 70%) 10%,
+        fadeout(lighten(@cantExpressMyself, 50%), 95%) 75%);
+    box-shadow: 0 0.1em 0.1em lighten(@cantExpressMyself, 50%),
+                0 0 0.1em @cantExpressMyself;
+    text-shadow: 1px 1px 1px @writeIt;
+
+    li {
+        display: inline-block;
+        
+        &.code {
+            display: none;
+        }
+
+        &.name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 14em;
+        }
+
+        &.quantity {
+            float: left;
+            width: 2em;
+            margin-right: 1em;
+            text-align: right;
+        }
+
+        &.price {
+            .money;
+            opacity: 0.5;
+            width: 4em;
+            text-align: right;
+        }
+
+        &.finalPrice {
+            font-weight: bold;
+            .money;
+            width: 6em;
+            text-align: right;
+        }
+    }
+}
+
+/*******************************************************************************
+ * Lista de ítems genérica
+ ******************************************************************************/
+
+.itemList {
+    text-align: center;
+    padding-left: 0;
+    list-style: none;
+
+    > li {
+        display: inline-block;
+    }
+
+    &.lowStock {
+        > li {
+            display: none;
+            &.lowStock {
+                display: inline-block;
+            }
+        }
+    }
+
+    &.noStock {
+        > li {
+            display: none;
+            &.noStock {
+                display: inline-block;
+            }
         }
     }
 }
@@ -212,6 +288,10 @@
     .itemList {
         padding-left: 0;
         list-style: none;
+
+        .item {
+            .buttonItem;
+        }
 
         > li {
             display: inline-block;
@@ -256,6 +336,10 @@
                     0 0 0.75em #ccc;
         margin-top: 0;
 
+        .item {
+            .buttonItem;
+        }
+
         .item.noStock {
             display: none;
         }
@@ -279,6 +363,7 @@
                 background-color: rgba(255, 255, 255, 0.5);
                 font-weight: bolder;
                 font-size: 1.1em;
+                .money;
 
                 &:before {
                     content: 'Total: ';
@@ -287,7 +372,6 @@
                 }
 
                 &:after {
-                    content: '€';
                     display: inline-block;
                 }
             }
@@ -298,5 +382,47 @@
         position: absolute;
         bottom: 1em;
         right: 5%;
+    }
+}
+
+/************************************************************
+ * Sección de historial
+ ***********************************************************/
+
+#sectionHistory {
+
+    > header > form {
+        text-align: center;
+
+        > input {
+            .genericInput;
+            margin-right: 1em;
+            text-align: center;
+            width: 10em;
+        }
+
+        > label,
+        > label:after {
+            vertical-align: bottom;
+            font-size: 1.1em;
+            font-weight: bolder;
+            opacity: 0.7;
+
+            &:after {
+                content: ': ';
+                top: 0;
+                opacity: 1;
+            }
+        }
+    }
+
+    .shoppingCartList {
+        list-style: none;
+        padding: 1em 0;
+        width: 30em;
+
+        .item {
+            .listItem;
+        }
     }
 }
