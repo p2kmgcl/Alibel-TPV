@@ -2,6 +2,9 @@
  * Vista de una lista de ítems
  * Contiene una colección de ítems en this.collection y
  * un array de vistas en this._views
+ *
+ * @todo El carrito solo actualiza el precio final cuando se añade
+ *  un item que NO estaba insertado.
  */
 alibel.views.ShoppingCart = Backbone.View.extend({
     tagName: 'div',

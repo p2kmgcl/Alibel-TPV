@@ -6,6 +6,7 @@ alibel.collections.Item = Backbone.Collection.extend({
 
     initialize: function () {
         this.on('add', this.checkUnique, this);
+        return this;
     },
 
     /**

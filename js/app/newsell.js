@@ -1,5 +1,8 @@
 /**
  * Vista para crear nuevas compras
+ *
+ * @todo Al cancelar una compra, la lista de items de inventario
+ *  no se actualiza.
  */
 alibel.app.NewSell = Backbone.View.extend({
     tagName: 'section',
@@ -22,6 +25,8 @@ alibel.app.NewSell = Backbone.View.extend({
         this.itemCollection = new alibel.views.ItemCollection({
             collection: params.itemCollection
         });
+
+        this.shoppingCartCollection = params.shoppingCartCollection;
 
         this.render();
     },
@@ -99,17 +104,24 @@ alibel.app.NewSell = Backbone.View.extend({
 
     /**
      * Completa la compra y deja todo listo para una nueva.
-     * @return {alibel.models.ShoppingCart} Devuelve el carrito
-     * que se usará en la nueva compra
+     * Añade la compra antigua a una lista de compras que tiene
+     * guardada en this.shoppingCartCollection
      */
     completeSell: function () {
         if (this.shoppingCart.model.items.length > 0) {
+            // Añade la compra a la lista de compras
+            this.shoppingCartCollection.add(this.shoppingCart.model);
+
+            // Crea un nuevo modelo de carrito
+            // y actualiza la vista asociada
             this.shoppingCart.model = new alibel.models.ShoppingCart({
-                collection: new alibel.collections.Item()
+                items: new alibel.collections.Item(),
+                date: new Date()
             });
-            this.shoppingCart.model.set('date', new Date());
+            
+            this.shoppingCart.render();
         }
-        return this.shoppingCart.model;
+
     },
 
     /**

@@ -34,7 +34,8 @@ alibel.app.App = Backbone.View.extend({
             }),
             newsell: new alibel.app.NewSell({
                 shoppingCart: this.shoppingCart,
-                itemCollection: this.inventary
+                itemCollection: this.inventary,
+                shoppingCartCollection: this.history
             })
         };
 
