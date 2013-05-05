@@ -1,66 +1,100 @@
-#newSellItemSearch {
-    .input;
-    width: 98%;
-    border-bottom: none;
-}
-
 #sectionNewSell {
 
     > .itemList,
     > .shoppingCart {
-        height: 35%;
+        float: left;
+
+        width: 47.5%;
+        height: 60%;
+        padding: 0;
+        margin: 0 1%;
         overflow-y: auto;
-        border: solid black thin;
-        background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: inset 0 0 0.5em #ccc,
-                    0 0 0.75em #ccc;
-        margin-top: 0;
+        display: inline-block;
+        border: solid @cantExpressMyself thin;
+    }
+
+    > .itemList {
+        [class^=itemWrapper] {
+            width: 50%;
+            display: inline-block;
+            overflow: hidden;
+
+            &.noStock { display: none; }
+        }
 
         .item {
             .buttonItem;
-        }
+            width: 95%;
+            margin: 0;
+            padding: 0.5em 2.5%;
+            border: none;
+            border-radius: 0;
+            box-shadow: inset -1px -1px 1px @cantExpressMyself;
+            font-size: 0.9em;
 
-        .item.noStock {
-            display: none;
+            &.noStock { display: none; }
+            .code { font-size: 1.5em; }
+            .name {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 90%;
+                margin-left: auto;
+                margin-right: 0;
+            }
         }
     }
 
-    .shoppingCart {
-        overflow: visible;
+    > .shoppingCart {
+        .shoppingCart;
+        position: relative;
 
         header {
-            time,
-            .totalItems {
+            height: 0;
+
+            .totalItems,
+            time {
                 display: none;
             }
 
             .totalPrice {
+                .money('€', 'Total: ', '');
                 position: absolute;
-                bottom: 1em;
-                left: 5%;
-                padding: 0.25em 1%;
-                border: solid @cantExpressMyself thin;
-                background-color: rgba(255, 255, 255, 0.5);
-                font-weight: bolder;
+                bottom: 0;
+                right: 0;
+
                 font-size: 1.1em;
-                .money;
+                font-weight: bold;
+                padding: 0.25em 0.5em;
+                box-shadow: -1px -1px 1px @cantExpressMyself,
+                            inset 0 0 2em @writeIt;
+            }
+        }
 
-                &:before {
-                    content: 'Total: ';
-                    display: inline-block;
-                    padding-right: 1em;
-                }
+        .itemList {
+            list-style: none;
+            padding-left: 0;
+            margin: 0 auto;
 
-                &:after {
-                    display: inline-block;
+            [class^=itemCartWrapper] {
+                list-style: none;
+            }
+
+            .itemCart {
+                .listItem;
+                width: 100%;
+            
+                .name {
+                    width: 16em !important;
                 }
             }
         }
     }
 
-    .newSellEnd {
-        position: absolute;
-        bottom: 1em;
-        right: 5%;
-    }
+}
+
+#newSellItemSearch {
+    .input;
+    width: 98%;
 }

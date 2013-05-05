@@ -1,4 +1,4 @@
-.itemList {
+.itemList () {
     text-align: center;
     padding-left: 0;
     list-style: none;
@@ -22,6 +22,48 @@
             &.noStock {
                 display: inline-block;
             }
+        }
+    }
+}
+
+.shoppingCart () {
+    .buttonItem;
+    list-style: none;
+    padding: 1em 0;
+    margin: 1em auto;
+    width: 96%;
+
+    > header {
+        padding: 0.75em 0;
+
+        time {
+            position: absolute;
+            top: 0.75em;
+            left: 2.5%;
+            font-size: 1.2em;
+            font-weight: bolder;
+        }
+
+        .totalPrice {
+            position: absolute;
+            font-size: 1.2em;
+            top: 0.75em;
+            right: 2.5%;
+        }
+
+        .totalItems {
+            display: none;
+        }
+    }
+
+    .itemList {
+        list-style: none;
+        padding-left: 0;
+
+        .item {
+            .listItem;
+            padding: 0.5em 2%;
+            width: 96%;
         }
     }
 }

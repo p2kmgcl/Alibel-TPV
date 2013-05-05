@@ -51,7 +51,7 @@ alibel.views.ShoppingCart = Backbone.View.extend({
                     .append(newView.el);
 
         // Añade la nueva vista al DOM
-        this.$el.append($li);
+        this.$el.find('> .itemList').append($li);
         return this;
     }
 });
