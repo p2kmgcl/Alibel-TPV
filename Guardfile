@@ -4,6 +4,6 @@
 guard 'webrick' do
 end
 
-guard 'livereload', :grace_period => 0.5 do
+guard 'livereload', :grace_period => 0.5, :apply_css_live => false do
   watch(/.*/)
 end

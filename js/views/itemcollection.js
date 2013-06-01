@@ -58,9 +58,19 @@ alibel.views.ItemCollection = Backbone.View.extend({
      * @return {alibel.views.ItemCollection}  Se devuelve a sí mismo
      */
     remove: function (item) {
-        this.views[item.get('code')].remove();
-        delete this.views[item.get('code')];
-        // Lanza el evento
+    	// Busca el item en las vistas
+        var itemView = this.views[item.get('code')];
+
+        if (!itemView) {
+			throw new alibel.error('Item with code '
+				+ item.get('code') + ' doesnt have a view in this collection',
+				'alibel.views.ItemCollection');
+        }
+        
+        itemView.remove();
+        delete itemView;
+
+        // Lanza el evento y finaliza
         this.trigger('remove');
         return this;
     },

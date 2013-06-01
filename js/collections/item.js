@@ -31,8 +31,9 @@ alibel.collections.Item = Backbone.Collection.extend({
     /**
      * Carga los items desde un fichero JSON y los añade al inventario.
      * @param {Object} data Resultado de la carga del fichero JSON.
+     * @param {Function} callback Función que se llama cuando la carga ha terminado
      */
-    addFromJSON: function (JSONdata) {
+    addFromJSON: function (JSONdata, callback) {
         var finalItems = [];
         
         // Itera en cada item y lo procesa
@@ -55,6 +56,9 @@ alibel.collections.Item = Backbone.Collection.extend({
         // Finalmente añade los ítems
         // a la colección
         this.add(finalItems);
+
+        // Llama a la función pasada
+        callback(this);
     },
 
     /**

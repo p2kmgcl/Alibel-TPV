@@ -28,12 +28,13 @@ alibel.collections.ShoppingCart = Backbone.Collection.extend({
      * @param {Object} data Datos que se van a procesar
      * @param {alibel.collections.Item} itemCollection Colección de
      *  ítems de la que se sacará la información necesaria.
+     * @param {Function} callback Función que se ejecutará cuando esté listo.
      * return {this}
      */
-    addFromJSON: function (data, itemCollection) {
+	addFromJSON: function (data, itemCollection, callback) {
         var cartItems,
             item,
-            cartItem
+            cartItem,
             me = this;
 
         // Recorre todos los carritos para crearlos
@@ -72,6 +73,7 @@ alibel.collections.ShoppingCart = Backbone.Collection.extend({
                 });
             }
         });
+        callback(this);
         return this;
     }
 });

@@ -15,6 +15,11 @@ alibel.app.App = Backbone.View.extend({
     },
 
     initialize: function () {
+        // Referencia a this necesaria
+        // para acceder al objeto global
+        // cuando haya cargado todo
+        var me = this;
+
         // Crea el inventario, historial y carrito de compra
         // principal
         this.inventary = new alibel.collections.Item();
@@ -23,30 +28,36 @@ alibel.app.App = Backbone.View.extend({
             collection: new alibel.collections.ItemCart()
         });
 
-        // Crea las secciones de la aplicación
-        this.sections = {
-            about: new alibel.app.About(),
-            history: new alibel.app.History({
-                shoppingCartCollection: this.history
-            }),
-            inventary: new alibel.app.Inventary({
-                itemCollection: this.inventary
-            }),
-            newsell: new alibel.app.NewSell({
-                shoppingCart: this.shoppingCart,
-                itemCollection: this.inventary,
-                shoppingCartCollection: this.history
-            })
-        };
-
         // Carga el inventario
-        var me = this;
-        $.getJSON('data/inventary.json', function (data) {
-            me.inventary.addFromJSON(data);
-            $.getJSON('data/history.json', function (data) {
-                console.log(data);
-                me.history.addFromJSON(data, me.inventary);
-                me.render();
+        $.getJSON('data/inventary_huge.json', function (data) {
+            me.inventary.addFromJSON(data, function () {
+
+                // Carga el historial cuando los items están listos
+                $.getJSON('data/history.json', function (data) {
+                    
+                    // Procesa la interfaz cuando cargue el inventario
+                    me.history.addFromJSON(data, me.inventary, function () {
+
+                        // Crea las secciones de la aplicación
+                        me.sections = {
+                            about: new alibel.app.About(),
+                            history: new alibel.app.History({
+                                shoppingCartCollection: me.history
+                            }),
+                            inventary: new alibel.app.Inventary({
+                                itemCollection: me.inventary
+                            }),
+                            newsell: new alibel.app.NewSell({
+                                shoppingCart: me.shoppingCart,
+                                itemCollection: me.inventary,
+                                shoppingCartCollection: me.history
+                            })
+                        };
+
+                        // Renderiza todo
+                        me.render();
+                    });
+                });
             });
         });
 
@@ -72,6 +83,11 @@ alibel.app.App = Backbone.View.extend({
         // Por defecto enfoca al la busqueda
         // de items para nuevas ventas
         this.focusNewSellSearch();
+
+        // Oculta el diálogo de carga
+        $('body > .alibel-loading')
+            .delay(500)
+            .fadeOut(1000);
 
         return this;
     },
