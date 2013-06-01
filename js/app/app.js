@@ -20,7 +20,7 @@ alibel.app.App = Backbone.View.extend({
         this.inventary = new alibel.collections.Item();
         this.history = new alibel.collections.ShoppingCart();
         this.shoppingCart = new alibel.models.ShoppingCart({
-            collection: new alibel.collections.Item()
+            collection: new alibel.collections.ItemCart()
         });
 
         // Crea las secciones de la aplicación

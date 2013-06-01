@@ -4,7 +4,7 @@
  */
 alibel.models.ShoppingCart = Backbone.Model.extend({
     defaults: {
-        items: new alibel.collections.ItemCart(),
+        collection: new alibel.collections.ItemCart(),
         date: new Date()
     },
 
@@ -17,9 +17,9 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
         }
 
         // Acceso más práctico a los items
-        this.items = this.get('items');
+        this.collection = this.get('collection');
         // Propaga los eventos de la colección de ítems
-        this.items
+        this.collection
             .on('add', function (item) { this.trigger('change', item); }, this)
             .on('remove', function (item) { this.trigger('change', item); }, this);
     },
@@ -44,7 +44,7 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
     validate: function (attrs) {
         if (!(attrs.date instanceof Date)) {
             return 'Invalid date';
-        } else if (!(attrs.items instanceof alibel.collections.ItemCart)) {
+        } else if (!(attrs.collection instanceof alibel.collections.ItemCart)) {
             return 'Invalid item collection';
         }
     },
@@ -55,7 +55,7 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
      */
     getTotal: function () {
         var result = 0;
-        this.items.each(function (itemCart) {
+        this.collection.each(function (itemCart) {
             result += itemCart.getPrice() * itemCart.get('quantity');
         });
         return result;
@@ -86,7 +86,7 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
         }
 
         // Comprobamos si el item ya está en el carrito
-        var existingItems = this.items.filter(function (_itemCart) {
+        var existingItems = this.collection.filter(function (_itemCart) {
                 return _itemCart.getI('code') === itemCart.getI('code');
             });
 
@@ -99,7 +99,7 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
 
         // Si no añadimos el nuevo item
         } else {
-            this.items.add(itemCart);
+            this.collection.add(itemCart);
         }
 
         // Finalmente restamos el stock añadido
@@ -117,7 +117,7 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
      * return {this}
      */
     addFromJSON: function (data, itemCollection) {
-        this.items.addFromJSON(data, itemCollection);
+        this.collection.addFromJSON(data, itemCollection);
         return this;
     }
 });

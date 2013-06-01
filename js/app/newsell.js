@@ -18,12 +18,14 @@ alibel.app.NewSell = Backbone.View.extend({
     },
 
     initialize: function (params) {
-        this.shoppingCart = new alibel.views.ShoppingCart({
-            model: params.shoppingCart
+        this.shoppingCart = params.shoppingCart;
+        this.$shoppingCart = new alibel.views.ShoppingCart({
+            model: this.shoppingCart
         });
         
-        this.itemCollection = new alibel.views.ItemCollection({
-            collection: params.itemCollection
+        this.itemCollection = params.itemCollection;
+        this.$itemCollection = new alibel.views.ItemCollection({
+            collection: this.itemCollection
         });
 
         this.shoppingCartCollection = params.shoppingCartCollection;
@@ -34,10 +36,12 @@ alibel.app.NewSell = Backbone.View.extend({
     render: function () {
         this.$el
             .html(this.template())
-            .append(this.itemCollection.el)
-            .append(this.shoppingCart.el);
+            .append(this.$itemCollection.el)
+            .append(this.$shoppingCart.el);
 
-        this.$itemCollection =
+        // Guarda la lista de items del DOM para usarla
+        // en el metodo searchItem
+        this.$itemCollectionList =
             this.$el.find('> .itemList');
     },
 
@@ -54,17 +58,23 @@ alibel.app.NewSell = Backbone.View.extend({
         // de resultados
         if (event.which === ENTER_KEY) {
             var firstResult =
-                    $(this.$itemCollection
+                    $(this.$itemCollectionList
                     .find('> li')
-                    .not('.hidden, .noStock')[0])
-                        .find('.code')
-                            .html();
+                    .not('.hidden, .noStock')[0]);
 
-            this.addToCart(event, parseInt(firstResult));
+            if (firstResult.length > 0) {
+                var firstResultCode = firstResult
+                                        .find('.code')
+                                        .html();
+            }
+
+            if (typeof firstResultCode !== 'undefined') {
+                this.addToCart(event, parseInt(firstResultCode));
+            }
             return false;
         }
 
-        this.itemCollection.search(
+        this.$itemCollection.search(
             $("#newSellItemSearch").val());
     },
 
@@ -88,7 +98,7 @@ alibel.app.NewSell = Backbone.View.extend({
         }
 
         // Obtenemos el item asociado al codigo...
-        var item = firstItem = this.itemCollection.collection.where({
+        var item = firstItem = this.itemCollection.where({
             code: code
         })[0];
 
@@ -98,7 +108,7 @@ alibel.app.NewSell = Backbone.View.extend({
         }
 
         // Añadimos el item
-        this.shoppingCart.model.add(item, 1);
+        this.shoppingCart.add(item, 1);
         $('#newSellItemSearch').focus();
     },
 
@@ -108,18 +118,18 @@ alibel.app.NewSell = Backbone.View.extend({
      * guardada en this.shoppingCartCollection
      */
     completeSell: function () {
-        if (this.shoppingCart.model.items.length > 0) {
+        if (this.shoppingCart.collection.length > 0) {
             // Añade la compra a la lista de compras
             this.shoppingCartCollection.add(this.shoppingCart.model);
 
             // Crea un nuevo modelo de carrito
             // y actualiza la vista asociada
-            this.shoppingCart.model = new alibel.models.ShoppingCart({
-                items: new alibel.collections.Item(),
+            this.shoppingCart = new alibel.models.ShoppingCart({
+                collection: new alibel.collections.ItemCart(),
                 date: new Date()
             });
             
-            this.shoppingCart.render();
+            this.$shoppingCart.render();
         }
 
     },
@@ -132,12 +142,12 @@ alibel.app.NewSell = Backbone.View.extend({
 
         // Recupera todas las unidades, vacía el carrito y actualiza
         // la fecha de compra
-        this.shoppingCart.model.items
+        this.shoppingCart.collection
             .each(function (itemCart) {
                 itemCart.setI('stock',
                     itemCart.getI('stock') + itemCart.get('quantity'));
             });
-        this.shoppingCart.model.items.reset();
-        this.shoppingCart.model.set('date', new Date());
+        this.shoppingCart.collection.reset();
+        this.shoppingCart.set('date', new Date());
     }
 });
