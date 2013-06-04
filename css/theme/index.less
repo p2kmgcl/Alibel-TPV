@@ -1,0 +1,48 @@
+/**
+ * Paleta de colores: http://www.colourlovers.com/palette/359978/w_o_r_d_l_e_s_s_.
+ */
+
+@white: #FFFFFF;
+@specialTshirt: #CBE86B;
+@writeIt: #F2E9E1;
+@cantExpressMyself: #1C140D;
+@specialTshirt2: #CBE86B;
+
+@mainFont: Droid Sans, Ubuntu, Tahoma, Verdana;
+@consoleFont: Consolas, Inconsolata, Monospace;
+
+@import "mixins.less";
+
+@import "elements/item.less";
+@import "elements/list.less";
+
+@import "structure/header.less";
+@import "structure/mainmenu.less";
+@import "structure/section.less";
+
+@import "sections/newsell.less";
+@import "sections/history.less";
+@import "sections/inventary.less";
+@import "sections/about.less";
+
+#alibel {
+    font-family: @mainFont;
+    background: lighten(@specialTshirt2, 20%);
+}
+
+/*::-webkit-scrollbar {
+    width: 1.5em;
+    z-index: 99999;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0.7em 0 0.5em -0.5em
+        fadeout(@cantExpressMyself, 50%);
+}
+ 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 0.5em
+            fadeout(darken(@writeIt, 50%), 50%),
+            0 0 1px 1px @cantExpressMyself; 
+    background-color: fadeout(@cantExpressMyself, 50%);
+}*/

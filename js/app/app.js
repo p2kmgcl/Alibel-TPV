@@ -5,7 +5,7 @@
  */
 alibel.app.App = Backbone.View.extend({
     tagName: 'div',
-    className: 'alibel',
+    id: 'alibel',
     template: _.template(alibel.templates.App),
 
     events: {

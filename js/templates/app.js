@@ -7,7 +7,7 @@ alibel.templates.App = '\
         </span>\
     </header>\
     <div class="content">\
-        <ul class="mainMenu">\
+        <ul id="mainMenu">\
             <li class="menuOption">\
                 <i class="icon-money"></i>\
                 <a href="#sectionNewSell">Nueva venta</a>\
