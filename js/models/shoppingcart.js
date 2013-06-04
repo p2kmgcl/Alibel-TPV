@@ -21,7 +21,8 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
         // Propaga los eventos de la colección de ítems
         this.collection
             .on('add', function (item) { this.trigger('change', item); }, this)
-            .on('remove', function (item) { this.trigger('change', item); }, this);
+            .on('remove', function (item) { this.trigger('change', item); }, this)
+            .on('change', function (item) { this.trigger('change', item); }, this);
     },
 
     /**
@@ -96,10 +97,6 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
                 existingItems[0].get('quantity') +
                 itemCart.get('quantity'),
             { validate: true });
-
-            // Activamos el evento de cambio
-            // manualmente para que se detecte el añadido
-            this.trigger('change');
 
         // Si no añadimos el nuevo item
         } else {

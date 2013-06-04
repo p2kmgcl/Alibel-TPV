@@ -7,7 +7,6 @@ AlibelTPV es un Terminal Punto-Venta escrito en JavaScript y ayudado de la libre
 ## Tareas pendientes
 
   - Nueva venta
-    - El total solo se actualiza cuando aparece un nuevo item o se elimina un item del carrito, hacer que cambie al modificar la cantidad.
     - Permitir eliminar items del carrito.
     - Completar el proceso de compra.
 
