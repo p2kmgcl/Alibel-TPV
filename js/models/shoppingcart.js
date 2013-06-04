@@ -97,6 +97,10 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
                 itemCart.get('quantity'),
             { validate: true });
 
+            // Activamos el evento de cambio
+            // manualmente para que se detecte el añadido
+            this.trigger('change');
+
         // Si no añadimos el nuevo item
         } else {
             this.collection.add(itemCart);
