@@ -36,8 +36,8 @@ alibel.app.NewSell = Backbone.View.extend({
     render: function () {
         var $newSellEnd = this.$el.html(this.template())
                             .find('> .newSellEnd');
-        this.$itemCollection.$el.insertBefore($newSellEnd);
         this.$shoppingCart.$el.insertBefore($newSellEnd);
+        this.$itemCollection.$el.insertBefore($newSellEnd);
 
         // Guarda la lista de items del DOM para usarla
         // en el metodo searchItem
