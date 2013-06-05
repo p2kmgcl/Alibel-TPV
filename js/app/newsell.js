@@ -80,8 +80,7 @@ alibel.app.NewSell = Backbone.View.extend({
                     .width(origin.width())
                     .height(origin.height())
                     .find('>.stock').remove();
-                
-                console.dir(clone);
+
                 return clone;
             },
 

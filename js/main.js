@@ -89,6 +89,9 @@
     init: function () {
         var app = new alibel.app.App();
         $('body').append(app.el);
+
+        // Permite el acceso desde el exterior
+        alibel.instance = app;
     }
 };
 

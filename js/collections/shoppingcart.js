@@ -31,8 +31,7 @@ alibel.collections.ShoppingCart = Backbone.Collection.extend({
      * return {this}
      */
     addFromJSON: function (data, itemCollection) {
-        var finalSCarts = [],
-            cartItems,
+        var cartItems,
             item,
             cartItem
             me = this;
@@ -69,12 +68,10 @@ alibel.collections.ShoppingCart = Backbone.Collection.extend({
             if (cartItems.length > 0) {
                 me.add({
                     date: new Date(sCart.date),
-                    items: new alibel.collections.ItemCart(cartItems)
+                    collection: new alibel.collections.ItemCart(cartItems)
                 });
             }
         });
-
-        this.add(finalSCarts);
         return this;
     }
 });
