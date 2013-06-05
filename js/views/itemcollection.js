@@ -47,6 +47,8 @@ alibel.views.ItemCollection = Backbone.View.extend({
         // Comprueba el stock del item
         this.checkStock(item);
 
+        // Lanza el evento
+        this.trigger('add', newView);
         return this;
     },
 
@@ -58,6 +60,8 @@ alibel.views.ItemCollection = Backbone.View.extend({
     remove: function (item) {
         this.views[item.get('code')].remove();
         delete this.views[item.get('code')];
+        // Lanza el evento
+        this.trigger('remove');
         return this;
     },
 
@@ -66,12 +70,22 @@ alibel.views.ItemCollection = Backbone.View.extend({
      * añadir la clase.
      */
     checkStock: function (item) {
+        var $item = this.views[item.get('code')]
+
+        $item
+          .removeClass('noStock')
+          .removeClass('lowStock');
+
         if (item.get('stock') === 0) {
-            this.views[item.get('code')].addClass('noStock');
+            $item.addClass('noStock');
         }
         if (item.get('stock') < item.get('minStock')) {
-            this.views[item.get('code')].addClass('lowStock');
+            $item.addClass('lowStock');
         }
+
+        // Lanza el evento
+        this.trigger('change', $item);
+        return this;
     },
 
     /**

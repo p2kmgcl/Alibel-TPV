@@ -34,6 +34,7 @@ alibel.views.ShoppingCart = Backbone.View.extend({
         this.model.get('collection').each(function (itemCart) {
             this.add(itemCart);
         }, this);
+        return this;
     },
 
     /**

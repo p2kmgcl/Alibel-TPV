@@ -28,9 +28,21 @@ alibel.app.NewSell = Backbone.View.extend({
             collection: this.itemCollection
         });
 
+        // Guarda el historial de carritos para poder
+        // completar una compra
         this.shoppingCartCollection = params.shoppingCartCollection;
 
+        // Activa el drag & drop en los items
+        var me = this;
+        this.$shoppingCart.$el.droppable({
+            drop: function (event, ui) {
+                var code = parseInt(ui.draggable.find('>.code').html());
+                me.addToCart(event, code); }
+        });
+        this.$itemCollection.on('add', this.itemDragging, this);
+
         this.render();
+        return this;
     },
 
     render: function () {
@@ -43,6 +55,50 @@ alibel.app.NewSell = Backbone.View.extend({
         // en el metodo searchItem
         this.$itemCollectionList =
             this.$el.find('> .itemList');
+        return this;
+    },
+
+    /**
+     * Activa la posibilidad de arrastrar items
+     * al carrito para añadirlos de uno en uno
+     * @param  {alibel.Views.ItemView} $itemView
+     */
+    itemDragging: function ($itemView) {
+        $itemView.$el.draggable({
+            opacity: 0.9,
+            revert: 'invalid',
+            scroll: false,
+            zIndex: 9999,
+
+            helper: function () {
+                var origin = $itemView.$el,
+                    clone = origin.clone();
+
+                clone
+                    .width(origin.width() * 0.8)
+                    .height(origin.height())
+                    .find('>.stock').remove();
+                
+                console.dir(clone);
+                return clone;
+            },
+
+            start: function (event, ui) {
+                // Modifica el stock de forma ficticia
+                // para que se vea que se ha quitado un item
+                var $stock = $itemView.$el.find('>.stock')
+                $stock.html(
+                    ($itemView.model.get('stock') - 1) +
+                    ' ' + ($stock.html().split(' ')[1])
+                );
+            },
+
+            stop: function (event, ui) {
+                // Restaura la cuenta de items
+                $itemView.model.trigger('change', $itemView.model);
+            }
+        });
+        return this;
     },
 
     /**
@@ -118,20 +174,33 @@ alibel.app.NewSell = Backbone.View.extend({
      * guardada en this.shoppingCartCollection
      */
     completeSell: function () {
+        // Comprueba si hay algún ítem en la compra
+        // en caso de que no haya no hacemos nada
         if (this.shoppingCart.collection.length > 0) {
-            // Añade la compra a la lista de compras
-            this.shoppingCartCollection.add(this.shoppingCart.model);
 
-            // Crea un nuevo modelo de carrito
-            // y actualiza la vista asociada
-            this.shoppingCart = new alibel.models.ShoppingCart({
-                collection: new alibel.collections.ItemCart(),
+            // Añade la compra a la lista de compras
+            this.shoppingCartCollection.add({
+                collection: this.shoppingCart.collection.clone(),
+                date: this.shoppingCart.date
+            });
+
+            // Reinicia el carrito para la próxima
+            // compra
+            this.shoppingCart.set({
+                collection: this.shoppingCart.get('collection').reset(),
                 date: new Date()
             });
             
-            this.$shoppingCart.render();
+            // Actualiza la vista del carrito
+            // y la deja preparada
+            var me = this;
+            this.$shoppingCart.render().$el.droppable({
+                drop: function (event, ui) {
+                    var code = parseInt(ui.draggable.find('>.code').html());
+                    me.addToCart(event, code); }
+            });
         }
-
+        return this;
     },
 
     /**
