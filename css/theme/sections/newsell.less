@@ -30,6 +30,7 @@
                 padding: 0 1%;
                 border: none;
                 float: left;
+                font-size: 1.25em;
             }
         }
     }
@@ -144,6 +145,29 @@
     > .shoppingCart {
         border: solid @cantExpressMyself thin;
         position: relative;
+
+        &.ui-dragging {
+            box-shadow: 0 0 1em lighten(@cantExpressMyself, 50%);
+
+            &:before {
+                content: 'Suelta el item aquí para añadirlo al carrito';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                box-sizing: border-box;
+                padding-top: 20%;
+                height: 100%;
+                width: 100%;
+                text-align: center;
+                font-size: 2.25em;
+                font-weight: bolder;
+                background-color: @specialTshirt2;
+                box-shadow: inset 0 0 1em lighten(@cantExpressMyself, 30%);
+                z-index: 9999;
+                opacity: 0.9;
+            }
+        }
 
         > header {
             position: absolute;

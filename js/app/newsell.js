@@ -35,6 +35,7 @@ alibel.app.NewSell = Backbone.View.extend({
         // Activa el drag & drop en los items
         var me = this;
         this.$shoppingCart.$el.droppable({
+            activeClass: 'ui-dragging',
             drop: function (event, ui) {
                 var code = parseInt(ui.draggable.find('>.code').html());
                 me.addToCart(event, code); }
@@ -75,7 +76,8 @@ alibel.app.NewSell = Backbone.View.extend({
                     clone = origin.clone();
 
                 clone
-                    .width(origin.width() * 0.8)
+                    .addClass('ui-dragging')
+                    .width(origin.width())
                     .height(origin.height())
                     .find('>.stock').remove();
                 
@@ -195,6 +197,7 @@ alibel.app.NewSell = Backbone.View.extend({
             // y la deja preparada
             var me = this;
             this.$shoppingCart.render().$el.droppable({
+                activeClass: 'ui-dragging',
                 drop: function (event, ui) {
                     var code = parseInt(ui.draggable.find('>.code').html());
                     me.addToCart(event, code); }
