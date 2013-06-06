@@ -10,7 +10,7 @@ alibel.app.NewSell = Backbone.View.extend({
     template: _.template(alibel.templates.NewSell),
 
     events: {
-        'keypress #newSellItemSearch':  'searchItem',
+        'keyup #newSellItemSearch':     'searchItem',
         'click #newSellComplete':       'completeSell',
         'click #newSellCancel':         'cancelSell',
 

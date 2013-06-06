@@ -116,10 +116,13 @@ alibel.views.ItemCollection = Backbone.View.extend({
 
         // Muestra todos los ítems escondidos (por antiguas búsquedas)
         // y finalmente esconde los que no encajan en el resultado
-        this.$el.find(' > li.hidden').removeClass('hidden');
+        var me = this;
+        _.each(result, function (item) {
+            me.views[item.get('code')].$el.parent().removeClass('hidden');
+        });
         _.each(inverse, function (item) {
-            this.views[item.get('code')].$el.addClass('hidden');
-        }, this);
+            me.views[item.get('code')].$el.parent().addClass('hidden');
+        });
 
         return this;
     }
