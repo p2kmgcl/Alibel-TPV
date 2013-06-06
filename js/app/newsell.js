@@ -41,6 +41,9 @@ alibel.app.NewSell = Backbone.View.extend({
                 me.addToCart(event, code); }
         });
         this.$itemCollection.on('add', this.itemDragging, this);
+        for (var code in this.$itemCollection.views) {
+            this.itemDragging(this.$itemCollection.views[code]);
+        }
 
         this.render();
         return this;

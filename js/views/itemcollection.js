@@ -41,7 +41,7 @@ alibel.views.ItemCollection = Backbone.View.extend({
                     .append(newView.el);
 
         // Añade la nueva vista a la lista de items
-        this.views[item.get('code')] = $li;
+        this.views[item.get('code')] = newView;
         this.$el.append($li);
 
         // Comprueba el stock del item
@@ -71,7 +71,7 @@ alibel.views.ItemCollection = Backbone.View.extend({
         delete itemView;
 
         // Lanza el evento y finaliza
-        this.trigger('remove');
+        this.trigger('remove', itemView);
         return this;
     },
 
@@ -80,7 +80,12 @@ alibel.views.ItemCollection = Backbone.View.extend({
      * añadir la clase.
      */
     checkStock: function (item) {
-        var $item = this.views[item.get('code')]
+        var _item = this.views[item.get('code')];
+
+        if (!item) {
+            throw new alibel.error('Item doesnt exist', 'alibe.views.itemCollection');
+        }
+        var $item = _item.$el;
 
         $item
           .removeClass('noStock')
@@ -94,7 +99,7 @@ alibel.views.ItemCollection = Backbone.View.extend({
         }
 
         // Lanza el evento
-        this.trigger('change', $item);
+        this.trigger('change', _item);
         return this;
     },
 
@@ -113,7 +118,7 @@ alibel.views.ItemCollection = Backbone.View.extend({
         // y finalmente esconde los que no encajan en el resultado
         this.$el.find(' > li.hidden').removeClass('hidden');
         _.each(inverse, function (item) {
-            this.views[item.get('code')].addClass('hidden');
+            this.views[item.get('code')].$el.addClass('hidden');
         }, this);
 
         return this;

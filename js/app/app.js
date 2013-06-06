@@ -29,7 +29,7 @@ alibel.app.App = Backbone.View.extend({
         });
 
         // Carga el inventario
-        $.getJSON('data/inventary_huge.json', function (data) {
+        $.getJSON('data/inventary.json', function (data) {
             me.inventary.addFromJSON(data, function () {
 
                 // Carga el historial cuando los items están listos
