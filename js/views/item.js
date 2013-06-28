@@ -22,18 +22,19 @@ alibel.views.Item = Backbone.View.extend({
      * @return {alibel.views.Item} Se devuelve a sí mismo
      */
     render: function () {
+        // Reconstruye el ítem entero
+        this.$el.html(this.template(this.model.toJSON()));
+        
         // Ítems por debajo del stock minimo
         (this.model.get('stock') < this.model.get('minStock')) ?
-            this.$el.addClass('lowStock'):
-            this.$el.removeClass('lowStock');
+            this.$el.parent().addClass('lowStock'):
+            this.$el.parent().removeClass('lowStock');
         
         // Ítems sin stock
         (this.model.get('stock') === 0) ?
-            this.$el.addClass('noStock'):
-            this.$el.removeClass('noStock');
-        
-        // Finalmente construye el item
-        this.$el.html(this.template(this.model.toJSON()));
+            this.$el.parent().addClass('noStock'):
+            this.$el.parent().removeClass('noStock');
+
         return this;
     }
 });
