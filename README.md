@@ -18,7 +18,7 @@ AlibelTPV es un Terminal Punto-Venta escrito en JavaScript y ayudado de la libre
       al cambiar la fecha mediante el teclado.
     - Permitir borrar/imprimir ventas.
   - Visualización:
-    - Aplicar box-sizing para encajar mejor la estructura.
+    - Nueva venta: cuando se hace scroll en el carrito el total cambia de posición.
 
 ## Historial de cambios
 

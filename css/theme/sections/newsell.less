@@ -119,9 +119,8 @@
         
             > .item {
                 .buttonItem;
-                width: 95%;
+                width: 100%;
                 margin: 0;
-                padding: 0.5em 2.5%;
                 border: none;
                 border-radius: 0;
                 box-shadow: inset -1px -1px 1px @cantExpressMyself;
@@ -198,16 +197,13 @@
 
             > [class^=itemCartWrapper] {
                 width: 100%;
-                height: 2em;
                 margin: 0 auto;
+                margin-bottom: 0.1em;
+                height: auto;
 
                 > .itemCart {
                     .listItem;
                     width: 100%;
-
-                    > .name {
-                        width: 20em !important;
-                    }
                 }
             }
         }
@@ -215,14 +211,12 @@
 
     .newSellEnd > input {
         box-sizing: border-box;
-        width: 49.5%;
+        width: 50%;
         height: 100%;
         font-size: 1.5em;
         margin: 0 auto;
         border: solid @cantExpressMyself thin;
-
-        &#newSellCancel {
-            float: right;
-        }
+        display: block;
+        float: left;
     }
 }

@@ -72,6 +72,7 @@ alibel.app.NewSell = Backbone.View.extend({
             opacity: 0.9,
             revert: 'invalid',
             scroll: false,
+            distance: 20,
             zIndex: 9999,
 
             helper: function () {
