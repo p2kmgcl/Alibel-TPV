@@ -38,14 +38,17 @@ alibel.app.NewSell = Backbone.View.extend({
         // Activa el drag & drop en los items
         var me = this;
         (function () {
-            me.$shoppingCart.$el.droppable({
+            // Se reutiliza en el método completeSell
+            me.droppableConfig = {
                 activeClass: 'ui-dragging',
                 drop: function (event, ui) {
                     var code = parseInt(ui.draggable.find('>.code').html());
                     me._editingItem = me._getItem(code);
                     me.addToCart();
                 }
-            });
+            };
+
+            me.$shoppingCart.$el.droppable(me.droppableConfig);
             me.$itemCollection.on('add', me.itemDragging, me);
             for (var code in me.$itemCollection.views) {
                 me.itemDragging(me.$itemCollection.views[code]);
@@ -376,12 +379,8 @@ alibel.app.NewSell = Backbone.View.extend({
             // Actualiza la vista del carrito
             // y la deja preparada
             var me = this;
-            this.$shoppingCart.render().$el.droppable({
-                activeClass: 'ui-dragging',
-                drop: function (event, ui) {
-                    var code = parseInt(ui.draggable.find('>.code').html());
-                    me.addToCart(event, code); }
-            });
+            this.$shoppingCart.render()
+                .$el.droppable(me.droppableConfig);
         }
         return this;
     },
