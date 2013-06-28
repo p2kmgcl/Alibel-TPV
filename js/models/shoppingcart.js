@@ -83,7 +83,9 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
 
         // Comprobamos que las unidades son correctas
         if (itemCart.get('quantity') > itemCart.getI('stock')) {
-            throw alibel.error('Insuficient stock', 'alibel.models.ShoppingCart.add');
+            throw alibel.error('Insuficient stock ('
+                + itemCart.get('quantity') + ' > '
+                + itemCart.getI('stock') + ')', 'alibel.models.ShoppingCart.add');
         }
 
         // Comprobamos si el item ya está en el carrito
@@ -119,6 +121,37 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
      */
     addFromJSON: function (data, itemCollection) {
         this.collection.addFromJSON(data, itemCollection);
+        return this;
+    },
+
+    /**
+     * Eliminar un item del carrito.
+     * @param {alibel.models.Item} item Item de inventario
+     * @param {number} quantity Cantidad a eliminar
+     * @return {this} Se devuelve a sí mismo
+     */
+    remove: function (item, quantity) {
+        // Si es un item normal, creamos el item de carrito
+        if (!(item instanceof alibel.models.Item)) {
+            throw alibel.error('Invalid item', 'alibel.models.ShoppingCart.add');
+        }
+
+        // Comprobamos si el item ya está en el carrito
+        var itemCart = this.collection.filter(function (_itemCart) {
+                return _itemCart.getI('code') === item.get('code');
+            })[0];
+
+        // Restamos la cantidad necesaria
+        if (itemCart) {
+            itemCart.set('quantity', itemCart.get('quantity') - quantity);
+            item.set('stock', item.get('stock') + quantity);
+        
+            // Si la cantidad se ha quedado en 0, lo eliminamos
+            if (itemCart.get('quantity') == 0) {
+                this.collection.remove(itemCart);
+            }
+        }
+
         return this;
     }
 });

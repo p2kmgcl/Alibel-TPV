@@ -18,7 +18,9 @@
         Inventary: '1.2.0',
         NewSell: '1.2.0',
         About: '1.2.0',
-        App: '1.1.0'
+        App: '1.1.0',
+
+        ItemCartDialog: '1.0.0'
     },
 
     views: {
