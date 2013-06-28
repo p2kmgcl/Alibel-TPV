@@ -203,7 +203,12 @@
 
                 > .itemCart {
                     .listItem;
+                    cursor: pointer;
                     width: 100%;
+
+                    &:active {
+                        opacity: 0.4;
+                    }
                 }
             }
         }
@@ -218,5 +223,54 @@
         border: solid @cantExpressMyself thin;
         display: block;
         float: left;
+    }
+}
+
+#itemCartDialog {
+    font-size: 0;
+    min-width: 30 * @bodyFontSize;
+    margin: 0 auto;
+
+    > input,
+    > label,
+    > span {
+        padding: 0.5em;
+        border: none;
+        display: inline-block;
+        box-sizing: border-box;
+
+        font-size: @bodyFontSize * 1.1;
+    }
+
+    > label {
+        width: 30%;
+        opacity: 0.8;
+        font-weight: bolder;
+
+        &:after {
+            content: ': ';
+        }
+    }
+
+    > input,
+    > span {
+        width: 70%;
+    }
+
+    > input {
+        width: 20%;
+        text-align: right;
+    }
+    > .quantityUnit,
+    > .priceUnit {
+        width: 50%;
+    }
+
+    > .finalPrice {
+        .money;
+        width: 21%;
+        font-size: @bodyFontSize * 1.2;
+        font-weight: bolder;
+        text-align: right;
     }
 }

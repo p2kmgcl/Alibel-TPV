@@ -18,7 +18,6 @@ AlibelTPV es un Terminal Punto-Venta escrito en JavaScript y ayudado de la libre
   - Visualización:
     - Nueva venta:
       - Cuando se hace scroll en el carrito el total cambia de posición.
-      - Adaptar estilos del cuadro de dialogo para añadir items.
 
 ## Historial de cambios
 

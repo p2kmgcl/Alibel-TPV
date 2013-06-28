@@ -47,7 +47,7 @@
 
     metadata: {
         version: '0.1.0',
-        development: true
+        development: false
     },
 
     /**
@@ -56,12 +56,34 @@
      * @param  {function || string} origin  Origen del error
      * @return {this} Se devuelve a sí mismo así que puedes llamarlo con o sin new
      */
-    error: function (message, origin) {
+    error: function (message, origin, type) {
         this.origin = origin || arguments.callee.caller;
         this.message = message;
+        this.type = type;
 
         this.constructor.prototype.toString = function () {
-            return this.origin.toString() + ': ' + this.message;
+            return [this.origin.toString(),
+                    ' (' + this.type + ')',
+                    ': ' + this.message
+                    ].join('');
+        }
+        return this;
+    },
+
+    /**
+     * Lanza una notificación
+     * @param {String} text Contenido explicativo
+     * @param {String} type success/error/otracosa
+     */
+    notify: function (text, type) {
+        if (alibel.metadata.development) {
+            console.log(type + ': ' + text);
+        } else {
+            if (type == "success") {
+                alertify.log(text, type, 5000);
+            } else {
+                alertify.log(text, type, 7500);
+            }
         }
         return this;
     },

@@ -27,12 +27,13 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
 
     /**
      * Lanza el error pasado para que sea tratado externamente.
-     * @param  {alibel.models.ShoppingCart} model [description]
+     * @param  {alibel.models.ShoppingCart} model Carrito de la compra
      * @param  {string} error Error ocurrido
+     * @param {string} type Tipo de error
      * @return {alibel.models.Item} a sí mismo
      */
-    throwError: function (model, error) {
-        throw new alibel.error(error, 'alibel.models.ShoppingCart');
+    throwError: function (model, error, type) {
+        throw new alibel.error(error, 'alibel.models.ShoppingCart', type);
         return this;
     },
 
@@ -72,7 +73,7 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
     add: function (item, quantity, price) {
         // Si es un item normal, creamos el item de carrito
         if (!(item instanceof alibel.models.Item)) {
-            throw alibel.error('Invalid item', 'alibel.models.ShoppingCart.add');
+            throw alibel.error('Invalid item', 'alibel.models.ShoppingCart.add', 'invalidItem');
         }
 
         var itemCart = new alibel.models.ItemCart({
@@ -85,7 +86,7 @@ alibel.models.ShoppingCart = Backbone.Model.extend({
         if (itemCart.get('quantity') > itemCart.getI('stock')) {
             throw alibel.error('Insuficient stock ('
                 + itemCart.get('quantity') + ' > '
-                + itemCart.getI('stock') + ')', 'alibel.models.ShoppingCart.add');
+                + itemCart.getI('stock') + ')', 'alibel.models.ShoppingCart.add', 'notEnoughStock');
         }
 
         // Comprobamos si el item ya está en el carrito

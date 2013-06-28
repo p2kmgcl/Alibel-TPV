@@ -59,6 +59,7 @@ alibel.app.NewSell = Backbone.View.extend({
         // Ver código en render
         this.itemCartDialogTemplate = _.template(alibel.templates.ItemCartDialog);
         this.itemCartDialog = document.createElement('form');
+        this.itemCartDialog.id = 'itemCartDialog';
 
         // Variable interna que se usará para gestionar un item
         // que está siendo añadido/quitado
@@ -124,8 +125,7 @@ alibel.app.NewSell = Backbone.View.extend({
                 modal: true,
                 draggable: false,
                 resizable: false,
-                width: 640,
-                height: 480,
+                minWidth: 480,
                 title: 'Añadiendo/quitando item',
 
                 // Al terminar de trabajar con un item,
@@ -143,23 +143,35 @@ alibel.app.NewSell = Backbone.View.extend({
                     item = me._editingItem,
                     eItem = me._editingCartItem,
                     quantity = parseInt($this.find('#itemCartDialogQuantity').val()),
-                    price = parseFloat($this.find('#itemCartDialogPrice').val());
+                    price = parseFloat($this.find('#itemCartDialogPrice').val()),
+                    validProcess = false;
 
                 if (event.which == $.ui.keyCode.ENTER) {                    
                     if (eItem) {
                         var difference = eItem.get('quantity') - quantity,
                             price = (eItem.getPrice() != price) ? price : undefined;
 
-                        if (difference > 0) {
-                            me.removeFromCart(difference);
-                        } else if (difference < 0) {
-                            me.addToCart(difference * -1, price);
+                        if (difference < 0) {
+                            validProcess = me.addToCart(difference * -1, price);
+                        } else {
+                            if (price) {
+                                eItem.set('price', price);
+                            }
+
+                            if (difference > 0) {                            
+                                validProcess = me.removeFromCart(difference);
+                            } else {
+                                validProcess = true;
+                            }
                         }
 
                     } else if (quantity) {
-                        me.addToCart(quantity, (price) ? price : undefined);
+                        validProcess = me.addToCart(quantity, (price) ? price : undefined);
                     }
-                    $this.dialog('close');
+
+                    if (validProcess) {
+                        $this.dialog('close');
+                    }
                 }
 
                 $this.find('#itemCartDialogFinalPrice').html(
@@ -213,6 +225,8 @@ alibel.app.NewSell = Backbone.View.extend({
             name: item.get('name'),
             price: price,
             quantity: quantity,
+            unit: item.get('unit'),
+            units: item.get('units'),
             maxQuantity: item.get('stock') + quantity
         }));
 
@@ -338,7 +352,24 @@ alibel.app.NewSell = Backbone.View.extend({
     addToCart: function (quantity, price) {
         var quantity = (typeof quantity === 'number') ? quantity : 1;
         // Añadimos el item
-        this.shoppingCart.add(this._editingItem, quantity, price);
+        try {
+            this.shoppingCart.add(this._editingItem, quantity, price);
+            alibel.notify('Añadido ' + this._editingItem.get('name') + ' (x' + quantity + ').', 'success');
+
+        } catch (e) {
+            // Demasiados items
+            if (e.type == 'notEnoughStock') {
+                var it = this._editingItem,
+                    eIt = this._editingCartItem,
+                    stock = it.get('stock');
+                    if (eIt) stock += eIt.get('quantity');
+                alibel.notify('La cantidad máxima es ' + stock + '.', 'error');
+            } else {
+                throw e;
+            }
+
+            return false;
+        }
         return this;
     },
 
@@ -350,6 +381,7 @@ alibel.app.NewSell = Backbone.View.extend({
         var quantity = (typeof quantity === 'number') ? quantity : 1;
         // Quitamos el item
         this.shoppingCart.remove(this._editingItem, quantity);
+        alibel.notify('Eliminado ' + this._editingItem.get('name') + ' (x' + quantity + ').', 'success');
         return this;
     },
 
@@ -366,7 +398,7 @@ alibel.app.NewSell = Backbone.View.extend({
             // Añade la compra a la lista de compras
             this.shoppingCartCollection.add({
                 collection: this.shoppingCart.collection.clone(),
-                date: this.shoppingCart.date
+                date: new Date()
             });
 
             // Reinicia el carrito para la próxima
