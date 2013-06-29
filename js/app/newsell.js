@@ -373,7 +373,7 @@ alibel.app.NewSell = Backbone.View.extend({
             this.shoppingCart.add(this._editingItem, quantity, price);
             alibel.notify(
             'Añadido ' + this._editingItem.get('name')
-            + ' (' + this._editingItem.getQuantityUnits(quantity) + ')', 'success'
+            + ' (' + this._editingItem.getQuantityUnits(quantity).toLowerCase() + ')', 'success'
         );
 
         } catch (e) {
@@ -383,7 +383,7 @@ alibel.app.NewSell = Backbone.View.extend({
                     eIt = this._editingCartItem,
                     stock = it.get('stock');
                     if (eIt) stock += eIt.get('quantity');
-                alibel.notify('Sólo hay ' + it.getQuantityUnits(stock)
+                alibel.notify('Sólo hay ' + it.getQuantityUnits(stock).toLowerCase()
                     + ' en la tienda', 'error');
             } else {
                 throw e;
@@ -404,7 +404,7 @@ alibel.app.NewSell = Backbone.View.extend({
         this.shoppingCart.remove(this._editingItem, quantity);
         alibel.notify(
             'Eliminado ' + this._editingItem.get('name')
-            + ' (' + this._editingItem.getQuantityUnits(quantity) + ')', 'success'
+            + ' (' + this._editingItem.getQuantityUnits(quantity).toLowerCase() + ')', 'success'
         );
         return this;
     },

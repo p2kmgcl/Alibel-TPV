@@ -43,7 +43,7 @@ alibel.collections.Item = Backbone.Collection.extend({
                 name: item.name,
                 price: parseFloat(item.price),
                 unit: item.unit,
-                units: item.unit + 's',
+                units: item.unit + ((item.unit == 'Unidad') ? 'es' : 's'),
 
                 // Genera valores aleatorios para las unidades de ítems
                 // usa valores grandes para poder contemplar todos los casos
