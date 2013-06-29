@@ -13,8 +13,8 @@ alibel.app.NewSell = Backbone.View.extend({
         'keyup #newSellItemSearch':         'searchItem',
         'submit form':                      'preventSubmitEvent',
 
-        'click #newSellComplete':           'completeSell',
-        'click #newSellCancel':             'cancelSell',
+        'click #newSellComplete':           'showCompleteDialog',
+        'click #newSellCancel':             'showCancelDialog',
 
         'click > .itemList':                'itemClickHandler',
         'click > .shoppingCart > .itemList':'itemClickHandler'
@@ -127,6 +127,23 @@ alibel.app.NewSell = Backbone.View.extend({
                 resizable: false,
                 minWidth: 480,
                 title: 'Añadiendo/quitando item',
+
+                create: function () {
+                    var $this = $(this),
+                        $buttons =  $this.next(),
+                        $complete = $buttons.find('button:first'),
+                        $cancel =   $buttons.find('button:last');
+
+                    $complete
+                        .addClass('ui-state-highlight')
+                        .find('>span')
+                        .prepend('<i class="icon-ok-sign"><i> ');
+                    
+                    $cancel
+                        .addClass('ui-state-error')
+                        .find('>span')
+                        .prepend('<i class="icon-remove-sign"></i> ');
+                },
 
                 // Al terminar de trabajar con un item,
                 // reenfocamos la barra de búsqueda
@@ -356,7 +373,7 @@ alibel.app.NewSell = Backbone.View.extend({
             this.shoppingCart.add(this._editingItem, quantity, price);
             alibel.notify(
             'Añadido ' + this._editingItem.get('name')
-            + ' (' + this._editingItem.getQuantityUnits(quantity) + ').', 'success'
+            + ' (' + this._editingItem.getQuantityUnits(quantity) + ')', 'success'
         );
 
         } catch (e) {
@@ -367,7 +384,7 @@ alibel.app.NewSell = Backbone.View.extend({
                     stock = it.get('stock');
                     if (eIt) stock += eIt.get('quantity');
                 alibel.notify('Sólo hay ' + it.getQuantityUnits(stock)
-                    + ' en la tienda.', 'error');
+                    + ' en la tienda', 'error');
             } else {
                 throw e;
             }
@@ -387,8 +404,144 @@ alibel.app.NewSell = Backbone.View.extend({
         this.shoppingCart.remove(this._editingItem, quantity);
         alibel.notify(
             'Eliminado ' + this._editingItem.get('name')
-            + ' (' + this._editingItem.getQuantityUnits(quantity) + ').', 'success'
+            + ' (' + this._editingItem.getQuantityUnits(quantity) + ')', 'success'
         );
+        return this;
+    },
+
+    /**
+     * Muestra un cuadro de diálogo para completar
+     * la compra.
+     * @return {this} A sí mismo
+     */
+    showCompleteDialog: function () {
+        var me = this;
+
+        $('<div id="newSellCompleteConfirmDialog">' +
+            '<h1>¿Desea completar la compra y guarla en el historial?</h1>' +
+            '<input type="checkbox" id="newSellCompletePrintCheck" />' +
+            '<label for="newSellCompletePrintCheck"><i class="icon-print"></i> Imprimir ticket</label>' +
+        '</div>')
+        .dialog({
+            autoOpen: true,
+            buttons: [
+                {
+                    text: 'Completar',
+                    click: function () {
+                        if ($('#newSellCompletePrintCheck').is(":checked")) {
+                            alibel.notify('Lo sentimos, pero el sistema de impresión ' +
+                                'no está disponible aún', 'error');
+                        }
+
+                        me.completeSell();
+                        $(this).dialog('close');
+                    }
+                },
+                {   
+                    text: 'Cancelar',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
+                }
+            ],
+
+            open: function () {
+                var $this = $(this),
+                    $buttons =  $this.next(),
+                    $complete = $buttons.find('button:first'),
+                    $cancel =   $buttons.find('button:last'),
+                    $print  =   $this.find('#newSellCompletePrintCheck').button();
+
+                $complete
+                    .addClass('ui-state-highlight')
+                    .find('>span')
+                    .prepend('<i class="icon-ok-sign"><i> ');
+                
+                $cancel
+                    .addClass('ui-state-error')
+                    .find('>span')
+                    .prepend('<i class="icon-remove-sign"></i> ');
+
+            },
+
+            close: function () {
+                $(this)
+                    .dialog('destroy')
+                    .remove();
+            },
+
+            modal: true,
+            draggable: false,
+            resizable: false,
+            minWidth: 480,
+            title: 'Completar compra'
+        });
+
+        return this;
+    },
+
+    /**
+     * Muestra un cuadro de diálogo para cancelar
+     * la compra.
+     * @return {this} A sí mismo
+     */
+    showCancelDialog: function () {
+        var me = this;
+
+        $('<div id="newSellCancelConfirmDialog">' +
+            '<h1>¿Esta seguro de que desea cancelar la compra?</h1>' +
+            '<p>Se vaciará el carrito y todos los artículos volverán al inventario.</p>' +
+        '</div>')
+        .dialog({
+            autoOpen: true,
+            buttons: [
+                {
+                    text: 'Cancelar compra',
+                    click: function () {
+                        alibel.notify('Compra cancelada', 'success');
+                        me.cancelSell();
+                        $(this).dialog('close');
+                    }
+                },
+                {   
+                    text: 'Seguir comprando',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
+                }
+            ],
+
+            open: function () {
+                var $this = $(this),
+                    $buttons =  $this.next(),
+                    $complete = $buttons.find('button:first'),
+                    $cancel =   $buttons.find('button:last')
+
+                $complete
+                    .addClass('ui-state-highlight')
+                    .find('>span')
+                    .prepend('<i class="icon-ok-sign"><i> ');
+                
+                $cancel
+                    .addClass('ui-state-error')
+                    .find('>span')
+                    .prepend('<i class="icon-remove-sign"></i> ');
+
+            },
+
+            close: function () {
+                $(this)
+                    .dialog('destroy')
+                    .remove();
+            },
+
+            modal: true,
+            draggable: false,
+            resizable: false,
+            minWidth: 480,
+            title: 'Cancelar compra'
+        });
+
         return this;
     },
 
@@ -420,7 +573,18 @@ alibel.app.NewSell = Backbone.View.extend({
             var me = this;
             this.$shoppingCart.render()
                 .$el.droppable(me.droppableConfig);
+
+            alibel.notify('Compra completada', 'success');
+        } else {
+            alibel.notify('Carrito vacío. No pudo completarse la compra', 'error');
         }
+
+        // Reenfoca el cuadro de búsqueda
+        $('#newSellItemSearch')
+            .val('')
+            .focus();
+        this.searchItem($.Event('keyup', { which: ' ' }));
+
         return this;
     },
 
@@ -439,5 +603,11 @@ alibel.app.NewSell = Backbone.View.extend({
             });
         this.shoppingCart.collection.reset();
         this.shoppingCart.set('date', new Date());
+
+        // Reenfoca el cuadro de búsqueda
+        $('#newSellItemSearch')
+            .val('')
+            .focus();
+        this.searchItem($.Event('keyup', { which: ' ' }));
     }
 });
