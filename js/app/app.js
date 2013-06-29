@@ -36,7 +36,9 @@ alibel.app.App = Backbone.View.extend({
                 $.getJSON('data/history.json', function (data) {
                     
                     // Procesa la interfaz cuando cargue el inventario
-                    me.history.addFromJSON(data, me.inventary, function () {
+                    // me.history.addFromJSON(data, me.inventary, function () {
+                    // En lugar de cargar el inventario, genera compras aleatorias
+                    me.history.generateRandomCarts(me.inventary, function () {
 
                         // Crea las secciones de la aplicación
                         me.sections = {

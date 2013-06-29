@@ -48,8 +48,8 @@ alibel.collections.Item = Backbone.Collection.extend({
                 // Genera valores aleatorios para las unidades de ítems
                 // usa valores grandes para poder contemplar todos los casos
                 // que podrían darse
-                stock: parseInt(Math.random() * 1000),   // parseInt(item.stock)
-                minStock: parseInt(Math.random() * 1000) // parseInt(item.minStock)
+                stock: parseInt(Math.random() * 100),   // parseInt(item.stock)
+                minStock: parseInt(Math.random() * 100) // parseInt(item.minStock)
             });
         });
         

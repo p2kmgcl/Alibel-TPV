@@ -559,7 +559,7 @@ alibel.app.NewSell = Backbone.View.extend({
             this.shoppingCartCollection.add({
                 collection: this.shoppingCart.collection.clone(),
                 date: new Date()
-            });
+            }, { at: 0 });
 
             // Reinicia el carrito para la próxima
             // compra

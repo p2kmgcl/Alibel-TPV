@@ -6,6 +6,21 @@ alibel.collections.ShoppingCart = Backbone.Collection.extend({
     model: alibel.models.ShoppingCart,
 
     /**
+     * Comparador de carritos
+     */
+    comparator: function (cartA, cartB) {
+        var dateA = cartA.get('date'),
+            dateB = cartB.get('date');
+
+        if (dateA > dateB) {
+            return 1;
+        } else if (dateA < dateB) {
+            return -1;
+        }
+        return 0;
+    },
+
+    /**
      * Devuelve los carritos que se encuentran
      * entre las dos fechas pasadas (ambas incluídas).
      * Si no se especifica el parámetro to, se usará
@@ -73,7 +88,54 @@ alibel.collections.ShoppingCart = Backbone.Collection.extend({
                 });
             }
         });
-        callback(this);
+        
+        if (typeof callback == 'function') {
+            callback(this);
+        }
+        return this;
+    },
+
+    /**
+     * Genera carritos aleatorios (usar para pruebas)
+     * @param {alibel.collections.Item} itemCollection Lista de items que se pueden usar
+     * @param {function} callback Función que se ejecutará cuando se termine
+     */
+    generateRandomCarts: function (itemCollection, callback) {
+        var nItems = 0, //< Número de items que tendrá la compra
+            cartItems = [], //< Carrito aleatorio generado
+            item = null, // Item de inventario que se usará
+
+            now = new Date(), //< Fecha actual
+            date = null, //< Fecha de la compra
+            maxDate = parseInt(Math.random() * 1000*60*60*24*7); // Máximo desfase de la compra
+
+        for (var i = 0; i < 50; i++) {
+            nItems = parseInt(Math.random() * 5 + 10);
+            cartItems = [];
+            date = parseInt(Math.random() * maxDate);
+
+            for (var j = 0; j < nItems; j++) {
+                item = itemCollection.at(parseInt(
+                    Math.random() * itemCollection.length
+                ));
+
+                cartItems.push(new alibel.models.ItemCart({
+                    item: item,
+                    price: -1,
+                    quantity: parseInt(Math.random() * 30 + 1)
+                }));
+            }
+
+            this.add({
+                date: new Date(now.getTime() - date),
+                collection: new alibel.collections.ItemCart(cartItems)
+            });
+        }
+        this.sort();
+
+        if (typeof callback == 'function') {
+            callback(this);
+        }
         return this;
     }
 });

@@ -41,7 +41,7 @@ alibel.views.ShoppingCartCollection = Backbone.View.extend({
 
         // Añade la nueva vista a la lista de items
         this.views[shoppingCart.cid] = $li;
-        this.$el.append($li);
+        this.$el.prepend($li);
         return this;
     },
 

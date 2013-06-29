@@ -8,7 +8,8 @@ alibel.app.History = Backbone.View.extend({
     template: _.template(alibel.templates.History),
 
     events: {
-        'change .dateFilter > input':    'filterByDate'
+        'change .dateFilter > input':    'filterByDate',
+        'click .shoppingCartList > li':  'showCartOptions'
     },
 
     initialize: function (attrs) {
@@ -47,10 +48,85 @@ alibel.app.History = Backbone.View.extend({
             opts.defaultDate = -7;
             $('#historyDateFilterFrom')
                 .datepicker(opts)
-                .datepicker('setDate', -7);
+                .datepicker('setDate', -3);
 
             me.filterByDate();
         }, 1000);
+
+        return this;
+    },
+
+    /**
+     * Muestra las opciones disponibles con
+     * un carrito (imprimir, eliminar, cancelar).
+     */
+    showCartOptions: function (event) {
+        $('<div id="historyCartOptionsDialog">' +
+            '<h1>¿Que desea hacer con la compra?</h1>' +
+        '</div>')
+        .dialog({
+            autoOpen: true,
+            buttons: [
+                {
+                    text: 'Imprimir',
+                    click: function () {
+                        alibel.notify('Lo sentimos, pero el sistema de impresión ' +
+                            'no está disponible aún', 'error');
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Eliminar',
+                    click: function () {
+                        alibel.notify('Eliminación no implementada (de momento)', 'error');
+                        $(this).dialog('close');
+                    }
+                },
+                {   
+                    text: 'Cancelar',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
+                }
+            ],
+
+            open: function () {
+                var $this =     $(this),
+                    $buttons =  $this.next(),
+                    $print =    $buttons.find('button:first'),
+                    $delete =   $print.next(),
+                    $cancel =   $delete.next();
+
+                $print
+                    .addClass('ui-state-highlight')
+                    .find('>span')
+                    .prepend('<i class="icon-print"><i> ');
+
+                $delete
+                    .addClass('ui-state-highlight')
+                    .find('>span')
+                    .prepend('<i class="icon-trash"><i> ');
+                
+                $cancel
+                    .addClass('ui-state-error')
+                    .find('>span')
+                    .prepend('<i class="icon-remove-sign"></i> ');
+
+            },
+
+            close: function () {
+                $(this)
+                    .dialog('destroy')
+                    .remove();
+            },
+
+            modal: true,
+            draggable: false,
+            resizable: false,
+            minWidth: 480,
+            title: 'Editando compra'
+        });
+
         return this;
     },
 

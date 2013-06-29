@@ -4,9 +4,13 @@ alibel.templates.About = '\
         <h2>Versión <%= version %></h2>\
     </header>\
 \
+    <p>La aplicación Alibel TPV pertenece a <a href="http://pablomolina.me"\
+    target="_blank">Pablo Molina</a> y ha sido creada para la asignatura\
+    Interacción Persona-Ordenador (Grado en Ingeniería informática) en el\
+    curso 2012-2013.</p>\
     <p>El texto mostrado a continuación es el resumen formal de\
     la licencia GPL 3.0. Esta licencia engloba tanto a esta\
-    documentación como al programa entregado con ella y su respectivo\
+    documentación (aún no publicada) como al programa entregado con ella y su respectivo\
     código fuente.</p>\
 \
     <blockquote class="license">\
