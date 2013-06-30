@@ -67,7 +67,7 @@ alibel.app.App = Backbone.View.extend({
     },
 
     render: function () {
-        this.$el.html(alibel.templates.App);
+        this.$el.html(this.template());
 
         // Añade el contenido de las pestañas
         for (var x in this.sections) {
