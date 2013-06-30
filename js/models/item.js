@@ -25,24 +25,6 @@ alibel.models.Item = Backbone.Model.extend({
     },
 
     /**
-     * Devuelve una cadena de caracteres expresando
-     * la cantidad y las unidades correctamente.
-     * @param {Number} quantity Unidades que se desean mostrar.
-     * @return {String}
-     */
-    getQuantityUnits: function (quantity) {
-        if (quantity < 0) {
-            throw new alibel.error('Incorrect quantity',
-                'alibel.models.Item.getQuantityUnits', 'incorrectQuantity');
-        }
-
-        return quantity + ' ' +
-               ((quantity == 1) ?
-                this.get('unit'):
-                this.get('units'));
-    },
-
-    /**
      * Lanza el error pasado para que sea tratado externamente.
      * @param  {alibel.models.Item} model [description]
      * @param  {string} error Error ocurrido

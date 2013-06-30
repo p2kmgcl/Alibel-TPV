@@ -62,28 +62,27 @@ alibel.app.History = Backbone.View.extend({
      */
     showCartOptions: function (event) {
         $('<div id="historyCartOptionsDialog">' +
-            '<h1>¿Que desea hacer con la compra?</h1>' +
+            '<h1>' + __('whatToDoWithSell') + '</h1>' +
         '</div>')
         .dialog({
             autoOpen: true,
             buttons: [
                 {
-                    text: 'Imprimir',
+                    text: __('print'),
                     click: function () {
-                        alibel.notify('Lo sentimos, pero el sistema de impresión ' +
-                            'no está disponible aún', 'error');
+                        alibel.log(__('printNotImplemented'), 'error');
                         $(this).dialog('close');
                     }
                 },
                 {
-                    text: 'Eliminar',
+                    text: __('remove'),
                     click: function () {
-                        alibel.notify('Eliminación no implementada (de momento)', 'error');
+                        alibel.log(__('deleteNotImplemented'), 'error');
                         $(this).dialog('close');
                     }
                 },
                 {   
-                    text: 'Cancelar',
+                    text: __('cancel'),
                     click: function () {
                         $(this).dialog('close');
                     }
@@ -124,7 +123,7 @@ alibel.app.History = Backbone.View.extend({
             draggable: false,
             resizable: false,
             minWidth: 480,
-            title: 'Editando compra'
+            title: __('editingSell')
         });
 
         return this;

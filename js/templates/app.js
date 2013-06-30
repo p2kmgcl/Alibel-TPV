@@ -1,6 +1,6 @@
 alibel.templates.App = '\
     <header>\
-        <h1>Alibel TPV</h1>\
+        <h1>' + alibel.metadata.name + '</h1>\
         <span id="alibelMainClock">\
             <i class="icon-time"></i>\
             <time>13/10/1991 22:00</time>\
@@ -10,19 +10,19 @@ alibel.templates.App = '\
         <ul id="mainMenu">\
             <li class="menuOption">\
                 <i class="icon-money"></i>\
-                <a href="#sectionNewSell">Nueva venta</a>\
+                <a href="#sectionNewSell"><%= __("newSell") %></a>\
             </li>\
             <li class="menuOption">\
                 <i class="icon-bar-chart"></i>\
-                <a href="#sectionHistory">Historial</a>\
+                <a href="#sectionHistory"><%= __("history") %></a>\
             </li>\
             <li class="menuOption">\
                 <i class="icon-book"></i>\
-                <a href="#sectionInventary">Inventario</a>\
+                <a href="#sectionInventary"><%= __("inventary") %></a>\
             </li>\
             <li class="menuOption">\
                 <i class="icon-question-sign"></i>\
-                <a href="#sectionAbout">Acerca de</a>\
+                <a href="#sectionAbout"><%= __("about") %></a>\
             </li>\
         </ul>\
     </div>\

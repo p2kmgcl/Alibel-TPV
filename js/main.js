@@ -45,9 +45,20 @@
         App: '1.0.0'
     },
 
+    modules: {
+        Dialog: '1.0.0'
+    },
+
+    // Cadenas de traducción
+    i18n: {},
+
     metadata: {
+        name: 'Alibel TPV',
+        author: 'Pablo Molina',
+        authorLink: 'http://pablomolina.me',
         version: '0.1.0',
-        development: false
+        development: false,
+        language: 'esES'
     },
 
     /**
@@ -75,17 +86,25 @@
      * @param {String} text Contenido explicativo
      * @param {String} type success/error/otracosa
      */
-    notify: function (text, type) {
-        if (alibel.metadata.development) {
-            console.log(type + ': ' + text);
+    log: function (text, type) {
+        if (type == 'error') {
+            alertify.log(text, 'error', 7500);
         } else {
-            if (type == "success") {
-                alertify.log(text, type, 5000);
-            } else {
-                alertify.log(text, type, 7500);
-            }
+            alertify.log(text, 'success', 5000);
         }
-        return this;
+    },
+
+    /**
+     * Escribe la cadena de texto correspondiente
+     * @param {string} id Id of the string
+     * @param {object} vars Variables passed to the template
+     */
+    __: function (id, vars) {
+        if (!alibel.i18n[id]) {
+            throw new alibel.error(id + ' is not translated to ' + alibel.metadata.language,
+                'alibel.__', 'invalidTranslation');
+        }
+        return alibel.i18n[id](vars);
     },
 
     /**
@@ -116,6 +135,25 @@
 
         // Permite el acceso desde el exterior
         alibel.instance = app;
+
+        // Crea las plantillas de traducción
+        var origin = alibel.i18n[alibel.metadata.language],
+            translation = {},
+            id = [];
+        (function (origin) {
+            for (var template in origin) {
+                id.push(template);
+                if (typeof origin[template] == 'string') {
+                    translation[id.join('.')] = _.template(origin[template]);
+                } else {
+                    arguments.callee(origin[template]);
+                }
+                id.pop();
+            }
+        }(origin));
+        alibel.i18n = translation;
+        // Acceso directo a la traducción
+        window.__ = alibel.__;
     }
 };
 
