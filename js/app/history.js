@@ -9,7 +9,7 @@ alibel.app.History = Backbone.View.extend({
 
     events: {
         'change .dateFilter > input':    'filterByDate',
-        'click .shoppingCartList > li':  'showCartOptions'
+        'click .shoppingCartWrapper':  'showCartOptions'
     },
 
     initialize: function (attrs) {
@@ -61,6 +61,18 @@ alibel.app.History = Backbone.View.extend({
      * un carrito (imprimir, eliminar, cancelar).
      */
     showCartOptions: function (event) {
+        var $parent = $(event.target),
+            me = this;
+
+        while (!$parent.hasClass('shoppingCartWrapper')) {
+            $parent = $parent.parent();
+        }
+
+        // Guarda el carrito que se va a editar
+        this._editingShoppingCart =
+            this.shoppingCartCollection
+                .collection.get(new Date($parent.attr('data-id')));
+
         $('<div id="historyCartOptionsDialog">' +
             '<h1>' + __('whatToDoWithSell') + '</h1>' +
         '</div>')
@@ -77,7 +89,11 @@ alibel.app.History = Backbone.View.extend({
                 {
                     text: __('remove'),
                     click: function () {
-                        alibel.log(__('deleteNotImplemented'), 'error');
+                        me.shoppingCartCollection
+                          .collection.remove(
+                                me._editingShoppingCart
+                        );
+                        alibel.log(__('shoppingCartRemoved'));
                         $(this).dialog('close');
                     }
                 },

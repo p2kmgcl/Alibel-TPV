@@ -8,13 +8,14 @@ Para más información, visita [la aplicación](http://pablomolina.me/Alibel-TPV
 
 ## Tareas pendientes
 
+  - Hacer las notificaciones menos intrusivas (dejar solo 1 o 2 a la vista)
   - Nueva venta:
       - Hacer el código más usable.
       - Cuando se hace scroll en el carrito el total cambia de posición.
   - Historial:
     - Evitar que haya que hacer doble enter en las fechas del calendario
       al cambiar la fecha mediante el teclado.
-    - Implementar el borrado de ventas.
+    - Hacer más simple el sistema de herencia de history.shoppingCartCollection
   - Inventario:
     - Implementar el editado de items.
     - Implementar el añadido/borrado de items.

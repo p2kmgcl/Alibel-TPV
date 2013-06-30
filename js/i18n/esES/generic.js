@@ -1,6 +1,5 @@
 alibel.i18n.esES = {
 
-deleteNotImplemented: 'Eliminación no implementada (de momento)',
 printNotImplemented: 'Lo sentimos, pero el sistema de impresión no está disponible aún',
 
 // Palabras
@@ -43,6 +42,7 @@ writeItemCodeOrName: 'Escribe el código o nombre de un artículo',
 editingSell: 'Editando la compra',
 history: 'Historial',
 purchaseList: 'Listado de compras',
+shoppingCartRemoved: 'Compra eliminada',
 whatToDoWithSell: '¿Que desea hacer con la compra?',
 
 // Sección de inventario

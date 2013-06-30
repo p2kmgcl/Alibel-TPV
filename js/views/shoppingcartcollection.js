@@ -36,7 +36,8 @@ alibel.views.ShoppingCartCollection = Backbone.View.extend({
         // Envuelve al item con un elemento li
         // por cuestión de semántica
         var $li = $(document.createElement('li'))
-                    .addClass(this.wrapperClass + shoppingCart.cid)
+                    .addClass(this.wrapperClass)
+                    .attr('data-id', shoppingCart.id)
                     .append(newView.el);
 
         // Añade la nueva vista a la lista de items

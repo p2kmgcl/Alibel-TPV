@@ -3,6 +3,10 @@
  * de carrito.
  */
 alibel.models.ShoppingCart = Backbone.Model.extend({
+    // No puede haber dos compras en el mismo instante de tiempo
+    // (hay precisión hasta de milisegundos).
+    idAttribute: 'date',
+
     defaults: {
         collection: new alibel.collections.ItemCart(),
         date: new Date()
