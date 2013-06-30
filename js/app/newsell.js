@@ -36,24 +36,7 @@ alibel.app.NewSell = Backbone.View.extend({
         this.shoppingCartCollection = params.shoppingCartCollection;
 
         // Activa el drag & drop en los items
-        var me = this;
-        (function () {
-            // Se reutiliza en el método completeSell
-            me.droppableConfig = {
-                activeClass: 'ui-dragging',
-                drop: function (event, ui) {
-                    var code = parseInt(ui.draggable.find('>.code').html());
-                    me._editingItem = me._getItem(code);
-                    me.addToCart();
-                }
-            };
-
-            me.$shoppingCart.$el.droppable(me.droppableConfig);
-            me.$itemCollection.on('add', me.itemDragging, me);
-            for (var code in me.$itemCollection.views) {
-                me.itemDragging(me.$itemCollection.views[code]);
-            }
-        }());
+        this._activateDragAndDrop();
 
         // Prepara lo diálogos para añadir/quitar items
         // Ver código en render
@@ -61,37 +44,9 @@ alibel.app.NewSell = Backbone.View.extend({
         this.itemCartDialog = document.createElement('form');
         this.itemCartDialog.id = 'itemCartDialog';
 
-        // Variable interna que se usará para gestionar un item
-        // que está siendo añadido/quitado
-        this._editingItem = null;
-
         this.render();
         return this;
     },
-
-    /**
-     * Obtiene un item por su código.
-     * Se ha creado este atajo por las repetidas veces
-     * que se llama al método where en este módulo.
-     * @param  {Item || Number} item Código del item o item (para buscar en el carrito)
-     * @param {Boolean} cart Si se especifica, se busca en el carrito
-     * @return {Item || undefined} Item encontrado
-     */
-    _getItem: function (item, cart) {
-        var item = (typeof item == 'number') ?
-                        this.itemCollection.where({
-                            code: item
-                        })[0]
-                    : item;
-
-        if (item && cart) {
-            return this.shoppingCart.collection.where({
-                item: item 
-            })[0]; 
-        }
-        return item;
-    },
-
 
     render: function () {
         var $newSellEnd = this.$el.html(this.template())
@@ -109,7 +64,7 @@ alibel.app.NewSell = Backbone.View.extend({
                 autoOpen: false,
                 buttons: [
                     {
-                        text: 'Aceptar',
+                        text: __('accept'),
                         // Pasa lo mismo que al pulsar ENTER
                         click: function (event) {
                             $(this).trigger($.Event('keyup', {
@@ -118,7 +73,7 @@ alibel.app.NewSell = Backbone.View.extend({
                         }
                     },
                     {   
-                        text: 'Cancelar',
+                        text: __('cancel'),
                         click: function () { $(this).dialog('close'); }
                     }
                 ],
@@ -126,7 +81,7 @@ alibel.app.NewSell = Backbone.View.extend({
                 draggable: false,
                 resizable: false,
                 minWidth: 480,
-                title: 'Añadiendo/quitando item',
+                title: __('addingRemovingItem'),
 
                 create: function () {
                     var $this = $(this),
@@ -371,24 +326,27 @@ alibel.app.NewSell = Backbone.View.extend({
         // Añadimos el item
         try {
             this.shoppingCart.add(this._editingItem, quantity, price);
-            alibel.notify(
-            'Añadido ' + this._editingItem.get('name')
-            + ' (' + this._editingItem.getQuantityUnits(quantity).toLowerCase() + ')', 'success'
-        );
-
+            alibel.log(__('itemAdded', {
+                name:       this._editingItem.get('name'),
+                quantity:   quantity,
+                units:      (quantity == 1) ? this._editingItem.get('unit')
+                                            : this._editingItem.get('units')
+            }));
         } catch (e) {
-            // Demasiados items
             if (e.type == 'notEnoughStock') {
                 var it = this._editingItem,
                     eIt = this._editingCartItem,
                     stock = it.get('stock');
                     if (eIt) stock += eIt.get('quantity');
-                alibel.notify('Sólo hay ' + it.getQuantityUnits(stock).toLowerCase()
-                    + ' en la tienda', 'error');
+
+                alibel.log(__('notEnoughStock', {
+                    quantity:   quantity,
+                    units:      (quantity == 1) ? this._editingItem.get('unit')
+                                                : this._editingItem.get('units')
+                }));
             } else {
                 throw e;
             }
-
             return false;
         }
         return this;
@@ -402,10 +360,13 @@ alibel.app.NewSell = Backbone.View.extend({
         var quantity = (typeof quantity === 'number') ? quantity : 1;
         // Quitamos el item
         this.shoppingCart.remove(this._editingItem, quantity);
-        alibel.notify(
-            'Eliminado ' + this._editingItem.get('name')
-            + ' (' + this._editingItem.getQuantityUnits(quantity).toLowerCase() + ')', 'success'
-        );
+        alibel.log(__('itemRemoved', {
+            name:       this._editingItem.get('name'),
+            quantity:   quantity,
+            units:      (quantity == 1) ? this._editingItem.get('unit')
+                                        : this._editingItem.get('units')
+        }));
+
         return this;
     },
 
@@ -418,27 +379,25 @@ alibel.app.NewSell = Backbone.View.extend({
         var me = this;
 
         $('<div id="newSellCompleteConfirmDialog">' +
-            '<h1>¿Desea completar la compra y guarla en el historial?</h1>' +
+            '<h1>' + __('wannaCompleteSell') + '</h1>' +
             '<input type="checkbox" id="newSellCompletePrintCheck" />' +
-            '<label for="newSellCompletePrintCheck"><i class="icon-print"></i> Imprimir ticket</label>' +
+            '<label for="newSellCompletePrintCheck"><i class="icon-print"></i>' + __('printTicket') + '</label>' +
         '</div>')
         .dialog({
             autoOpen: true,
             buttons: [
                 {
-                    text: 'Completar',
+                    text: __('complete'),
                     click: function () {
                         if ($('#newSellCompletePrintCheck').is(":checked")) {
-                            alibel.notify('Lo sentimos, pero el sistema de impresión ' +
-                                'no está disponible aún', 'error');
+                            alibel.log(__('printNotImplemented'), 'error');
                         }
-
                         me.completeSell();
                         $(this).dialog('close');
                     }
                 },
                 {   
-                    text: 'Cancelar',
+                    text: __('cancel'),
                     click: function () {
                         $(this).dialog('close');
                     }
@@ -474,7 +433,7 @@ alibel.app.NewSell = Backbone.View.extend({
             draggable: false,
             resizable: false,
             minWidth: 480,
-            title: 'Completar compra'
+            title: __('completeSell')
         });
 
         return this;
@@ -489,22 +448,22 @@ alibel.app.NewSell = Backbone.View.extend({
         var me = this;
 
         $('<div id="newSellCancelConfirmDialog">' +
-            '<h1>¿Esta seguro de que desea cancelar la compra?</h1>' +
-            '<p>Se vaciará el carrito y todos los artículos volverán al inventario.</p>' +
+            '<h1>' + __('wannaCancelSell') + '</h1>' +
+            '<p>' + __('wannaCancelSellDescription') + '.</p>' +
         '</div>')
         .dialog({
             autoOpen: true,
             buttons: [
                 {
-                    text: 'Cancelar compra',
+                    text: __('cancelSell'),
                     click: function () {
-                        alibel.notify('Compra cancelada', 'success');
+                        alibel.log(__('cancelledSell'));
                         me.cancelSell();
                         $(this).dialog('close');
                     }
                 },
                 {   
-                    text: 'Seguir comprando',
+                    text: __('continueSelling'),
                     click: function () {
                         $(this).dialog('close');
                     }
@@ -539,7 +498,7 @@ alibel.app.NewSell = Backbone.View.extend({
             draggable: false,
             resizable: false,
             minWidth: 480,
-            title: 'Cancelar compra'
+            title: __('cancelSell')
         });
 
         return this;
@@ -572,18 +531,15 @@ alibel.app.NewSell = Backbone.View.extend({
             // y la deja preparada
             var me = this;
             this.$shoppingCart.render()
-                .$el.droppable(me.droppableConfig);
+                .$el.droppable(me._droppableConfig);
 
-            alibel.notify('Compra completada', 'success');
+            alibel.log(__('completedSell'));
         } else {
-            alibel.notify('Carrito vacío. No pudo completarse la compra', 'error');
+            alibel.log(__('newSell.emptyCart'), 'error');
         }
 
         // Reenfoca el cuadro de búsqueda
-        $('#newSellItemSearch')
-            .val('')
-            .focus();
-        this.searchItem($.Event('keyup', { which: ' ' }));
+        this._cleanSearch();
 
         return this;
     },
@@ -605,9 +561,73 @@ alibel.app.NewSell = Backbone.View.extend({
         this.shoppingCart.set('date', new Date());
 
         // Reenfoca el cuadro de búsqueda
-        $('#newSellItemSearch')
-            .val('')
-            .focus();
+        
+    },
+
+    /* ****************************************************************
+     *  Zona privada.
+     *  Variables/métodos internos
+     * ***************************************************************/
+
+    // Variable interna que se usará para gestionar un item
+    // que está siendo añadido/quitado
+    _editingItem: null,
+    _editingCartItem: null,
+
+    // Configuración necesaria para usar el drag and drop en los items
+    _droppableConfig: function () {
+        var me = this;
+        return {
+            activeClass: 'ui-dragging',
+            drop: function (event, ui) {
+                var code = parseInt(ui.draggable.find('>.code').html());
+                me._editingItem = me._getItem(code);
+                me.addToCart();
+            }
+        };
+    },
+
+    /**
+     * Activa el drag and drop en los items
+     */
+    _activateDragAndDrop: function () {
+        this._droppableConfig = this._droppableConfig();
+        this.$shoppingCart.$el.droppable(this._droppableConfig);
+        this.$itemCollection.on('add', this.itemDragging, this);
+        for (var code in this.$itemCollection.views) {
+            this.itemDragging(this.$itemCollection.views[code]);
+        }
+    },
+
+    /**
+     * Obtiene un item por su código.
+     * Se ha creado este atajo por las repetidas veces
+     * que se llama al método where en este módulo.
+     * @param  {Item || Number} item Código del item o item (para buscar en el carrito)
+     * @param {Boolean} cart Si se especifica, se busca en el carrito
+     * @return {Item || undefined} Item encontrado
+     */
+    _getItem: function (item, cart) {
+        var item = (typeof item == 'number') ?
+                        this.itemCollection.where({
+                            code: item
+                        })[0]
+                    : item;
+
+        if (item && cart) {
+            return this.shoppingCart.collection.where({
+                item: item 
+            })[0]; 
+        }
+        return item;
+    },
+
+    /**
+     * Enfoca la barra de búsqueda y la deja
+     * lista para nuevas búsquedas
+     */
+    _cleanSearch: function () {
+        $('#newSellItemSearch').val('').focus();
         this.searchItem($.Event('keyup', { which: ' ' }));
     }
 });

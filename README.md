@@ -8,15 +8,17 @@ Para más información, visita [la aplicación](http://pablomolina.me/Alibel-TPV
 
 ## Tareas pendientes
 
-  - Inventario:
-    - No se muestran los items con stock bajo.
+  - Nueva venta:
+      - Hacer el código más usable.
+      - Cuando se hace scroll en el carrito el total cambia de posición.
   - Historial:
     - Evitar que haya que hacer doble enter en las fechas del calendario
       al cambiar la fecha mediante el teclado.
     - Implementar el borrado de ventas.
-  - Visualización:
-    - Nueva venta:
-      - Cuando se hace scroll en el carrito el total cambia de posición.
+  - Inventario:
+    - Implementar el editado de items.
+    - Implementar el añadido/borrado de items.
+    - No se muestran los items con stock bajo.
 
 ## Historial de cambios
 
