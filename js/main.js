@@ -152,8 +152,23 @@
             }
         }(origin));
         alibel.i18n = translation;
-        // Acceso directo a la traducción
         window.__ = alibel.__;
+
+        // Desactiva la selección y el click derecho
+        $(window)
+            .on('selectstart', function (event) {
+                event.preventDefault();
+            })
+            .on('mousedown', function (event) {
+                if (event.button == 2) {
+                    event.preventDefault();
+                    return false;
+                }
+            })
+            .on('contextmenu', function (event) {
+                event.preventDefault();
+                return false;
+            });
     }
 };
 
