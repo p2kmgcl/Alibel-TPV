@@ -22,7 +22,7 @@
 		    isopen    = false,
 		    keys      = { ENTER: 13, ESC: 27, SPACE: 32 },
 		    queue     = [],
-		    $, btnCancel, btnOK, btnReset, btnFocus, elCallee, elCover, elDialog, elLog, form, input, getTransitionEvent;
+		    $, btnCancel, btnOK, btnReset, btnFocus, elCallee, elCover, elDialog, elLog, form, input, getTransitionEvent,
 
 		/**
 		 * Markup pieces
@@ -513,10 +513,25 @@
 				var log = document.createElement("article");
 				log.className = "alertify-log" + ((typeof type === "string" && type !== "") ? " alertify-log-" + type : "");
 				log.innerHTML = message;
+
+				var $ = jQuery,
+					$elLog = $(elLog),
+					$oldLogs = $elLog.find('.alertify-log'),
+					me = this;
+
+				// Hide old childs
+				$oldLogs.each(function () {
+					me.close(this, 1);
+				});
+
 				// append child
-				elLog.appendChild(log);
+				$elLog.prepend(log);
+
 				// triggers the CSS animation
-				setTimeout(function() { log.className = log.className + " alertify-log-show"; }, 50);
+				setTimeout(function() {
+					log.className = log.className + " alertify-log-show";
+				}, 50);
+
 				this.close(log, wait);
 			},
 

@@ -1,25 +1,25 @@
 .alertify,
 .alertify-show,
 .alertify-log {
-	-webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
-	   -moz-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
-	    -ms-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
-	     -o-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
-	        transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
+	-webkit-transition: all 500ms ease;
+	   -moz-transition: all 500ms ease;
+	    -ms-transition: all 500ms ease;
+	     -o-transition: all 500ms ease;
+	        transition: all 500ms ease; /* easeOutBack */
 }
 .alertify-hide {
-	-webkit-transition: all 250ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
-	   -moz-transition: all 250ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
-	    -ms-transition: all 250ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
-	     -o-transition: all 250ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
-	        transition: all 250ms cubic-bezier(0.600, -0.280, 0.735, 0.045); /* easeInBack */
+	-webkit-transition: all 250ms ease;
+	   -moz-transition: all 250ms ease;
+	    -ms-transition: all 250ms ease;
+	     -o-transition: all 250ms ease;
+	        transition: all 250ms ease; /* easeInBack */
 }
 .alertify-log-hide {
-	-webkit-transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
-	   -moz-transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
-	    -ms-transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
-	     -o-transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
-	        transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045); /* easeInBack */
+	-webkit-transition: all 500ms ease;
+	   -moz-transition: all 500ms ease;
+	    -ms-transition: all 500ms ease;
+	     -o-transition: all 500ms ease;
+	        transition: all 500ms ease; /* easeInBack */
 }
 .alertify-cover {
 	position: fixed; z-index: 99999;
@@ -50,7 +50,7 @@
 	position: fixed;
 	z-index: 5000;
 	top: 0;
-	right: 0.5em;
+	right: 0;
 	width: 300px;
 }
 .alertify-logs-hidden {
@@ -58,14 +58,21 @@
 }
 	.alertify-log {
 		display: block;
-		margin-top: 10px;
+		margin-top: 0;
 		position: relative;
 		right: -300px;
 		opacity: 0;
+
+		overflow: hidden;
+		box-sizing: border-box;
+		max-height: 0;
+		padding: 0;
 	}
 	.alertify-log-show {
 		right: 0;
 		opacity: 1;
+		padding: 8px 14px;
+		max-height: 5em;
 	}
 	.alertify-log-hide {
 		-webkit-transform: translate(300px, 0);
@@ -74,6 +81,8 @@
 		     -o-transform: translate(300px, 0);
 		        transform: translate(300px, 0);
 		opacity: 0;
+		padding: 0;
+		max-height: 0;
 	}
 	.alertify-dialog {
 		padding: 25px;

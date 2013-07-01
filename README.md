@@ -8,7 +8,6 @@ Para más información, visita [la aplicación](http://pablomolina.me/Alibel-TPV
 
 ## Tareas pendientes
 
-  - Hacer las notificaciones menos intrusivas (dejar solo 1 o 2 a la vista)
   - Nueva venta:
       - Hacer el código más usable.
       - Cuando se hace scroll en el carrito el total cambia de posición.
