@@ -323,7 +323,20 @@
 					// unbind event so function only gets called once
 					self.unbind(this, self.transition.type, transitionDone);
 					// remove log message
-					elLog.removeChild(this);
+					try {
+						elLog.removeChild(this);
+					} catch (e) {
+						// Este error puede darse por las modificaciones
+						// hechas: como las notificaciones se quitan antes
+						// para mostrarse de una en una, a veces se intenta
+						// eliminar un elemento que no existe
+						if (e.name == "NotFoundError") {}
+
+						else {
+							throw e;
+						}
+					}
+
 					if (!elLog.hasChildNodes()) elLog.className += " alertify-logs-hidden";
 				};
 				// this sets the hide class to transition out
