@@ -279,8 +279,18 @@
     }
 }
 
-#newSellCompletePrintCheck ~ label {
-    max-width: 15em;
-    float: left;
-    text-align: center;
+#newSellCompletePrintCheck {
+    width: 1.25em;
+    height: 1.25em;
+    cursor: pointer;
+
+    & ~ label {
+        max-width: 15em;
+        font-size: 1.1em;
+        line-height: 1.25em;
+        text-align: center;
+        vertical-align: top;
+        padding-left: 0.3em;
+        cursor: pointer;
+    }
 }

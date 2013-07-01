@@ -64,6 +64,20 @@ alibel.app.NewSell = Backbone.View.extend({
                 autoOpen: false,
                 buttons: [
                     {
+                        text: __('removeItem'),
+                        // Ponemos la cantidad a cero
+                        // y activamos el cambio de items
+                        click: function (event) {
+                            $(this)
+                                .find('#itemCartDialogQuantity')
+                                .val('0')
+                                .end()
+                            .trigger($.Event('keyup', {
+                                which: $.ui.keyCode.ENTER
+                            }));
+                        }
+                    },
+                    {
                         text: __('accept'),
                         // Pasa lo mismo que al pulsar ENTER
                         click: function (event) {
@@ -80,14 +94,20 @@ alibel.app.NewSell = Backbone.View.extend({
                 modal: true,
                 draggable: false,
                 resizable: false,
-                minWidth: 480,
+                minWidth: 540,
                 title: __('addingRemovingItem'),
 
                 create: function () {
                     var $this = $(this),
                         $buttons =  $this.next(),
-                        $complete = $buttons.find('button:first'),
+                        $remove = $buttons.find('button:first'),
+                        $complete = $remove.next(),
                         $cancel =   $buttons.find('button:last');
+
+                    $remove
+                        .addClass('ui-state-highlight')
+                        .find('>span')
+                        .prepend('<i class="icon-trash"><i> ');
 
                     $complete
                         .addClass('ui-state-highlight')
@@ -118,29 +138,44 @@ alibel.app.NewSell = Backbone.View.extend({
                     price = parseFloat($this.find('#itemCartDialogPrice').val()),
                     validProcess = false;
 
-                if (event.which == $.ui.keyCode.ENTER) {                    
+                if (event.which == $.ui.keyCode.ENTER) {
+                    // El artículo ya está en el carrito
                     if (eItem) {
                         var difference = eItem.get('quantity') - quantity,
                             price = (eItem.getPrice() != price) ? price : undefined;
 
+                        // Se van a añadir más unidades
                         if (difference < 0) {
                             validProcess = me.addToCart(difference * -1, price);
+                        
                         } else {
+                            // Establecemos el nuevo precio
+                            // (aunque no se varíen las unidades)
                             if (price) {
                                 eItem.set('price', price);
                             }
 
+                            // Se quitan unidades
                             if (difference > 0) {                            
                                 validProcess = me.removeFromCart(difference);
+                            
+                            // Hemos cambiado el precio, pero no las unidades
                             } else {
                                 validProcess = true;
                             }
                         }
 
-                    } else if (quantity) {
+                    // Se añade un nuevo artículo
+                    } else if (quantity > 0) {
                         validProcess = me.addToCart(quantity, (price) ? price : undefined);
+
+                    // No se ha hecho nada, cerramos el cuadro
+                    } else if (quantity == 0) {
+                        validProcess = true;
                     }
 
+                    // Si no ha habido errores,
+                    // cerramos la ventana
                     if (validProcess) {
                         $this.dialog('close');
                     }
@@ -340,9 +375,9 @@ alibel.app.NewSell = Backbone.View.extend({
                     if (eIt) stock += eIt.get('quantity');
 
                 alibel.log(__('notEnoughStock', {
-                    quantity:   quantity,
-                    units:      (quantity == 1) ? this._editingItem.get('unit')
-                                                : this._editingItem.get('units')
+                    quantity:   stock,
+                    units:      (stock == 1) ? this._editingItem.get('unit')
+                                             : this._editingItem.get('units')
                 }));
             } else {
                 throw e;
@@ -381,7 +416,7 @@ alibel.app.NewSell = Backbone.View.extend({
         $('<div id="newSellCompleteConfirmDialog">' +
             '<h1>' + __('wannaCompleteSell') + '</h1>' +
             '<input type="checkbox" id="newSellCompletePrintCheck" />' +
-            '<label for="newSellCompletePrintCheck"><i class="icon-print"></i>' + __('printTicket') + '</label>' +
+            '<label for="newSellCompletePrintCheck">' + __('printTicket') + '</label>' +
         '</div>')
         .dialog({
             autoOpen: true,
@@ -408,8 +443,7 @@ alibel.app.NewSell = Backbone.View.extend({
                 var $this = $(this),
                     $buttons =  $this.next(),
                     $complete = $buttons.find('button:first'),
-                    $cancel =   $buttons.find('button:last'),
-                    $print  =   $this.find('#newSellCompletePrintCheck').button();
+                    $cancel =   $buttons.find('button:last');
 
                 $complete
                     .addClass('ui-state-highlight')
@@ -535,7 +569,7 @@ alibel.app.NewSell = Backbone.View.extend({
 
             alibel.log(__('completedSell'));
         } else {
-            alibel.log(__('newSell.emptyCart'), 'error');
+            alibel.log(__('emptyCart'), 'error');
         }
 
         // Reenfoca el cuadro de búsqueda
