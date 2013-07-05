@@ -8,11 +8,28 @@
 @cantExpressMyself: #1C140D;
 @specialTshirt2: #CBE86B;
 
-@mainFont: 'Stint Ultra Condensed', Droid Sans, Ubuntu, Tahoma, Verdana;
-@consoleFont: Consolas, Inconsolata, Monospace;
+@fontPath: '../font/TypoSlabserif-Light-fontfacekit';
+@fontName: 'TypoSlabserifLightRegular';
+@fontFile: 'TypoSlabserif-Light-webfont';
+@font-face {
+    font-family: '@{fontName}';
+    src: url('@{fontPath}/@{fontFile}.eot');
+    src: url('@{fontPath}/@{fontFile}.eot?#iefix') format('embedded-opentype'),
+         url('@{fontPath}/@{fontFile}.woff') format('woff'),
+         url('@{fontPath}/@{fontFile}.ttf') format('truetype'),
+         url('@{fontPath}/@{fontFile}.svg#@{fontName}') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mainFont: '@{fontName}', Droid Sans, Ubuntu, Tahoma, Verdana;
+@consoleFont: @mainFont;
 @bodyFontSize: 17px;
 
 @import "mixins.less";
+@import "../alibeltpv-theme/jquery-ui-1.9.2.custom.less";
+@import "../../js/libs/alertify-0.3.9/alertify.core.less";
+@import "../../js/libs/alertify-0.3.9/alertify.bootstrap.less";
 
 @import "elements/item.less";
 @import "elements/list.less";
