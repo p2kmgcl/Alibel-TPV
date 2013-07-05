@@ -40,7 +40,6 @@ alibel.app.Inventary = Backbone.View.extend({
         var val = event.target.value,
             list = this.$el.find('.itemList');
 
-        
         list.removeClass('lowStock')
             .removeClass('noStock');
 

@@ -7,7 +7,7 @@ alibel.templates.ItemCartDialog = '\
     <span class="quantityUnit"><%= units.toLowerCase() %></span>\
     \
     <label for="itemCartDialogPrice" class="price"><%= __("price") %></label>\
-    <input type="number" min="0" value="<%= price.toFixed(2) %>" step="0.01" id="itemCartDialogPrice" />\
+    <input type="number" min="0" value="<%= price.toFixed(2) %>" step="0.05" id="itemCartDialogPrice" />\
     <span class="priceUnit">€ / <%= unit.toLowerCase() %></span>\
     \
     <label for="id="itemCartDialogFinalPrice"><%= __("totalPrice") %></label>\

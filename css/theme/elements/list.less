@@ -3,26 +3,19 @@
     padding-left: 0;
     list-style: none;
 
-    > li {
+    .item {
         display: inline-block;
     }
 
-    &.lowStock {
-        > li {
-            display: none;
-            &.lowStock {
-                display: inline-block;
-            }
-        }
+    &.lowStock .itemWrapper .item {
+        display: none;
+        &.lowStock { display: inline-block; }
+        &.noStock { display: none; }
     }
 
-    &.noStock {
-        > li {
-            display: none;
-            &.noStock {
-                display: inline-block;
-            }
-        }
+    &.noStock .itemWrapper .item {
+        display: none;
+        &.noStock { display: inline-block; }
     }
 }
 

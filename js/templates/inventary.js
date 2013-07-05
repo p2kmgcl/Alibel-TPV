@@ -5,7 +5,7 @@ alibel.templates.Inventary = '\
             <input type="search" id="inventaryItemSearch"\
                 placeholder="<%= __("writeItemCodeOrName") %>" />\
             <fieldset class="stockFilter">\
-                <input type="radio" name="stock" id="inventaryItemStockAll" value="all" />\
+                <input type="radio" name="stock" id="inventaryItemStockAll" value="all" checked="true" />\
                 <label for="inventaryItemStockAll"><%= __("all") %></label>\
                 <input type="radio" name="stock" id="inventaryItemStockLow" value="lowStock" />\
                 <label for="inventaryItemStockLow"><%= __("lowStock") %></label>\

@@ -122,14 +122,13 @@
             border-top: solid @cantExpressMyself thin;
         }
 
-        > [class^=itemWrapper] {
+        .itemWrapper {
             width: 50%;
+            float: left;
             display: inline-block;
             overflow: hidden;
-
-            &.noStock { display: none; }
         
-            > .item {
+            .item {
                 .buttonItem;
                 width: 100%;
                 margin: 0;
@@ -140,6 +139,7 @@
                 font-size: 0.9em;
 
                 &.noStock { display: none; }
+                
                 > .code { font-size: 1.5em; }
                 > .name {
                     overflow: hidden;

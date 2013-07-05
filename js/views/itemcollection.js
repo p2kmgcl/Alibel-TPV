@@ -37,6 +37,7 @@ alibel.views.ItemCollection = Backbone.View.extend({
         // Envuelve al item con un elemento li
         // por cuestión de semántica
         var $li = $(document.createElement('li'))
+                    .addClass(this.wrapperClass)
                     .addClass(this.wrapperClass + item.get('code'))
                     .append(newView.el);
 

@@ -21,22 +21,23 @@
         padding-top: 4em;
         list-style: none;
 
-        .item {
-            .buttonItem;
-            width: 20em;
-            margin: 0.5em;
+        .itemWrapper {
+            display: inline-block;
 
-            &.lowStock > .name {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                -o-text-overflow: ellipsis;
-                white-space: nowrap;
-                width: 65%;
-                margin-left: auto;
+            .item {
+                .buttonItem;
+                width: 20em;
+                margin: 0.5em;
+
+                &.lowStock > .name {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    -o-text-overflow: ellipsis;
+                    white-space: nowrap;
+                    width: 65%;
+                    margin-left: auto;
+                }
             }
         }
-
-        &.lowStock > li {}
-        &.noStock > li {}
     }
 }

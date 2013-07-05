@@ -35,11 +35,11 @@ alibel.collections.Item = Backbone.Collection.extend({
      */
     addFromJSON: function (JSONdata, callback) {
         var finalItems = [];
-        
+
         // Itera en cada item y lo procesa
         _.each(JSONdata.items, function (item) {
             finalItems.push({
-                code: parseInt(item.code),
+                code: parseInt(item.code, 10),
                 name: item.name,
                 price: parseFloat(item.price),
                 unit: item.unit,
@@ -48,11 +48,11 @@ alibel.collections.Item = Backbone.Collection.extend({
                 // Genera valores aleatorios para las unidades de ítems
                 // usa valores grandes para poder contemplar todos los casos
                 // que podrían darse
-                stock: parseInt(Math.random() * 100),   // parseInt(item.stock)
-                minStock: parseInt(Math.random() * 100) // parseInt(item.minStock)
+                stock: parseInt(Math.random() * 100, 10), // parseInt(item.stock)
+                minStock: parseInt(Math.random() * 100, 10) // parseInt(item.minStock)
             });
         });
-        
+
         // Finalmente añade los ítems
         // a la colección
         this.add(finalItems);
