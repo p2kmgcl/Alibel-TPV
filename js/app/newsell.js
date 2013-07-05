@@ -16,7 +16,7 @@ alibel.app.NewSell = Backbone.View.extend({
         'click #newSellComplete':           'showCompleteDialog',
         'click #newSellCancel':             'showCancelDialog',
 
-        'click > .itemList':                'itemClickHandler',
+        'click > .itemList .item':          'itemClickHandler',
         'click > .shoppingCart > .itemList':'itemClickHandler'
     },
 
@@ -25,7 +25,7 @@ alibel.app.NewSell = Backbone.View.extend({
         this.$shoppingCart = new alibel.views.ShoppingCart({
             model: this.shoppingCart
         });
-        
+
         this.itemCollection = params.itemCollection;
         this.$itemCollection = new alibel.views.ItemCollection({
             collection: this.itemCollection
@@ -123,10 +123,10 @@ alibel.app.NewSell = Backbone.View.extend({
                 // Al terminar de trabajar con un item,
                 // reenfocamos la barra de búsqueda
                 close: function () {
-                    this._editingItem = null;
-                    this._editingCartItem = null;
+                    me._editingItem = null;
+                    me._editingCartItem = null;
                     // Reenfocamos la barra de búsqueda
-                    $('#newSellItemSearch').focus();
+                    me._cleanSearch();
                 }
 
             // Guardamos los cambios al pulsar enter
@@ -199,6 +199,8 @@ alibel.app.NewSell = Backbone.View.extend({
         // en el metodo searchItem
         this.$itemCollectionList =
             this.$el.find('> .itemList');
+
+        me._cleanSearch();
         return this;
     },
 
@@ -324,19 +326,7 @@ alibel.app.NewSell = Backbone.View.extend({
             // añadimos el primer item de la lista
             // de resultados
             if (event.which === ENTER_KEY) {
-                var firstResult =
-                        $(this.$itemCollectionList
-                        .find('> li')
-                        .not('.hidden, .noStock')[0]);
-
-                if (firstResult.length > 0) {
-                    var firstResultCode = firstResult.find('.code').html();
-                }
-
-                if (typeof firstResultCode !== 'undefined') {
-                    var item = this._getItem(parseInt(firstResultCode));
-                    this.openCartDialog(item);
-                }
+                this._addFirstItem();
             }
             this.$itemCollection.search($search.val());
         }
@@ -496,7 +486,7 @@ alibel.app.NewSell = Backbone.View.extend({
                         $(this).dialog('close');
                     }
                 },
-                {   
+                {
                     text: __('continueSelling'),
                     click: function () {
                         $(this).dialog('close');
@@ -508,13 +498,13 @@ alibel.app.NewSell = Backbone.View.extend({
                 var $this = $(this),
                     $buttons =  $this.next(),
                     $complete = $buttons.find('button:first'),
-                    $cancel =   $buttons.find('button:last')
+                    $cancel =   $buttons.find('button:last');
 
                 $complete
                     .addClass('ui-state-highlight')
                     .find('>span')
                     .prepend('<i class="icon-ok-sign"><i> ');
-                
+
                 $cancel
                     .addClass('ui-state-error')
                     .find('>span')
@@ -560,7 +550,7 @@ alibel.app.NewSell = Backbone.View.extend({
                 collection: this.shoppingCart.get('collection').reset(),
                 date: new Date()
             });
-            
+
             // Actualiza la vista del carrito
             // y la deja preparada
             var me = this;
@@ -595,7 +585,7 @@ alibel.app.NewSell = Backbone.View.extend({
         this.shoppingCart.set('date', new Date());
 
         // Reenfoca el cuadro de búsqueda
-        
+        this._cleanSearch();
     },
 
     /* ****************************************************************
@@ -614,7 +604,7 @@ alibel.app.NewSell = Backbone.View.extend({
         return {
             activeClass: 'ui-dragging',
             drop: function (event, ui) {
-                var code = parseInt(ui.draggable.find('>.code').html());
+                var code = parseInt(ui.draggable.find('>.code').html(), 10);
                 me._editingItem = me._getItem(code);
                 me.addToCart();
             }
@@ -650,10 +640,31 @@ alibel.app.NewSell = Backbone.View.extend({
 
         if (item && cart) {
             return this.shoppingCart.collection.where({
-                item: item 
-            })[0]; 
+                item: item
+            })[0];
         }
         return item;
+    },
+
+    /**
+     * Añade el primer item de la lista (muestra)
+     * el cuadro de diálogo
+     */
+    _addFirstItem: function () {
+        var firstResult =
+                $(this.$itemCollectionList
+                .find('> li')
+                .not('.hidden, .noStock')[0]),
+            firstResultCode;
+
+        if (firstResult.length > 0) {
+            firstResultCode = firstResult.find('.code').html();
+        }
+
+        if (typeof firstResultCode !== 'undefined') {
+            var item = this._getItem(parseInt(firstResultCode, 10));
+            this.openCartDialog(item);
+        }
     },
 
     /**
@@ -661,7 +672,77 @@ alibel.app.NewSell = Backbone.View.extend({
      * lista para nuevas búsquedas
      */
     _cleanSearch: function () {
-        $('#newSellItemSearch').val('').focus();
+        var me = this,
+            $keyboardWrapper = me.$el.find('#newSellSearchKeyboard'),
+            $newSellItemSearch =
+                me.$el.find('#newSellItemSearch')
+                .val('')
+                .focus(),
+
+            itemCollectionHeight,
+            keyboardHeight;
+
+            $keyboard = $newSellItemSearch.keyboard({
+                    layout: 'custom',
+                    customLayout: {
+                        'default': ['1 2 3 4 5 6 7 8 9 0 {b}',
+                                    'Q W E R T Y U I O P',
+                                    'A S D F G H J K L Ñ',
+                                    'Z X C V B N M . ( )',
+                                    '{a} {space} {c}']
+                    },
+
+                    initialized: function (event, keyboard, $el) {
+                        _.delay(function () {
+                            keyboard.$preview.val('');
+
+                            var newLeft = $newSellItemSearch.position().left,
+                                newWidth = $newSellItemSearch.width() + 2;
+
+                            keyboard.$keyboard.css({
+                                width: newWidth,
+                                left: newLeft + 'px',
+                                zIndex: 1000
+                            });
+
+                            keyboardHeight = keyboard.$keyboard.height() + $newSellItemSearch.height();
+                            itemCollectionHeight = me.$itemCollectionList.height();
+                        }, 100);
+                    },
+
+                    usePreview: false,
+                    stayOpen: true,
+
+                    change: function(event, keyboard, $el) {
+                        me.$itemCollection.search(
+                            keyboard.$preview.val());
+                    },
+
+                    accepted: function (event, keyboard, $el) {
+                        me._addFirstItem();
+                    },
+
+                    canceled: function (event, keyboard, $el) {
+                        return false;
+                    },
+
+                    visible: function (event, keyboard, $el) {
+                        me.$itemCollectionList.animate({
+                                "height": itemCollectionHeight - keyboardHeight,
+                                "margin-top": keyboardHeight
+                            }, 200)
+                            .addClass('small');
+                    },
+
+                    hidden: function (event, keyboard, $el) {
+                        me.$itemCollectionList.delay(250).animate({
+                                "height": itemCollectionHeight,
+                                "margin-top": 0
+                            }, 200)
+                            .removeClass('small');
+                    }
+                });
+
         this.searchItem($.Event('keyup', { which: ' ' }));
     }
 });

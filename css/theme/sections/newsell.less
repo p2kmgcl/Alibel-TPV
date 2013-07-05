@@ -39,6 +39,7 @@
     > .shoppingCart {
         height: 90%;
         width: 50%;
+        overflow-y: scroll !important;
       
       > ul {
         list-style: none;
@@ -98,10 +99,15 @@
 // Esta segunda parte se dedica a los estilos más concretos
 #sectionNewSell {
     > header {
-        border: solid @cantExpressMyself thin;
-
-        #newSellItemSearch {
-            outline: none;
+        > .itemSearch {
+            background-color: @writeIt;
+            > #newSellItemSearch {
+                .input;
+                width: 100%;
+                margin-top: 0;
+                box-sizing: border-box;
+                outline: none;
+            }
         }
     }
 
@@ -109,6 +115,12 @@
         border: solid @cantExpressMyself thin;
         border-top: none;
         border-radius: 0 0 0.5em 0.5em;
+
+        // Se añade esta clase cuando se está
+        // mostrando el teclado
+        &.small {
+            border-top: solid @cantExpressMyself thin;
+        }
 
         > [class^=itemWrapper] {
             width: 50%;
@@ -121,7 +133,8 @@
                 .buttonItem;
                 width: 100%;
                 margin: 0;
-                border: none;
+                border-top: none;
+                border-left: none;
                 border-radius: 0;
                 box-shadow: inset -1px -1px 1px @cantExpressMyself;
                 font-size: 0.9em;
@@ -136,6 +149,16 @@
                     width: 90%;
                     margin-left: auto;
                     margin-right: 0;
+                }
+
+                &.lowStock > .name {
+                    width: 65%;
+                }
+
+                &:active {
+                    top: 0;
+                    box-shadow: inset -1px -1px 1px @cantExpressMyself,
+                                inset 0.15em 0.15em 0.20em lighten(@cantExpressMyself, 50%);
                 }
             }
         }
