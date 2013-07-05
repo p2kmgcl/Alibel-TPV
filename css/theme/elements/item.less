@@ -31,17 +31,25 @@
         background-color: darken(@specialTshirt2, 10%);
 
         &:before {
-            content: "\f107";
-            font-family: 'FontAwesome';
+            content: "Pocas existencias";
             position: absolute;
-            top: 0.25em;
-            left: 0.5em;
+            top: 0;
+            left: 0;
+            padding: 0.25em;
+            text-align: center;
+            padding-bottom: 0.1em;
+            font-size: 0.8em;
+            border-bottom-right-radius: 0.25em;
+            text-transform: capitalize;
+            background-color: lighten(@cantExpressMyself, 25%);
+            border-bottom: @cantExpressMyself solid thin;
+            border-right: @cantExpressMyself solid thin;
+            color: @specialTshirt;
         }
     
-        &.noStock {
-            opacity: 0.5;
-            &:hover { opacity: 1; }
-            &:before { content: "\f103" !important; }
+        &.noStock:before {
+            content: "Sin existencias" !important;
+            background-color: @cantExpressMyself !important;
         }
     }
 

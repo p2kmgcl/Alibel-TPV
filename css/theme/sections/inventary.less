@@ -25,16 +25,18 @@
             .buttonItem;
             width: 20em;
             margin: 0.5em;
+
+            &.lowStock > .name {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 65%;
+                margin-left: auto;
+            }
         }
 
-        &.lowStock > li {
-            display: none;
-            &.lowStock { display: inline-block; }
-        }
-
-        &.noStock > li {
-            display: none;
-            &.noStock { display: inline-block; }
-        }
+        &.lowStock > li {}
+        &.noStock > li {}
     }
 }
