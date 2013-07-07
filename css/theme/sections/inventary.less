@@ -1,25 +1,67 @@
-#inventaryItemSearch {
-    .input;
-    width: 60%;
-    display: inline-block;
-}
-
 #sectionInventary {
-    .itemSearch {
-        .fixSearchForm;
-    
-        .stockFilter {
+    > header {
+        display: block;
+        margin: 0 auto;
+        width: 90%;
+        height: 40%;
+        box-sizing: border-box;
+        overflow: hidden;
+        font-size: 0;
+
+        .itemSearch {
+            font-size: @bodyFontSize;
             display: inline-block;
-            position: relative;
-            top: -0.05em;
+            width: 50%;
+            height: 100%;
+            box-sizing: border-box;
+            float: left;
+
+            #inventaryItemSearch {
+                .input;
+                width: 100%;
+                height: 20%;
+                box-sizing: border-box;
+                display: inline-block;
+            }
+         
+            .keyboardQwerty {
+                .keyboardQwerty;
+                width: 100%;
+                height: 70%;
+            }   
+        }
+
+        .stockFilter,
+        .inventaryEdit {
+            font-size: @bodyFontSize;
+            display: inline-block;
+            width: 46%;
+            padding: 1em;
+            padding-top: 0.5em;
+            margin: 2%;
+            margin-bottom: 0.5%;
+            box-sizing: border-box;
+            box-shadow: inset 0 0 2px @cantExpressMyself;
+
+            > fieldset > legend {
+                position: relative;
+                top: -1em;
+                background-color: lighten(@specialTshirt2, 20%);
+            }
         }
     }
 
     .itemList {
         .itemList;
         padding-left: 0;
-        padding-top: 4em;
+        padding-top: 3em;
         list-style: none;
+
+        display: block;
+        margin: 0;
+        height: 60%;
+        box-sizing: border-box;
+        overflow: auto;
 
         .itemWrapper {
             display: inline-block;

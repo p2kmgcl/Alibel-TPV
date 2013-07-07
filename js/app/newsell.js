@@ -447,12 +447,14 @@ alibel.app.NewSell = Backbone.View.extend({
      * @return {this} A sí mismo
      */
     showCompleteDialog: function () {
-        var me = this;
+        var me = this,
+            template = _.template(alibel.templates.CompleteSellDialog),
 
-        $('<div id="newSellCompleteConfirmDialog">' +
+            $dialog = $('<div id="newSellCompleteConfirmDialog">' +
             '<h1>' + __('wannaCompleteSell') + '</h1>' +
-            '<input type="checkbox" id="newSellCompletePrintCheck" />' +
-            '<label for="newSellCompletePrintCheck">' + __('printTicket') + '</label>' +
+            template({ total: this.shoppingCart.getTotal() }) +
+            '<div class="print"><input type="checkbox" id="newSellCompletePrintCheck" />' +
+            '<label for="newSellCompletePrintCheck">' + __('printTicket') + '</label></div>' +
         '</div>')
         .dialog({
             autoOpen: true,
@@ -502,8 +504,53 @@ alibel.app.NewSell = Backbone.View.extend({
             modal: true,
             draggable: false,
             resizable: false,
-            minWidth: 480,
+            minWidth: 700,
             title: __('completeSell')
+        });
+
+        $(function () {
+            // Actualiza el cambio
+            var $paid = $('#completeSellDialogPaid'),
+                $change = $('#completeSellDialogChange'),
+                total = me.shoppingCart.getTotal();
+            $paid.on('change', function () {
+                var val = parseFloat($paid.val());
+                $change.html(parseFloat(val - total).toFixed(2));
+            });
+
+            // Añade botones para aumentar / disminuir la cantidad de items totales
+            $('<i class="plusMinusButton icon-plus"></i><i class="plusMinusButton icon-minus"></i>')
+                .insertAfter($paid);
+            $('.plusMinusButton').on("click", function() {
+                var $this = $(this),
+                    $input  = $this.parent().find("input"),
+                    val     = parseFloat($input.val()),
+                    max     = parseInt($input.attr('max'), 10),
+                    min     = parseInt($input.attr('min'), 10),
+                    step    = parseFloat($input.attr('step')),
+                    newVal  = ($this.hasClass('icon-plus')) ? val + step : val - step;
+
+                if (newVal > max) { newVal = max; }
+                if (newVal < min) { newVal = min; }
+                $input.val(newVal.toFixed(2)).focus().trigger('change');
+            });
+
+            // Hacemos que el teclado funcione
+            $dialog.find('.keyboardNumeric td').on('click', function (e) {
+                var key = e.target.innerText,
+                    val = $paid.val() + '';
+
+                if (key == '{ca}') {
+                    val = val.substr(0, val.length - 1);
+                } else {
+                    if (val == '0') {
+                        val = key;
+                    } else {
+                        val += key;
+                    }
+                }
+                $paid.val(val || 0).trigger('change');
+            });
         });
 
         return this;

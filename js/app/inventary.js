@@ -9,7 +9,10 @@ alibel.app.Inventary = Backbone.View.extend({
 
     events: {
         'click .stockFilter input': 'changeStockFilter',
-        'keyup #inventaryItemSearch': 'searchItem'
+        'keyup #inventaryItemSearch': 'searchItem',
+        'click .keyboardQwerty td':      'virtualKeyboardHandler',
+        'click #inventaryUpdateButton': 'updateInventary',
+        'click #inventaryAddNewItemButton': 'addNewItem'
     },
 
     initialize: function (params) {
@@ -23,11 +26,12 @@ alibel.app.Inventary = Backbone.View.extend({
     render: function () {
         this.$el
             .html(this.template())
-            .append(this.itemCollection.el);
+            .prepend(this.itemCollection.el);
 
         var $el = this.$el;
         $(function () {
-            $el.find('.stockFilter').buttonset();
+            $el.find('.stockFilter input').button();
+            $el.find('.inventaryEdit button').button();
         });
     },
 
@@ -57,5 +61,41 @@ alibel.app.Inventary = Backbone.View.extend({
     searchItem: function () {
         this.itemCollection.search(
             $("#inventaryItemSearch").val());
+    },
+
+    /**
+     * Procesa la entrada del teclado virtual
+     */
+    virtualKeyboardHandler: function (e) {
+        var key = e.target.innerText,
+            $search = $('#inventaryItemSearch'),
+            search  = $search.val();
+
+        if (key == '{ca}') {
+            $search.val(search.substr(0, search.length - 1))
+                   .focus();
+            this.searchItem();
+        } else if (key == '{ok}') {
+            $search.focus();
+            this.searchItem({
+                which: 13
+            });
+        } else {
+            if (key == '{sp}') {
+                key = ' ';
+            }
+            $search.val(search + key).focus();
+            this.searchItem();
+        }
+    },
+
+    updateInventary: function (e) {
+        e.preventDefault();
+        alibel.log(__('inventaryUpdateNotAvailable'), 'error');
+    },
+
+    addNewItem: function (e)  {
+        e.preventDefault();
+        alibel.log(__('addItemNotAvailable'), 'error');
     }
 });
