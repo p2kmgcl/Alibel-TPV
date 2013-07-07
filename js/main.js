@@ -20,7 +20,8 @@
         About: '1.2.0',
         App: '1.1.0',
 
-        ItemCartDialog: '1.0.0'
+        ItemCartDialog: '1.0.0',
+        KeyboardQwerty: '1.0.0'
     },
 
     views: {

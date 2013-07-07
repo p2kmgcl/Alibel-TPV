@@ -17,7 +17,9 @@ alibel.app.NewSell = Backbone.View.extend({
         'click #newSellCancel':             'showCancelDialog',
 
         'click > .itemList .item':          'itemClickHandler',
-        'click > .shoppingCart > .itemList':'itemClickHandler'
+        'click > .shoppingCart > .itemList':'itemClickHandler',
+
+        'click .keyboardQwerty td':         '_searchKeyboardHandler'
     },
 
     initialize: function (params) {
@@ -49,11 +51,9 @@ alibel.app.NewSell = Backbone.View.extend({
     },
 
     render: function () {
-        var $newSellEnd = this.$el.html(this.template())
-                            .find('> .newSellEnd');
-
-        this.$shoppingCart.$el.insertBefore($newSellEnd);
-        this.$itemCollection.$el.insertBefore($newSellEnd);
+        this.$el.html(this.template());
+        this.$el.prepend(this.$itemCollection.$el);
+        this.$el.prepend(this.$shoppingCart.$el);
 
         // Añade los dialogos de edicion de items
         // Ver código en initialize
@@ -86,7 +86,7 @@ alibel.app.NewSell = Backbone.View.extend({
                             }));
                         }
                     },
-                    {   
+                    {
                         text: __('cancel'),
                         click: function () { $(this).dialog('close'); }
                     }
@@ -113,7 +113,7 @@ alibel.app.NewSell = Backbone.View.extend({
                         .addClass('ui-state-highlight')
                         .find('>span')
                         .prepend('<i class="icon-ok-sign"><i> ');
-                    
+
                     $cancel
                         .addClass('ui-state-error')
                         .find('>span')
@@ -134,20 +134,20 @@ alibel.app.NewSell = Backbone.View.extend({
                 var $this = $(this),
                     item = me._editingItem,
                     eItem = me._editingCartItem,
-                    quantity = parseInt($this.find('#itemCartDialogQuantity').val()),
+                    quantity = parseInt($this.find('#itemCartDialogQuantity').val(), 10),
                     price = parseFloat($this.find('#itemCartDialogPrice').val()),
                     validProcess = false;
 
                 if (event.which == $.ui.keyCode.ENTER) {
                     // El artículo ya está en el carrito
                     if (eItem) {
-                        var difference = eItem.get('quantity') - quantity,
-                            price = (eItem.getPrice() != price) ? price : undefined;
+                        var difference = eItem.get('quantity') - quantity;
+                        price = (eItem.getPrice() != price) ? price : undefined;
 
                         // Se van a añadir más unidades
                         if (difference < 0) {
                             validProcess = me.addToCart(difference * -1, price);
-                        
+
                         } else {
                             // Establecemos el nuevo precio
                             // (aunque no se varíen las unidades)
@@ -156,9 +156,9 @@ alibel.app.NewSell = Backbone.View.extend({
                             }
 
                             // Se quitan unidades
-                            if (difference > 0) {                            
+                            if (difference > 0) {
                                 validProcess = me.removeFromCart(difference);
-                            
+
                             // Hemos cambiado el precio, pero no las unidades
                             } else {
                                 validProcess = true;
@@ -170,7 +170,7 @@ alibel.app.NewSell = Backbone.View.extend({
                         validProcess = me.addToCart(quantity, (price) ? price : undefined);
 
                     // No se ha hecho nada, cerramos el cuadro
-                    } else if (quantity == 0) {
+                    } else if (quantity === 0) {
                         validProcess = true;
                     }
 
@@ -186,7 +186,7 @@ alibel.app.NewSell = Backbone.View.extend({
                 );
             }).on('click', function () {
                 var $this = $(this),
-                    quantity = parseInt($this.find('#itemCartDialogQuantity').val()),
+                    quantity = parseInt($this.find('#itemCartDialogQuantity').val(), 10),
                     price = parseFloat($this.find('#itemCartDialogPrice').val());
 
                 $this.find('#itemCartDialogFinalPrice').html(
@@ -210,6 +210,9 @@ alibel.app.NewSell = Backbone.View.extend({
      * @return {this} A sí mismo
      */
     openCartDialog: function (item) {
+        var quantity,
+            price;
+
         // Guardamos el item actual
         this._editingItem = item;
 
@@ -223,11 +226,11 @@ alibel.app.NewSell = Backbone.View.extend({
 
         // Renderizamos la plantilla
         if (this._editingCartItem) {
-            var quantity = this._editingCartItem.get('quantity'),
-                price = this._editingCartItem.getPrice();
+            quantity = this._editingCartItem.get('quantity');
+            price = this._editingCartItem.getPrice();
         } else {
-            var quantity = 0,
-                price = item.get('price');
+            quantity = 0;
+            price = item.get('price');
         }
 
         this.$itemCartDialog.html(this.itemCartDialogTemplate({
@@ -273,7 +276,7 @@ alibel.app.NewSell = Backbone.View.extend({
             start: function (event, ui) {
                 // Modifica el stock de forma ficticia
                 // para que se vea que se ha quitado un item
-                var $stock = $itemView.$el.find('>.stock')
+                var $stock = $itemView.$el.find('>.stock');
                 $stock.html(
                     ($itemView.model.get('stock') - 1) +
                     ' ' + ($stock.html().split(' ')[1])
@@ -300,7 +303,7 @@ alibel.app.NewSell = Backbone.View.extend({
                     ($evTarget.hasClass('item')) ?
                       $evTarget.find('> .code').html():
                       $evTarget.parent().find('.code').html()
-                   ),
+                   , 10),
             // Obtenemos el item asociado al codigo...
             item = this._getItem(code);
 
@@ -318,6 +321,8 @@ alibel.app.NewSell = Backbone.View.extend({
      * búsqueda.
      */
     searchItem: function (event) {
+        event = event || {};
+
         var ENTER_KEY = 13,
             $search = $('#newSellItemSearch');
 
@@ -347,7 +352,7 @@ alibel.app.NewSell = Backbone.View.extend({
      *  (una por defecto)
      */
     addToCart: function (quantity, price) {
-        var quantity = (typeof quantity === 'number') ? quantity : 1;
+        quantity = (typeof quantity === 'number') ? quantity : 1;
         // Añadimos el item
         try {
             this.shoppingCart.add(this._editingItem, quantity, price);
@@ -382,7 +387,7 @@ alibel.app.NewSell = Backbone.View.extend({
      * @param {Number} quantity Cuantas unidades desean quitarse (una por defecto)
      */
     removeFromCart: function (quantity) {
-        var quantity = (typeof quantity === 'number') ? quantity : 1;
+        quantity = (typeof quantity === 'number') ? quantity : 1;
         // Quitamos el item
         this.shoppingCart.remove(this._editingItem, quantity);
         alibel.log(__('itemRemoved', {
@@ -421,7 +426,7 @@ alibel.app.NewSell = Backbone.View.extend({
                         $(this).dialog('close');
                     }
                 },
-                {   
+                {
                     text: __('cancel'),
                     click: function () {
                         $(this).dialog('close');
@@ -439,7 +444,7 @@ alibel.app.NewSell = Backbone.View.extend({
                     .addClass('ui-state-highlight')
                     .find('>span')
                     .prepend('<i class="icon-ok-sign"><i> ');
-                
+
                 $cancel
                     .addClass('ui-state-error')
                     .find('>span')
@@ -672,77 +677,32 @@ alibel.app.NewSell = Backbone.View.extend({
      * lista para nuevas búsquedas
      */
     _cleanSearch: function () {
-        var me = this,
-            $keyboardWrapper = me.$el.find('#newSellSearchKeyboard'),
-            $newSellItemSearch =
-                me.$el.find('#newSellItemSearch')
-                .val('')
-                .focus(),
-
-            itemCollectionHeight,
-            keyboardHeight;
-
-            $keyboard = $newSellItemSearch.keyboard({
-                    layout: 'custom',
-                    customLayout: {
-                        'default': ['1 2 3 4 5 6 7 8 9 0',
-                                    'Q W E R T Y U I O P',
-                                    'A S D F G H J K L Ñ',
-                                    'Z X C V B N M . ( )',
-                                    '{a} {space} {b}']
-                    },
-
-                    initialized: function (event, keyboard, $el) {
-                        _.delay(function () {
-                            keyboard.$preview.val('');
-
-                            var newLeft = $newSellItemSearch.position().left,
-                                newWidth = $newSellItemSearch.width() + 2;
-
-                            keyboard.$keyboard.css({
-                                width: newWidth,
-                                left: newLeft + 'px',
-                                zIndex: 1000
-                            });
-
-                            keyboardHeight = keyboard.$keyboard.height() + $newSellItemSearch.height();
-                            itemCollectionHeight = me.$itemCollectionList.height();
-                        }, 100);
-                    },
-
-                    usePreview: false,
-                    stayOpen: true,
-
-                    change: function(event, keyboard, $el) {
-                        me.$itemCollection.search(
-                            keyboard.$preview.val());
-                    },
-
-                    accepted: function (event, keyboard, $el) {
-                        me._addFirstItem();
-                    },
-
-                    canceled: function (event, keyboard, $el) {
-                        return false;
-                    },
-
-                    visible: function (event, keyboard, $el) {
-                        me.$itemCollectionList.animate({
-                                "height": itemCollectionHeight - keyboardHeight,
-                                "margin-top": keyboardHeight
-                            }, 200)
-                            .addClass('small');
-                    },
-
-                    hidden: function (event, keyboard, $el) {
-                        me.$itemCollectionList.delay(250).animate({
-                                "height": itemCollectionHeight,
-                                "margin-top": 0
-                            }, 200)
-                            .removeClass('small');
-                    }
-                });
-
         this.searchItem($.Event('keyup', { which: ' ' }));
+    },
+
+    /**
+     * Procesa la entrada del teclado virtual
+     */
+    _searchKeyboardHandler: function (e) {
+        var key = e.target.innerText,
+            $search = $('#newSellItemSearch'),
+            search  = $search.val();
+
+        if (key == '{ca}') {
+            $search.val(search.substr(0, search.length - 1))
+                   .focus();
+            this.searchItem();
+        } else if (key == '{ok}') {
+            $search.focus();
+            this.searchItem({
+                which: 13
+            });
+        } else {
+            if (key == '{sp}') {
+                key = ' ';
+            }
+            $search.val(search + key).focus();
+            this.searchItem();
+        }
     }
 });

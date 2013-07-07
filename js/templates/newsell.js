@@ -6,6 +6,7 @@ alibel.templates.NewSell = '\
                 placeholder="<%= __("writeItemCodeOrName") %>"\
                 autocomplete="off" />\
         </form>\
+        <%= alibel.templates.KeyboardQwerty %>\
     </header>\
     <form class="newSellEnd">\
         <button type="button" id="newSellComplete" class="ui-state-highlight">\
