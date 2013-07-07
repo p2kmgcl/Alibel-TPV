@@ -61,6 +61,6 @@ updateInventary: 'Actualizar inventario',
 
 // Sección acerca de
 about: 'Acerca de',
-applicationBelongsTo: 'La aplicación ' + alibel.metadata.name + ' pertenece a <a href="' + alibel.metadata.authorLink + '" target="_blank">' + alibel.metadata.author + '</a> y ha sido creada para la asignatura Interacción Persona-Ordenador (Grado en Ingeniería informática) en el curso 2012-2013.',
-licenseIntroduction: 'El texto mostrado a continuación es el resumen formal de la licencia GPL 3.0. Esta licencia engloba tanto a esta documentación (aún no publicada) como al programa entregado con ella y su respectivo código fuente.'
+applicationBelongsTo: 'La aplicación ' + alibel.metadata.name + ' pertenece a <a href="' + alibel.metadata.authorLink + '" target="_blank">' + alibel.metadata.author + '</a> y ha sido creada para la asignatura Interacción Persona-Ordenador (Grado en Ingeniería informática) en el curso 2012-2013 (convocatoria de Julio).',
+licenseIntroduction: 'El texto mostrado a continuación es el resumen formal de la licencia GPL 3.0. Esta licencia engloba tanto a <a href="https://docs.google.com/document/d/18UE7jAjCTleXwPRATZA3-sf4KhWDuF-GP924RkJfOqM" target="_blank">su documentación</a> como al programa entregado con ella y su respectivo <a href="https://github.com/p2kmgcl/Alibel-TPV" target="_blank">código fuente</a>.'
 };
