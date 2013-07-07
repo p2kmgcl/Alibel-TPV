@@ -265,8 +265,12 @@
 
     > input,
     > label,
-    > span {
-        padding: 0.5em;
+    > span,
+    > div > input,
+    > div > label,
+    > div > span {
+        margin: 0.5em 0;
+        padding: 0.4em;
         border: none;
         display: inline-block;
         box-sizing: border-box;
@@ -274,8 +278,9 @@
         font-size: @bodyFontSize * 1.1;
     }
 
-    > label {
-        width: 30%;
+    > label,
+    > div > label {
+        width: 20%;
         opacity: 0.8;
         font-weight: bolder;
 
@@ -285,25 +290,69 @@
     }
 
     > input,
-    > span {
+    > span,
+    > div > input,
+    > div > span {
         width: 70%;
     }
 
-    > input {
-        width: 20%;
+    > input,
+    > div > input {
+        width: 15%;
         text-align: right;
     }
-    > .quantityUnit,
-    > .priceUnit {
+
+    > div > .quantityUnit,
+    > div > .priceUnit {
         width: 50%;
+    }
+
+    > div > input[type=number]::-webkit-inner-spin-button, 
+    > div > input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+
+    > div > i {
+        display: inline-block;
+        width: @bodyFontSize * 2.2;
+        height: @bodyFontSize * 2.2;
+        margin: 0;
+        padding: 0;
+        font-size: @bodyFontSize;
+        box-shadow: inset 0 0 2px @cantExpressMyself;
+        background-color: fadeout(white, 20%);
+        text-align: center;
+        line-height: @bodyFontSize * 2.2;
+        cursor: pointer;
+
+        &:hover {
+            background-color: white;
+        }
+
+        &:active {
+            box-shadow: inset 0 0 2px @cantExpressMyself,
+                        inset 1px 1px 1px @cantExpressMyself;
+        }
     }
 
     > .finalPrice {
         .money;
-        width: 21%;
+        width: 18%;
         font-size: @bodyFontSize * 1.2;
         font-weight: bolder;
         text-align: right;
+    }
+
+    > .keyboardNumeric {
+        .keyboardNumeric;
+        
+        font-size: @bodyFontSize * 1.25;
+        position: absolute;
+        right: 1em;
+        top: 1em;
+        width: 30%;
+        height: 90%;
     }
 }
 

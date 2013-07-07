@@ -94,7 +94,7 @@ alibel.app.NewSell = Backbone.View.extend({
                 modal: true,
                 draggable: false,
                 resizable: false,
-                minWidth: 540,
+                minWidth: 700,
                 title: __('addingRemovingItem'),
 
                 create: function () {
@@ -241,6 +241,47 @@ alibel.app.NewSell = Backbone.View.extend({
             units: item.get('units'),
             maxQuantity: item.get('stock') + quantity
         }));
+
+        // Añade botones para aumentar / disminuir la cantidad de items totales
+        $('<i class="plusMinusButton icon-plus"></i><i class="plusMinusButton icon-minus"></i>')
+            .insertBefore(this.$itemCartDialog.find('> div > span'));
+        $('.plusMinusButton').on("click", function() {
+            var $this = $(this),
+                $input  = $this.parent().find("input"),
+                val     = parseFloat($input.val()),
+                max     = parseInt($input.attr('max'), 10),
+                min     = parseInt($input.attr('min'), 10),
+                step    = parseFloat($input.attr('step')),
+                newVal  = ($this.hasClass('icon-plus')) ? val + step : val - step;
+
+            if (newVal > max) { newVal = max; }
+            if (newVal < min) { newVal = min; }
+            $input.val(newVal.toFixed(2)).focus();
+        });
+
+        var me = this;
+
+        // Hacemos que el teclado funcione
+        this.$itemCartDialog.find('.keyboardNumeric td').on('click', function (e) {
+            var key = e.target.innerText,
+                val = me._editingItemInputFocus.val() + '';
+
+            if (key == '{ca}') {
+                val = val.substr(0, val.length - 1);
+            } else {
+                if (val == '0') {
+                    val = key;
+                } else {
+                    val += key;
+                }
+            }
+            me._editingItemInputFocus.val(val || 0);
+        });
+
+        // Activamos el enfoque de los inputs
+        this.$itemCartDialog.find('input').on('focus', function () {
+            me._editingItemInputFocus = $(this);
+        });
 
         // Finalmente mostramos el cuadro de diálogo
         this.$itemCartDialog.dialog('open');
@@ -602,6 +643,10 @@ alibel.app.NewSell = Backbone.View.extend({
     // que está siendo añadido/quitado
     _editingItem: null,
     _editingCartItem: null,
+
+    // Variable que indica que parte del cuadro de
+    // editar un item está enfocada
+    _editingItemInputFocus: null,
 
     // Configuración necesaria para usar el drag and drop en los items
     _droppableConfig: function () {
